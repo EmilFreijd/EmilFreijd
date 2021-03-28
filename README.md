@@ -1,0 +1,5 @@
+- 👋 Hi, I’m @EmilFreijd
+- 👀 I’m interested in Economics, Investing, Tech, IT, Management, Music and Outdoor Activities.
+- 🌱 I’m currently learning Python, Powershell and C#.
+- 💞️ I’m looking to collaborate on all sorts of projects, even if my coding skills suck i have a lot of knowledge in business and IT overall.
+- 📫 How to reach me Twitter @emilfreijd or LinkedIn as Emil Freijd.
