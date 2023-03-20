@@ -1,8 +1,10 @@
-Hi, I´m @EmilFreijd.
+# Hi, I´m @EmilFreijd.
 
-My interests include economics, investing, technology, information technology, management, music, and outdoor activities.
+Welcome to my public coding lab, currently my only repository is my own webpage [Freijd XYZ](https://freijd.xyz) that contains a lot of domain knowledge regarding, economics, investing, technology, information technology, management, music, etc.
 
-I am currently learning Python & Next.js and I´m always looking for new opportunities to collaborate on projects.
+Basically all there is to life.
+
+I am currently dusting off my webdevelopment knowledge, taking an ITILv4 Foundation certificate and prepping towards the PMP certification process.
 
 Although my coding skills may not be advanced, I have a lot of knowledge in business and IT and am always eager to learn and contribute.
 
