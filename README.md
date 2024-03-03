@@ -1,6 +1,6 @@
 # Hi, I´m @EmilFreijd.
 
-Welcome to my public coding lab, currently my only repository is my own webpage [Freijd XYZ](https://freijd.xyz) that contains a lot of domain knowledge regarding, economics, investing, technology, information technology, management, music, etc.
+Welcome to my public coding lab, currently my only repository is my own webpage [Freijd.com](https://freijd.com) that contains a lot of domain knowledge regarding, economics, investing, technology, information technology, management, music, etc.
 
 Basically all there is to life.
 
