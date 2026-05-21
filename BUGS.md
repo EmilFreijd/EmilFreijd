@@ -133,4 +133,4 @@ The word "Scroll" is not passed through `t()`. Swedish homepage shows English te
 
 | # | Description | Fixed in |
 |---|-------------|----------|
-| — | — | — |
+| BUG-06 | `hero.scroll` "Scroll" text hardcoded English — fixed with `t('hero.scroll')` + SV translation added | Complete page tree commit |

@@ -121,6 +121,16 @@ export const ui = {
     'footer.about':   'About',
     'footer.work':    'Work',
     'footer.contact': 'Contact',
+
+    // 404
+    '404.label':   '404',
+    '404.heading': 'Page not found.',
+    '404.body':    "The page you're looking for doesn't exist or has been moved.",
+    '404.home':    'Back to home',
+    '404.contact': 'Get in touch',
+
+    // Hero scroll indicator
+    'hero.scroll': 'Scroll',
   },
 
   sv: {
@@ -242,6 +252,16 @@ export const ui = {
     'footer.about':   'Om mig',
     'footer.work':    'Projekt',
     'footer.contact': 'Kontakt',
+
+    // 404
+    '404.label':   '404',
+    '404.heading': 'Sidan hittades inte.',
+    '404.body':    'Sidan du letar efter finns inte eller har flyttats.',
+    '404.home':    'Till startsidan',
+    '404.contact': 'Kontakta mig',
+
+    // Hero scroll indicator
+    'hero.scroll': 'Scrolla',
   },
 } as const;
 

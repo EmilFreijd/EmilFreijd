@@ -92,8 +92,8 @@ PRs: [#1 — Initial build](https://github.com/EmilFreijd/EmilFreijd/pull/1) · 
 |---|---------|--------|-------|
 | W1 | Case studies index — list with sector tag + metrics | ✅ | Empty state shown until content added |
 | W2 | Case study MDX template — metrics sidebar + prose | ✅ | `src/content/work/example-project.mdx` as reference |
-| W3 | Case study: [TBD — project 1] | ⬜ | Content needed from Emil |
-| W4 | Case study: [TBD — project 2] | ⬜ | Content needed from Emil |
+| W3 | Case study: Court system modernisation | 🔄 | `court-system-modernisation.mdx` — structure + placeholders ready, real content needed |
+| W4 | Case study: Defence IT programme | 🔄 | `defence-programme-delivery.mdx` — structure + placeholders ready, real content needed |
 | W5 | Case study: [TBD — project 3 — optional] | ⬜ | Content needed from Emil |
 
 ---
@@ -123,7 +123,7 @@ PRs: [#1 — Initial build](https://github.com/EmilFreijd/EmilFreijd/pull/1) · 
 | U7 | Page transitions (Astro View Transitions) | ⬜ | One-line addition to BaseLayout |
 | U8 | Favicon + Apple Touch icon | ⬜ | `.ico` + 180px PNG in `public/`, `<link>` tags in BaseLayout — shows in every tab and bookmark |
 | U9 | Active nav link highlight | ⬜ | `Astro.url.pathname` check in Nav.astro — quick CSS, improves wayfinding |
-| U10 | Custom 404 page | ⬜ | `src/pages/404.astro` — keeps users on-brand instead of GitHub Pages default |
+| U10 | Custom 404 page | ✅ | `src/pages/404.astro` — branded, links to both EN and SV home |
 | U11 | Skip-to-content link | ⬜ | First focusable element in BaseLayout, visible on keyboard focus — 2 lines of HTML + CSS |
 | U12 | `theme-color` meta tag | ⬜ | Two `<meta name="theme-color" media="...">` tags in BaseLayout — mobile browser chrome matches dark/light mode |
 
@@ -159,9 +159,9 @@ PRs: [#1 — Initial build](https://github.com/EmilFreijd/EmilFreijd/pull/1) · 
 | C3 | Career stats — real numbers | ⬜ | Edit stat cards in `Home.astro` and `About.astro` |
 | C4 | Work history — roles, companies, dates, one key win each | ⬜ | Edit `timeline` array in `About.astro` |
 | C5 | Certifications list | ⬜ | Edit `certifications` array in `About.astro` |
-| C6 | Case study 1 — title, challenge, approach, outcome, metrics | ⬜ | Copy `example-project.mdx`, set `draft: false` |
-| C7 | Case study 2 | ⬜ | Same as above |
-| C8 | Case study 3 — optional | ⬜ | Same as above |
+| C6 | Case study 1 — real content | ⬜ | Replace placeholders in `court-system-modernisation.mdx` |
+| C7 | Case study 2 — real content | ⬜ | Replace placeholders in `defence-programme-delivery.mdx` |
+| C8 | Case study 3 — optional | ⬜ | Copy `example-project.mdx`, fill in real content, set `draft: false` |
 | C9 | Formspree form ID | ✅ | Set to `xwvzoqrk` in `Contact.astro` |
 | C10 | Cal.com link | ✅ | Set to `https://cal.com/emilfreijd` in `Contact.astro` |
 | C11 | CV / resume PDF | ⬜ | Add to `public/cv.pdf`, uncomment link in `About.astro` |
