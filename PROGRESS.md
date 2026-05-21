@@ -102,7 +102,7 @@ PRs: [#1 — Initial build](https://github.com/EmilFreijd/EmilFreijd/pull/1) · 
 
 | # | Feature | Status | Notes |
 |---|---------|--------|-------|
-| CO1 | Formspree contact form | ✅ | Replace `YOUR_FORM_ID` in `Contact.astro` |
+| CO1 | Formspree contact form | ✅ | `@formspree/ajax` SDK wired up — form ID `xwvzoqrk` set in `Contact.astro` |
 | CO2 | Cal.com link — secondary | ✅ | Replace `CAL_LINK` in `Contact.astro` |
 | CO3 | LinkedIn link (primary) | ✅ | Wired up |
 | CO4 | Confidentiality note | ✅ | Translated EN/SV |
@@ -154,8 +154,8 @@ PRs: [#1 — Initial build](https://github.com/EmilFreijd/EmilFreijd/pull/1) · 
 | C6 | Case study 1 — title, challenge, approach, outcome, metrics | ⬜ | Copy `example-project.mdx`, set `draft: false` |
 | C7 | Case study 2 | ⬜ | Same as above |
 | C8 | Case study 3 — optional | ⬜ | Same as above |
-| C9 | Formspree form ID | ⬜ | Replace `YOUR_FORM_ID` in `Contact.astro` |
-| C10 | Cal.com link | ⬜ | Replace `CAL_LINK` in `Contact.astro` |
+| C9 | Formspree form ID | ✅ | Set to `xwvzoqrk` in `Contact.astro` |
+| C10 | Cal.com link | ✅ | Set to `https://cal.com/emilfreijd` in `Contact.astro` |
 | C11 | CV / resume PDF | ⬜ | Add to `public/cv.pdf`, uncomment link in `About.astro` |
 
 ---
@@ -171,3 +171,4 @@ PRs: [#1 — Initial build](https://github.com/EmilFreijd/EmilFreijd/pull/1) · 
 | 2026-05-21 | Migrated to Astro 5 — full boilerplate: all pages, components, GitHub Actions |
 | 2026-05-21 | GitHub Actions CI/CD — updated to Node.js 24-native action versions |
 | 2026-05-21 | i18n (EN/SV) + dark/light theme — PR #2 |
+| 2026-05-21 | Formspree `@formspree/ajax` SDK integrated — form ID + Cal.com link set |
