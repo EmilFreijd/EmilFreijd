@@ -1,7 +1,7 @@
 # Portfolio Build — Progress Tracker
 
 Live site: https://emilfreijd.github.io/EmilFreijd  
-PR: https://github.com/EmilFreijd/EmilFreijd/pull/1
+PRs: [#1 — Initial build](https://github.com/EmilFreijd/EmilFreijd/pull/1) · [#2 — i18n + theming](https://github.com/EmilFreijd/EmilFreijd/pull/2)
 
 ---
 
@@ -9,8 +9,9 @@ PR: https://github.com/EmilFreijd/EmilFreijd/pull/1
 
 | Decision | Choice | Rationale |
 |----------|--------|-----------|
-| Build system | Astro (static) | Component-based, MDX for case studies, fast GitHub Pages builds |
+| Build system | Astro 5 (static) | Component-based, MDX for case studies, fast GitHub Pages builds |
 | Structure | Hybrid — home + sub-pages | Scrollable home, dedicated /about /work /contact |
+| Languages | EN (default) + SV at /sv/ | Astro i18n routing, prefixDefaultLocale: false |
 | Primary CTA | LinkedIn | Audience is clients/peers, not recruiters |
 | Secondary CTA | Cal.com (contact page) | Available but not prominent |
 | Contact form | Formspree | No backend, delivers to inbox |
@@ -27,10 +28,16 @@ PR: https://github.com/EmilFreijd/EmilFreijd/pull/1
 
 ```
 /                   Home (hero, about teaser, expertise, work teasers, CTA strip)
-/about              Full bio, career timeline, certifications, background
+/about              Full bio, career timeline, skills matrix, certifications
 /work               Case studies index
-/work/[slug]        Individual case study pages (Astro dynamic routes)
-/contact            Formspree form + Cal.com embed + links
+/work/[slug]        Individual case study (MDX, metrics sidebar)
+/contact            Formspree form + Cal.com + links
+
+/sv/                Swedish equivalents of all above
+/sv/about
+/sv/work
+/sv/work/[slug]
+/sv/contact
 ```
 
 ---
@@ -46,35 +53,36 @@ PR: https://github.com/EmilFreijd/EmilFreijd/pull/1
 
 | # | Feature | Status | Notes |
 |---|---------|--------|-------|
-| F1 | Initial HTML/CSS/JS site | ✅ | Dark modern design, on PR branch |
-| F2 | Migrate to Astro | ⬜ | Unlocks pages, MDX, build pipeline |
-| F3 | GitHub Actions — auto-deploy on push to `main` | ⬜ | + nightly cron for dynamic data refresh |
-| F4 | Lighthouse CI on every deploy (score ≥ 90) | ⬜ | Add to Actions workflow |
-| F5 | Design system — tokens, typography, shared components | ⬜ | Extend current CSS vars into Astro components |
+| F1 | Initial site | ✅ | Dark modern design |
+| F2 | Migrate to Astro 5 | ✅ | MDX, content collections, static output |
+| F3 | GitHub Actions CI/CD — auto-deploy on push to `main` | ✅ | Node.js 24-native action versions |
+| F4 | Lighthouse CI on every deploy | ⬜ | Add to Actions workflow |
+| F5 | Design system — CSS tokens, typography, shared components | ✅ | Full token set, light/dark aware |
+| F6 | i18n — English + Swedish routing | ✅ | Strings in `src/i18n/translations.ts` |
 
 ---
 
-## Home page (`/`)
+## Home page (`/` and `/sv/`)
 
 | # | Section | Status | Notes |
 |---|---------|--------|-------|
-| H1 | Hero — name, title, tagline, LinkedIn CTA | ✅ | Needs real tagline once content is ready |
-| H2 | About teaser — short bio + stat cards + link to /about | ✅ | Placeholder content |
-| H3 | Expertise — Leadership, Delivery, Strategic Impact | ✅ | Placeholder content |
-| H4 | Work teasers — 2–3 project cards linking to /work/[slug] | ✅ | Placeholder — becomes real with case studies |
-| H5 | Contact CTA strip — LinkedIn primary, "get in touch" secondary | ⬜ | Replace current contact section with lighter strip |
+| H1 | Hero — name, title, tagline, LinkedIn CTA | ✅ | Fully translated EN/SV |
+| H2 | About teaser — bio + stat cards + link to /about | ✅ | Placeholder content, fully translated |
+| H3 | Expertise — Leadership, Delivery, Strategic Impact | ✅ | Fully translated EN/SV |
+| H4 | Work teasers — cards linking to /work/[slug] | ✅ | Shows featured case studies, empty state fallback |
+| H5 | Contact CTA strip | ✅ | LinkedIn primary, "get in touch" secondary |
 
 ---
 
-## About page (`/about`)
+## About page (`/about` and `/sv/about`)
 
 | # | Feature | Status | Notes |
 |---|---------|--------|-------|
-| A1 | Full bio — background, approach, values | ⬜ | Tone: sharp and warm, high-trust environments |
-| A2 | Career timeline — roles, companies, dates, key win per role | ⬜ | Courts + Defence Tech + Enterprise IT |
-| A3 | Certifications section | ⬜ | PMP, PRINCE2, ITIL, SAFe, ISO etc. |
-| A4 | Skills matrix — methodology, leadership, tooling | ⬜ | Grouped tags |
-| A5 | CV / resume PDF download | ⬜ | Host in repo, link from About |
+| A1 | Full bio — background, approach, values | ⬜ | Structure built, needs real content |
+| A2 | Career timeline — roles, companies, dates, key win per role | ⬜ | Structure built, needs real content |
+| A3 | Certifications section | ⬜ | Structure built, needs real content |
+| A4 | Skills matrix — methodology, leadership, tooling | ✅ | Structure built with placeholder groups |
+| A5 | CV / resume PDF download | ⬜ | Add `public/cv.pdf`, uncomment link in About.astro |
 
 ---
 
@@ -82,33 +90,22 @@ PR: https://github.com/EmilFreijd/EmilFreijd/pull/1
 
 | # | Feature | Status | Notes |
 |---|---------|--------|-------|
-| W1 | Case studies index page — 2–3 project cards | ⬜ | Filterable by domain/sector |
-| W2 | Case study template (Astro MDX layout) | ⬜ | Challenge → approach → outcome format |
+| W1 | Case studies index — list with sector tag + metrics | ✅ | Empty state shown until content added |
+| W2 | Case study MDX template — metrics sidebar + prose | ✅ | `src/content/work/example-project.mdx` as reference |
 | W3 | Case study: [TBD — project 1] | ⬜ | Content needed from Emil |
 | W4 | Case study: [TBD — project 2] | ⬜ | Content needed from Emil |
 | W5 | Case study: [TBD — project 3 — optional] | ⬜ | Content needed from Emil |
 
 ---
 
-## Contact page (`/contact`)
+## Contact page (`/contact` and `/sv/contact`)
 
 | # | Feature | Status | Notes |
 |---|---------|--------|-------|
-| CO1 | Formspree contact form (name, email, message) | ⬜ | Free tier, no backend |
-| CO2 | Cal.com embed — secondary, below the form | ⬜ | Needs Cal.com link/embed code |
-| CO3 | LinkedIn link (primary) | ✅ | Already in current site |
-| CO4 | Email link | ⬜ | Real address needed |
-
----
-
-## SEO & Discoverability
-
-| # | Feature | Status | Notes |
-|---|---------|--------|-------|
-| SE1 | Open Graph + Twitter Card meta tags | ⬜ | Controls how links look on LinkedIn, Slack, Teams |
-| SE2 | JSON-LD Person schema | ⬜ | Improves Google knowledge panel |
-| SE3 | Auto-generated sitemap.xml + robots.txt | ⬜ | Astro plugin |
-| SE4 | Canonical URLs | ⬜ | One URL per page |
+| CO1 | Formspree contact form | ✅ | Replace `YOUR_FORM_ID` in `Contact.astro` |
+| CO2 | Cal.com link — secondary | ✅ | Replace `CAL_LINK` in `Contact.astro` |
+| CO3 | LinkedIn link (primary) | ✅ | Wired up |
+| CO4 | Confidentiality note | ✅ | Translated EN/SV |
 
 ---
 
@@ -117,12 +114,23 @@ PR: https://github.com/EmilFreijd/EmilFreijd/pull/1
 | # | Feature | Status | Notes |
 |---|---------|--------|-------|
 | U1 | Scroll-triggered reveal animations | ✅ | IntersectionObserver |
-| U2 | Active nav highlight on scroll | ✅ | Section observer |
-| U3 | Frosted glass nav on scroll | ✅ | `scrolled` class |
-| U4 | Mobile navigation (hamburger menu) | ⬜ | Needed — current nav breaks on small screens |
-| U5 | Dark / light mode toggle | ⬜ | Respect system preference, persist to localStorage |
-| U6 | Project / case study filtering by sector | ⬜ | Client-side JS |
-| U7 | Page transitions (Astro View Transitions API) | ⬜ | Smooth between home → /about, /work, /contact |
+| U2 | Frosted glass nav on scroll | ✅ | Theme-aware |
+| U3 | Mobile navigation (hamburger menu) | ✅ | Drawer with lang switcher |
+| U4 | Dark / light mode toggle | ✅ | System preference detected, persists to localStorage, zero flash |
+| U5 | Language switcher (EN ↔ SV) | ✅ | In nav + mobile drawer, preserves current page |
+| U6 | Project / case study filtering by sector | ⬜ | Client-side JS, add when case studies exist |
+| U7 | Page transitions (Astro View Transitions) | ⬜ | One-line addition to BaseLayout |
+
+---
+
+## SEO & Discoverability
+
+| # | Feature | Status | Notes |
+|---|---------|--------|-------|
+| SE1 | Open Graph + Twitter Card meta tags | ✅ | In BaseLayout |
+| SE2 | JSON-LD Person schema | ✅ | In BaseLayout |
+| SE3 | Canonical URLs | ✅ | In BaseLayout |
+| SE4 | Sitemap.xml + robots.txt | ⬜ | Add `@astrojs/sitemap` integration |
 
 ---
 
@@ -138,17 +146,17 @@ PR: https://github.com/EmilFreijd/EmilFreijd/pull/1
 
 | # | Item | Status | Notes |
 |---|------|--------|-------|
-| C1 | Hero tagline — one sharp sentence positioning you | ⬜ | Example: "Delivering complex programs in high-trust environments" |
-| C2 | Full bio text (for /about) | ⬜ | Sharp + warm tone, Courts + Defence Tech background |
-| C3 | Career stats — real numbers (years, projects, etc.) | ⬜ | Replace placeholders in about teaser |
-| C4 | Work history — roles, companies, dates, one key win each | ⬜ | Needed for career timeline |
-| C5 | Certifications list | ⬜ | Name, issuer, year |
-| C6 | Case study 1 — title, challenge, approach, outcome, metrics | ⬜ | |
-| C7 | Case study 2 — title, challenge, approach, outcome, metrics | ⬜ | |
-| C8 | Case study 3 — optional | ⬜ | |
-| C9 | Real email address | ⬜ | |
-| C10 | Cal.com link or embed code | ⬜ | |
-| C11 | CV / resume PDF | ⬜ | |
+| C1 | Hero tagline | ⬜ | Edit `hero.subtitle` in `translations.ts` (both EN + SV) |
+| C2 | Full bio (EN + SV) | ⬜ | Edit placeholder paragraphs in `About.astro` |
+| C3 | Career stats — real numbers | ⬜ | Edit stat cards in `Home.astro` and `About.astro` |
+| C4 | Work history — roles, companies, dates, one key win each | ⬜ | Edit `timeline` array in `About.astro` |
+| C5 | Certifications list | ⬜ | Edit `certifications` array in `About.astro` |
+| C6 | Case study 1 — title, challenge, approach, outcome, metrics | ⬜ | Copy `example-project.mdx`, set `draft: false` |
+| C7 | Case study 2 | ⬜ | Same as above |
+| C8 | Case study 3 — optional | ⬜ | Same as above |
+| C9 | Formspree form ID | ⬜ | Replace `YOUR_FORM_ID` in `Contact.astro` |
+| C10 | Cal.com link | ⬜ | Replace `CAL_LINK` in `Contact.astro` |
+| C11 | CV / resume PDF | ⬜ | Add to `public/cv.pdf`, uncomment link in `About.astro` |
 
 ---
 
@@ -156,7 +164,10 @@ PR: https://github.com/EmilFreijd/EmilFreijd/pull/1
 
 | Date | What was done |
 |------|---------------|
-| 2026-05-21 | Initial site built: hero, about, expertise, projects, contact |
+| 2026-05-21 | Initial site built: hero, about, expertise, projects, contact sections |
 | 2026-05-21 | Dark modern design — CSS animations, grid bg, gradient glows, responsive |
 | 2026-05-21 | PROGRESS.md created |
-| 2026-05-21 | Architecture session — decisions locked, site map defined, PROGRESS.md refined |
+| 2026-05-21 | Architecture session — decisions locked, site map defined |
+| 2026-05-21 | Migrated to Astro 5 — full boilerplate: all pages, components, GitHub Actions |
+| 2026-05-21 | GitHub Actions CI/CD — updated to Node.js 24-native action versions |
+| 2026-05-21 | i18n (EN/SV) + dark/light theme — PR #2 |
