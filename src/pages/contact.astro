@@ -1,0 +1,214 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+// EDIT: Replace with your Formspree endpoint — get one free at formspree.io
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+
+// EDIT: Replace with your Cal.com link
+const CAL_LINK = 'https://cal.com/emilfreijd';
+---
+<BaseLayout
+  title="Contact — Emil Freijd"
+  description="Get in touch with Emil Freijd — Senior IT Program Manager."
+>
+
+  <div class="page-hero">
+    <div class="container">
+      <p class="section-label">Contact</p>
+      <h1>Let's connect.</h1>
+      <p>
+        Open to conversations about IT leadership, program delivery,
+        advisory opportunities, and interesting problems in the industry.
+      </p>
+    </div>
+  </div>
+
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- Form -->
+        <div class="contact-form-wrap">
+          <h2>Send a message</h2>
+          <p class="contact-form-sub">I'll respond within a couple of days.</p>
+
+          <form
+            action={FORMSPREE_ENDPOINT}
+            method="POST"
+            class="contact-form"
+            id="contact-form"
+          >
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text"  id="name"  name="name"  placeholder="Your name"  required />
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="your@email.com" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" placeholder="What's this about?" />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="6" placeholder="Tell me what's on your mind..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit">Send message</button>
+            <p class="form-success" id="form-success" hidden>
+              ✓ Message sent — I'll be in touch shortly.
+            </p>
+          </form>
+        </div>
+
+        <!-- Sidebar links -->
+        <div class="contact-sidebar">
+          <div class="contact-method">
+            <h3>LinkedIn</h3>
+            <p>Best for professional introductions and networking.</p>
+            <a href="https://www.emilfreijd.se" target="_blank" rel="noopener" class="contact-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              Connect on LinkedIn →
+            </a>
+          </div>
+
+          <div class="contact-method">
+            <h3>Book a call</h3>
+            <p>If you'd prefer to talk, book a 30-minute intro slot directly.</p>
+            <a href={CAL_LINK} target="_blank" rel="noopener" class="contact-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Book via Cal.com →
+            </a>
+          </div>
+
+          <div class="contact-note">
+            <p>
+              <strong>A note on confidentiality:</strong> Given the industries I operate in,
+              I treat all conversations with discretion. If your enquiry is sensitive,
+              feel free to keep initial details brief.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .contact-section { background: var(--bg); }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: var(--space-16);
+    align-items: start;
+  }
+
+  /* Form */
+  .contact-form-wrap h2 { margin-bottom: var(--space-2); }
+  .contact-form-sub { font-size: 0.9rem; color: var(--text-muted); margin-bottom: var(--space-8); }
+  .contact-form { display: flex; flex-direction: column; gap: var(--space-5); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+  .form-group { display: flex; flex-direction: column; gap: var(--space-2); }
+  .form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dim);
+  }
+  .form-group input,
+  .form-group textarea {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    color: var(--text);
+    font-family: inherit;
+    transition: border-color var(--transition);
+    outline: none;
+    resize: vertical;
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: var(--text-muted); }
+  .form-group input:focus,
+  .form-group textarea:focus { border-color: var(--accent); }
+  .form-submit { align-self: flex-start; }
+  .form-success {
+    font-size: 0.9rem;
+    color: #4ade80;
+    padding: var(--space-3) var(--space-4);
+    background: rgba(74,222,128,0.08);
+    border: 1px solid rgba(74,222,128,0.2);
+    border-radius: var(--radius-sm);
+  }
+
+  /* Sidebar */
+  .contact-sidebar { display: flex; flex-direction: column; gap: var(--space-6); }
+  .contact-method {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-6);
+  }
+  .contact-method h3 { font-size: 0.95rem; margin-bottom: var(--space-2); }
+  .contact-method p  { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin-bottom: var(--space-4); }
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent-2);
+    transition: gap var(--transition);
+  }
+  .contact-link:hover { gap: var(--space-3); }
+  .contact-note {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-sm);
+    padding: var(--space-5);
+  }
+  .contact-note p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; }
+  .contact-note strong { color: var(--text-dim); }
+
+  @media (max-width: 900px) {
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const success = document.getElementById('form-success') as HTMLElement;
+  const submitBtn = form?.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      if (res.ok) {
+        form.reset();
+        success.hidden = false;
+        submitBtn.hidden = true;
+      } else {
+        submitBtn.textContent = 'Send message';
+        submitBtn.disabled = false;
+      }
+    } catch {
+      submitBtn.textContent = 'Send message';
+      submitBtn.disabled = false;
+    }
+  });
+</script>
