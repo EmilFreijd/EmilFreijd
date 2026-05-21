@@ -9,17 +9,17 @@ export function useTranslations(lang: Lang) {
 
 export function getPath(lang: Lang, path: string): string {
   const base = import.meta.env.BASE_URL;
-  const clean = path.replace(/^\//, '');
-  if (lang === 'en') return clean ? `${base}${clean}` : base;
-  return `${base}sv${clean ? `/${clean}` : ''}`;
+  const clean = path.replace(/^\//, '').replace(/\/$/, '');
+  if (lang === 'en') return clean ? `${base}${clean}/` : base;
+  return clean ? `${base}sv/${clean}/` : `${base}sv/`;
 }
 
 export function getOtherLangPath(url: URL): string {
   const base = import.meta.env.BASE_URL;
-  const after = url.pathname.slice(base.length).replace(/^\//, '');
+  const after = url.pathname.slice(base.length).replace(/^\//, '').replace(/\/$/, '');
   if (after === 'sv' || after.startsWith('sv/')) {
-    const rest = after.slice(2).replace(/^\//, '');
-    return rest ? `${base}${rest}` : base;
+    const rest = after.slice(2).replace(/^\//, '').replace(/\/$/, '');
+    return rest ? `${base}${rest}/` : base;
   }
-  return after ? `${base}sv/${after}` : `${base}sv`;
+  return after ? `${base}sv/${after}/` : `${base}sv/`;
 }
