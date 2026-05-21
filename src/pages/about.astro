@@ -1,0 +1,290 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+// EDIT: Fill in your real work history
+const timeline = [
+  {
+    role:    'Senior IT Program Manager',
+    org:     'Organisation name',
+    period:  '20XX – Present',
+    sector:  'Sector',
+    summary: 'Replace with a one-sentence summary of your key responsibility or achievement in this role.',
+  },
+  {
+    role:    'IT Project Manager',
+    org:     'Organisation name',
+    period:  '20XX – 20XX',
+    sector:  'Sector',
+    summary: 'Replace with a one-sentence summary of your key responsibility or achievement in this role.',
+  },
+  {
+    role:    'Earlier role',
+    org:     'Organisation name',
+    period:  '20XX – 20XX',
+    sector:  'Sector',
+    summary: 'Replace with a one-sentence summary of your key responsibility or achievement in this role.',
+  },
+];
+
+// EDIT: Fill in your certifications
+const certifications = [
+  { name: 'Certification name', issuer: 'Issuing body', year: '20XX' },
+  { name: 'Certification name', issuer: 'Issuing body', year: '20XX' },
+];
+
+// EDIT: Fill in your skill groups
+const skills = [
+  {
+    group: 'Delivery & Methods',
+    items: ['Program Management', 'Agile / SAFe', 'PRINCE2', 'Waterfall', 'Risk Management'],
+  },
+  {
+    group: 'Leadership',
+    items: ['Team Management', 'Stakeholder Management', 'Change Management', 'Coaching'],
+  },
+  {
+    group: 'Strategy & Business',
+    items: ['IT Strategy', 'Business Case Development', 'Digital Transformation', 'Vendor Management'],
+  },
+];
+---
+<BaseLayout
+  title="About — Emil Freijd"
+  description="Background, career history, and expertise of Emil Freijd, Senior IT Program Manager."
+>
+
+  <div class="page-hero">
+    <div class="container">
+      <p class="section-label">About</p>
+      <h1>Background &amp;<br/>approach.</h1>
+      <p>
+        <!-- EDIT: Replace with your real positioning statement -->
+        Senior IT professional operating at the intersection of technology leadership
+        and structured delivery — with experience across public sector and enterprise environments.
+      </p>
+    </div>
+  </div>
+
+  <!-- BIO -->
+  <section class="bio-section">
+    <div class="container">
+      <div class="bio-grid">
+        <div class="bio-text">
+          <p class="section-label">The full story</p>
+          <h2>Who I am.</h2>
+          <!-- EDIT: Replace with your full bio — 3–5 paragraphs, sharp and warm tone -->
+          <p>
+            Replace this paragraph with a real introduction. What drives you? What's your professional philosophy?
+            This is where you set the tone for everything else on the page.
+          </p>
+          <p>
+            Second paragraph: describe your background. Where have you operated? What kinds of organisations?
+            What makes your experience distinctive?
+          </p>
+          <p>
+            Third paragraph (optional): a personal note. Interests, values, what good leadership means to you.
+            Keep it short and genuine.
+          </p>
+          <a href={`${base}contact`} class="btn btn-ghost" style="display:inline-flex;margin-top:2rem;">Get in touch →</a>
+        </div>
+        <div class="bio-aside">
+          <!-- EDIT: Replace with real numbers -->
+          <div class="bio-stat">
+            <span class="bio-stat-value">10+</span>
+            <span class="bio-stat-label">Years in IT</span>
+          </div>
+          <div class="bio-stat">
+            <span class="bio-stat-value">25+</span>
+            <span class="bio-stat-label">Programs delivered</span>
+          </div>
+          <div class="bio-stat">
+            <span class="bio-stat-value">50+</span>
+            <span class="bio-stat-label">Stakeholders managed</span>
+          </div>
+          <div class="bio-cv">
+            <!-- EDIT: Add your CV PDF to public/cv.pdf and uncomment the link below -->
+            {/* <a href={`${base}cv.pdf`} download class="btn btn-ghost" style="width:100%;justify-content:center;">↓ Download CV</a> */}
+            <p class="bio-cv-note">CV available on request — <a href={`${base}contact`}>get in touch</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAREER TIMELINE -->
+  <section class="timeline-section">
+    <div class="container">
+      <p class="section-label">Career</p>
+      <h2>Work history.</h2>
+      <div class="timeline">
+        {timeline.map((item, i) => (
+          <div class="timeline-item" data-reveal>
+            <div class="timeline-dot"></div>
+            <div class="timeline-body">
+              <div class="timeline-header">
+                <div>
+                  <h3>{item.role}</h3>
+                  <span class="timeline-org">{item.org}</span>
+                </div>
+                <div class="timeline-meta">
+                  <span class="timeline-period">{item.period}</span>
+                  <span class="tag">{item.sector}</span>
+                </div>
+              </div>
+              <p class="timeline-summary">{item.summary}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="skills-section">
+    <div class="container">
+      <p class="section-label">Skills</p>
+      <h2>Areas of expertise.</h2>
+      <div class="skills-grid">
+        {skills.map(group => (
+          <div class="skills-group" data-reveal>
+            <h3>{group.group}</h3>
+            <div class="skills-tags">
+              {group.items.map(s => <span class="tag">{s}</span>)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section class="certs-section">
+    <div class="container">
+      <p class="section-label">Credentials</p>
+      <h2>Certifications.</h2>
+      <div class="certs-grid">
+        {certifications.map(c => (
+          <div class="cert-card" data-reveal>
+            <span class="cert-name">{c.name}</span>
+            <span class="cert-meta">{c.issuer} · {c.year}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ── Bio ───────────────────────────────────────────────────────── */
+  .bio-section { background: var(--bg); }
+  .bio-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: var(--space-16);
+    align-items: start;
+  }
+  .bio-text h2 { margin-bottom: var(--space-6); }
+  .bio-text p  { color: var(--text-dim); line-height: 1.75; font-size: 1.025rem; margin-bottom: var(--space-5); }
+  .bio-aside   { display: flex; flex-direction: column; gap: var(--space-4); }
+  .bio-stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+  .bio-stat-value { font-size: 2rem; font-weight: 800; color: var(--accent-2); letter-spacing: -0.03em; }
+  .bio-stat-label { font-size: 0.85rem; color: var(--text-muted); }
+  .bio-cv { margin-top: var(--space-2); }
+  .bio-cv-note { font-size: 0.85rem; color: var(--text-muted); }
+  .bio-cv-note a { color: var(--accent-2); border-bottom: 1px solid rgba(167,139,250,0.3); }
+
+  /* ── Timeline ──────────────────────────────────────────────────── */
+  .timeline-section { background: var(--surface); }
+  .timeline-section h2 { margin-bottom: var(--space-12); }
+  .timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 11px; top: 0; bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+  .timeline-item {
+    display: flex;
+    gap: var(--space-8);
+    padding-bottom: var(--space-10);
+    position: relative;
+  }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-dot {
+    width: 23px; height: 23px;
+    min-width: 23px;
+    border-radius: 50%;
+    background: var(--surface-2);
+    border: 2px solid var(--accent);
+    margin-top: 2px;
+    position: relative;
+    z-index: 1;
+  }
+  .timeline-body { flex: 1; }
+  .timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+  .timeline-header h3 { font-size: 1.05rem; }
+  .timeline-org { font-size: 0.875rem; color: var(--accent-2); font-weight: 500; display: block; margin-top: 2px; }
+  .timeline-meta { display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-2); }
+  .timeline-period { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
+  .timeline-summary { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+
+  /* ── Skills ────────────────────────────────────────────────────── */
+  .skills-section { background: var(--bg); }
+  .skills-section h2 { margin-bottom: var(--space-12); }
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+  .skills-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-6);
+  }
+  .skills-group h3 { margin-bottom: var(--space-4); font-size: 0.95rem; color: var(--text-dim); font-weight: 600; }
+  .skills-tags { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+  /* ── Certifications ────────────────────────────────────────────── */
+  .certs-section { background: var(--surface); }
+  .certs-section h2 { margin-bottom: var(--space-12); }
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-4); }
+  .cert-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-6);
+    transition: all var(--transition);
+  }
+  .cert-card:hover { border-color: rgba(124,106,247,0.3); transform: translateY(-2px); }
+  .cert-name { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+  .cert-meta { font-size: 0.8rem; color: var(--text-muted); }
+
+  /* ── Responsive ────────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .bio-grid    { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .timeline-header { flex-direction: column; }
+    .timeline-meta   { align-items: flex-start; }
+  }
+</style>

@@ -1,0 +1,121 @@
+---
+const base = import.meta.env.BASE_URL;
+const links = [
+  { label: 'About',   href: `${base}about`   },
+  { label: 'Work',    href: `${base}work`     },
+  { label: 'Contact', href: `${base}contact`  },
+];
+---
+<nav id="nav">
+  <div class="nav-inner">
+    <a href={base} class="nav-logo">EF</a>
+    <ul class="nav-links">
+      {links.map(l => <li><a href={l.href}>{l.label}</a></li>)}
+    </ul>
+    <button class="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile">
+    {links.map(l => <a href={l.href}>{l.label}</a>)}
+  </div>
+</nav>
+
+<style>
+  #nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    transition: background var(--transition), border-bottom var(--transition);
+    border-bottom: 1px solid transparent;
+  }
+  #nav.scrolled {
+    background: rgba(8,8,16,0.88);
+    backdrop-filter: blur(14px);
+    border-bottom-color: var(--border);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.25rem var(--space-8);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.05em;
+    color: var(--accent-2);
+  }
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+  }
+  .nav-links a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    transition: color var(--transition);
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* Burger */
+  .nav-burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-2);
+  }
+  .nav-burger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text-dim);
+    border-radius: 2px;
+    transition: all var(--transition);
+  }
+
+  /* Mobile drawer */
+  .nav-mobile {
+    display: none;
+    flex-direction: column;
+    padding: var(--space-4) var(--space-8) var(--space-6);
+    gap: var(--space-4);
+    background: rgba(8,8,16,0.96);
+    border-top: 1px solid var(--border);
+  }
+  .nav-mobile a {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    padding: var(--space-2) 0;
+    transition: color var(--transition);
+  }
+  .nav-mobile a:hover { color: var(--text); }
+  .nav-mobile.open { display: flex; }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .nav-burger { display: flex; }
+  }
+</style>
+
+<script>
+  const nav = document.getElementById('nav')!;
+  const burger = nav.querySelector('.nav-burger') as HTMLButtonElement;
+  const drawer = nav.querySelector('.nav-mobile') as HTMLElement;
+
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  burger.addEventListener('click', () => {
+    const open = drawer.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(open));
+  });
+</script>
