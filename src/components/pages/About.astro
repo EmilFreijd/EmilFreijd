@@ -1,0 +1,180 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { useTranslations, getPath, type Lang } from '@/i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// EDIT: Fill in your real work history
+const timeline = [
+  { role: 'Senior IT Program Manager', org: 'Organisation name', period: '20XX – Present', sector: 'Sector', summary: 'Replace with a one-sentence summary of your key responsibility or achievement in this role.' },
+  { role: 'IT Project Manager',        org: 'Organisation name', period: '20XX – 20XX',    sector: 'Sector', summary: 'Replace with a one-sentence summary of your key responsibility or achievement in this role.' },
+  { role: 'Earlier role',              org: 'Organisation name', period: '20XX – 20XX',    sector: 'Sector', summary: 'Replace with a one-sentence summary of your key responsibility or achievement in this role.' },
+];
+
+// EDIT: Fill in your certifications
+const certifications = [
+  { name: 'Certification name', issuer: 'Issuing body', year: '20XX' },
+  { name: 'Certification name', issuer: 'Issuing body', year: '20XX' },
+];
+
+// EDIT: Fill in your skill groups
+const skills = [
+  { group: lang === 'sv' ? 'Leverans & metoder' : 'Delivery & Methods', items: ['Program Management','Agile / SAFe','PRINCE2','Waterfall','Risk Management'] },
+  { group: lang === 'sv' ? 'Ledarskap'          : 'Leadership',          items: ['Team Management','Stakeholder Management','Change Management','Coaching'] },
+  { group: lang === 'sv' ? 'Strategi & affär'   : 'Strategy & Business', items: ['IT Strategy','Business Case Development','Digital Transformation','Vendor Management'] },
+];
+---
+<BaseLayout
+  lang={lang}
+  title={`${t('about.page.label')} — Emil Freijd`}
+  description="Background, career history, and expertise of Emil Freijd, Senior IT Program Manager."
+>
+
+  <div class="page-hero">
+    <div class="container">
+      <p class="section-label">{t('about.page.label')}</p>
+      <h1>{t('about.page.heading')}</h1>
+      <p>{t('about.page.intro')}</p>
+    </div>
+  </div>
+
+  <!-- BIO -->
+  <section class="bio-section">
+    <div class="container">
+      <div class="bio-grid">
+        <div class="bio-text">
+          <p class="section-label">{t('about.story.label')}</p>
+          <h2>{t('about.story.heading')}</h2>
+          <!-- EDIT: Replace with your real bio -->
+          <p>Replace this paragraph with a real introduction. What drives you? What is your professional philosophy? This is where you set the tone for everything else on the page.</p>
+          <p>Second paragraph: describe your background. Where have you operated? Public sector courts, defence tech, enterprise IT. What makes your experience distinctive?</p>
+          <p>Third paragraph (optional): a personal note. Keep it short and genuine.</p>
+          <a href={getPath(lang, 'contact')} class="btn btn-ghost" style="display:inline-flex;margin-top:2rem;">{t('about.cta')}</a>
+        </div>
+        <div class="bio-aside">
+          <div class="bio-stat"><span class="bio-stat-value">10+</span><span class="bio-stat-label">{t('about.stat.years')}</span></div>
+          <div class="bio-stat"><span class="bio-stat-value">25+</span><span class="bio-stat-label">{t('about.stat.projects')}</span></div>
+          <div class="bio-stat"><span class="bio-stat-value">50+</span><span class="bio-stat-label">{t('about.stat.stakeholders')}</span></div>
+          <div class="bio-cv">
+            <p class="bio-cv-note">{t('about.cv.note')} <a href={getPath(lang, 'contact')}>{t('about.cv.link')}</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="timeline-section">
+    <div class="container">
+      <p class="section-label">{t('about.career.label')}</p>
+      <h2>{t('about.career.heading')}</h2>
+      <div class="timeline">
+        {timeline.map(item => (
+          <div class="timeline-item" data-reveal>
+            <div class="timeline-dot"></div>
+            <div class="timeline-body">
+              <div class="timeline-header">
+                <div>
+                  <h3>{item.role}</h3>
+                  <span class="timeline-org">{item.org}</span>
+                </div>
+                <div class="timeline-meta">
+                  <span class="timeline-period">{item.period}</span>
+                  <span class="tag">{item.sector}</span>
+                </div>
+              </div>
+              <p class="timeline-summary">{item.summary}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="skills-section">
+    <div class="container">
+      <p class="section-label">{t('about.skills.label')}</p>
+      <h2>{t('about.skills.heading')}</h2>
+      <div class="skills-grid">
+        {skills.map(g => (
+          <div class="skills-group" data-reveal>
+            <h3>{g.group}</h3>
+            <div class="skills-tags">{g.items.map(s => <span class="tag">{s}</span>)}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTS -->
+  <section class="certs-section">
+    <div class="container">
+      <p class="section-label">{t('about.certs.label')}</p>
+      <h2>{t('about.certs.heading')}</h2>
+      <div class="certs-grid">
+        {certifications.map(c => (
+          <div class="cert-card" data-reveal>
+            <span class="cert-name">{c.name}</span>
+            <span class="cert-meta">{c.issuer} · {c.year}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .bio-section { background:var(--bg); }
+  .bio-grid { display:grid;grid-template-columns:1fr 320px;gap:var(--space-16);align-items:start; }
+  .bio-text h2 { margin-bottom:var(--space-6); }
+  .bio-text p  { color:var(--text-dim);line-height:1.75;font-size:1.025rem;margin-bottom:var(--space-5); }
+  .bio-aside   { display:flex;flex-direction:column;gap:var(--space-4); }
+  .bio-stat    { background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-1); }
+  .bio-stat-value { font-size:2rem;font-weight:800;color:var(--accent-2);letter-spacing:-.03em; }
+  .bio-stat-label { font-size:.85rem;color:var(--text-muted); }
+  .bio-cv-note { font-size:.85rem;color:var(--text-muted); }
+  .bio-cv-note a { color:var(--accent-2);border-bottom:1px solid rgba(167,139,250,.3); }
+
+  .timeline-section { background:var(--surface); }
+  .timeline-section h2 { margin-bottom:var(--space-12); }
+  .timeline { display:flex;flex-direction:column;position:relative; }
+  .timeline::before { content:'';position:absolute;left:11px;top:0;bottom:0;width:1px;background:var(--border); }
+  .timeline-item { display:flex;gap:var(--space-8);padding-bottom:var(--space-10);position:relative; }
+  .timeline-item:last-child { padding-bottom:0; }
+  .timeline-dot { width:23px;height:23px;min-width:23px;border-radius:50%;background:var(--surface-2);border:2px solid var(--accent);margin-top:2px;position:relative;z-index:1; }
+  .timeline-body { flex:1; }
+  .timeline-header { display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-3); }
+  .timeline-header h3 { font-size:1.05rem; }
+  .timeline-org    { font-size:.875rem;color:var(--accent-2);font-weight:500;display:block;margin-top:2px; }
+  .timeline-meta   { display:flex;flex-direction:column;align-items:flex-end;gap:var(--space-2); }
+  .timeline-period { font-size:.8rem;color:var(--text-muted);font-weight:500; }
+  .timeline-summary{ font-size:.9rem;color:var(--text-muted);line-height:1.65; }
+
+  .skills-section { background:var(--bg); }
+  .skills-section h2 { margin-bottom:var(--space-12); }
+  .skills-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6); }
+  .skills-group { background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-6); }
+  .skills-group h3 { margin-bottom:var(--space-4);font-size:.95rem;color:var(--text-dim);font-weight:600; }
+  .skills-tags { display:flex;flex-wrap:wrap;gap:var(--space-2); }
+
+  .certs-section { background:var(--surface); }
+  .certs-section h2 { margin-bottom:var(--space-12); }
+  .certs-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-4); }
+  .cert-card { display:flex;flex-direction:column;gap:var(--space-2);background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-6);transition:all var(--transition); }
+  .cert-card:hover { border-color:rgba(124,106,247,.3);transform:translateY(-2px); }
+  .cert-name { font-size:.95rem;font-weight:600;color:var(--text); }
+  .cert-meta { font-size:.8rem;color:var(--text-muted); }
+
+  @media (max-width:900px) {
+    .bio-grid    { grid-template-columns:1fr; }
+    .skills-grid { grid-template-columns:1fr; }
+  }
+  @media (max-width:640px) {
+    .timeline-header { flex-direction:column; }
+    .timeline-meta   { align-items:flex-start; }
+  }
+</style>
