@@ -1,6 +1,37 @@
 # Portfolio Build — Progress Tracker
 
-Live site: https://emilfreijd.github.io/EmilFreijd
+Live site: https://emilfreijd.github.io/EmilFreijd  
+PR: https://github.com/EmilFreijd/EmilFreijd/pull/1
+
+---
+
+## Architecture decisions
+
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+| Build system | Astro (static) | Component-based, MDX for case studies, fast GitHub Pages builds |
+| Structure | Hybrid — home + sub-pages | Scrollable home, dedicated /about /work /contact |
+| Primary CTA | LinkedIn | Audience is clients/peers, not recruiters |
+| Secondary CTA | Cal.com (contact page) | Available but not prominent |
+| Contact form | Formspree | No backend, delivers to inbox |
+| Blog | No — case studies only | 2–3 flagship project deep-dives |
+| Case studies | 2–3 flagship projects | Quality over quantity |
+| Audience | Clients/partners + professional peers | Not job-seeking |
+| Positioning | Currently employed — building professional brand | Not "hire me", but "know me" |
+| Industries | Public sector (Courts) + Defence Tech + Enterprise IT | High-trust, high-stakes environments |
+| Tone | Sharp and warm | Professional but human — credible without being stiff |
+
+---
+
+## Site map
+
+```
+/                   Home (hero, about teaser, expertise, work teasers, CTA strip)
+/about              Full bio, career timeline, certifications, background
+/work               Case studies index
+/work/[slug]        Individual case study pages (Astro dynamic routes)
+/contact            Formspree form + Cal.com embed + links
+```
 
 ---
 
@@ -15,42 +46,58 @@ Live site: https://emilfreijd.github.io/EmilFreijd
 
 | # | Feature | Status | Notes |
 |---|---------|--------|-------|
-| F1 | Initial HTML/CSS/JS site | ✅ | Dark modern design, deployed on branch |
-| F2 | Migrate to Astro (component-based, MDX support) | ⬜ | Unlocks blog, case studies, build pipeline |
-| F3 | GitHub Actions CI/CD — auto-deploy on push to `main` | ⬜ | Also add nightly cron for dynamic data |
-| F4 | Lighthouse CI check on every deploy (score ≥ 90) | ⬜ | Add to Actions workflow |
-| F5 | Design system: tokens, typography, component library | ⬜ | Extend current CSS variables |
+| F1 | Initial HTML/CSS/JS site | ✅ | Dark modern design, on PR branch |
+| F2 | Migrate to Astro | ⬜ | Unlocks pages, MDX, build pipeline |
+| F3 | GitHub Actions — auto-deploy on push to `main` | ⬜ | + nightly cron for dynamic data refresh |
+| F4 | Lighthouse CI on every deploy (score ≥ 90) | ⬜ | Add to Actions workflow |
+| F5 | Design system — tokens, typography, shared components | ⬜ | Extend current CSS vars into Astro components |
 
 ---
 
-## Sections
+## Home page (`/`)
 
-| # | Feature | Status | Notes |
+| # | Section | Status | Notes |
 |---|---------|--------|-------|
-| S1 | Hero — name, title, tagline, CTA buttons | ✅ | Animated grid bg, gradient glows |
-| S2 | About — bio, stat cards | ✅ | Placeholder content — needs real data |
-| S3 | Expertise — 3 cards (Leadership, Delivery, Strategy) | ✅ | Placeholder content |
-| S4 | Projects — 4 cards with metrics | ✅ | Placeholder content — needs real projects |
-| S5 | Contact — LinkedIn, email, GitHub links | ✅ | Needs real email address |
-| S6 | Work history timeline | ⬜ | Career progression with key win per role |
-| S7 | Certifications section | ⬜ | PMP, PRINCE2, ITIL, SAFe, ISO etc. |
-| S8 | Skills matrix | ⬜ | Grouped tags or radar chart |
-| S9 | Case study detail pages (per-project deep dives) | ⬜ | Own URL per project, MDX-authored |
-| S10 | Testimonials / recommendations | ⬜ | Quotes from stakeholders, managers, reports |
-| S11 | Speaking & events section | ⬜ | Conferences, webinars, internal talks |
-| S12 | Blog / writing section | ⬜ | GitHub Issues as CMS, auto-built via Actions |
+| H1 | Hero — name, title, tagline, LinkedIn CTA | ✅ | Needs real tagline once content is ready |
+| H2 | About teaser — short bio + stat cards + link to /about | ✅ | Placeholder content |
+| H3 | Expertise — Leadership, Delivery, Strategic Impact | ✅ | Placeholder content |
+| H4 | Work teasers — 2–3 project cards linking to /work/[slug] | ✅ | Placeholder — becomes real with case studies |
+| H5 | Contact CTA strip — LinkedIn primary, "get in touch" secondary | ⬜ | Replace current contact section with lighter strip |
 
 ---
 
-## Integrations
+## About page (`/about`)
 
 | # | Feature | Status | Notes |
 |---|---------|--------|-------|
-| I1 | Cal.com booking embed | ⬜ | Inline embed or popup on contact page |
-| I2 | Custom contact form with email delivery | ⬜ | No backend — Formspree or EmailJS |
-| I3 | LinkedIn post feed / activity showcase | ⬜ | Static embed or screenshot approach |
-| I4 | GitHub activity widget (fetched at build time) | ⬜ | Actions fetches data → bakes into static JSON |
-| I5 | CV / resume PDF download | ⬜ | Host PDF in repo, link from hero + about |
+| A1 | Full bio — background, approach, values | ⬜ | Tone: sharp and warm, high-trust environments |
+| A2 | Career timeline — roles, companies, dates, key win per role | ⬜ | Courts + Defence Tech + Enterprise IT |
+| A3 | Certifications section | ⬜ | PMP, PRINCE2, ITIL, SAFe, ISO etc. |
+| A4 | Skills matrix — methodology, leadership, tooling | ⬜ | Grouped tags |
+| A5 | CV / resume PDF download | ⬜ | Host in repo, link from About |
+
+---
+
+## Work page (`/work` + `/work/[slug]`)
+
+| # | Feature | Status | Notes |
+|---|---------|--------|-------|
+| W1 | Case studies index page — 2–3 project cards | ⬜ | Filterable by domain/sector |
+| W2 | Case study template (Astro MDX layout) | ⬜ | Challenge → approach → outcome format |
+| W3 | Case study: [TBD — project 1] | ⬜ | Content needed from Emil |
+| W4 | Case study: [TBD — project 2] | ⬜ | Content needed from Emil |
+| W5 | Case study: [TBD — project 3 — optional] | ⬜ | Content needed from Emil |
+
+---
+
+## Contact page (`/contact`)
+
+| # | Feature | Status | Notes |
+|---|---------|--------|-------|
+| CO1 | Formspree contact form (name, email, message) | ⬜ | Free tier, no backend |
+| CO2 | Cal.com embed — secondary, below the form | ⬜ | Needs Cal.com link/embed code |
+| CO3 | LinkedIn link (primary) | ✅ | Already in current site |
+| CO4 | Email link | ⬜ | Real address needed |
 
 ---
 
@@ -58,10 +105,10 @@ Live site: https://emilfreijd.github.io/EmilFreijd
 
 | # | Feature | Status | Notes |
 |---|---------|--------|-------|
-| SE1 | Open Graph + Twitter Card meta tags | ⬜ | Controls LinkedIn/Slack link previews |
-| SE2 | JSON-LD structured data (Person schema) | ⬜ | Improves Google knowledge panel |
-| SE3 | Auto-generated sitemap.xml + robots.txt | ⬜ | Astro plugin handles this |
-| SE4 | Canonical URLs | ⬜ | Avoid duplicate content |
+| SE1 | Open Graph + Twitter Card meta tags | ⬜ | Controls how links look on LinkedIn, Slack, Teams |
+| SE2 | JSON-LD Person schema | ⬜ | Improves Google knowledge panel |
+| SE3 | Auto-generated sitemap.xml + robots.txt | ⬜ | Astro plugin |
+| SE4 | Canonical URLs | ⬜ | One URL per page |
 
 ---
 
@@ -69,24 +116,21 @@ Live site: https://emilfreijd.github.io/EmilFreijd
 
 | # | Feature | Status | Notes |
 |---|---------|--------|-------|
-| U1 | Scroll-triggered reveal animations | ✅ | IntersectionObserver on cards |
-| U2 | Active nav highlight on scroll | ✅ | Section observer wired up |
-| U3 | Nav blur/frosted glass on scroll | ✅ | `scrolled` class toggled |
-| U4 | Dark / light mode toggle | ⬜ | Respect `prefers-color-scheme`, persist to localStorage |
-| U5 | Project filtering by category | ⬜ | Client-side JS filter |
-| U6 | GSAP advanced scroll animations | ⬜ | Staggered reveals, parallax, timeline effects |
-| U7 | Typewriter / scramble text in hero | ⬜ | Animates title on load |
-| U8 | Mobile navigation (hamburger menu) | ⬜ | Current nav breaks below ~480px |
+| U1 | Scroll-triggered reveal animations | ✅ | IntersectionObserver |
+| U2 | Active nav highlight on scroll | ✅ | Section observer |
+| U3 | Frosted glass nav on scroll | ✅ | `scrolled` class |
+| U4 | Mobile navigation (hamburger menu) | ⬜ | Needed — current nav breaks on small screens |
+| U5 | Dark / light mode toggle | ⬜ | Respect system preference, persist to localStorage |
+| U6 | Project / case study filtering by sector | ⬜ | Client-side JS |
+| U7 | Page transitions (Astro View Transitions API) | ⬜ | Smooth between home → /about, /work, /contact |
 
 ---
 
-## Analytics & Performance
+## Analytics
 
 | # | Feature | Status | Notes |
 |---|---------|--------|-------|
-| A1 | Privacy-friendly analytics | ⬜ | Cloudflare Web Analytics (free, no cookies) |
-| A2 | Image optimization | ⬜ | Astro's built-in `<Image />` component |
-| A3 | PWA — manifest.json + service worker | ⬜ | Installable on mobile, works offline |
+| AN1 | Privacy-friendly analytics | ⬜ | Cloudflare Web Analytics — free, no cookies, GDPR-safe |
 
 ---
 
@@ -94,15 +138,17 @@ Live site: https://emilfreijd.github.io/EmilFreijd
 
 | # | Item | Status | Notes |
 |---|------|--------|-------|
-| C1 | Real bio / about text | ⬜ | Replace placeholder in About section |
-| C2 | Accurate career stats (years, projects, etc.) | ⬜ | Replace placeholder numbers |
-| C3 | Real work history (roles, dates, companies) | ⬜ | Needed for timeline (S6) |
-| C4 | Real project cards (titles, descriptions, metrics) | ⬜ | Replace 4 placeholder projects |
-| C5 | Certifications list | ⬜ | Needed for S7 |
-| C6 | Testimonials / quotes | ⬜ | Needed for S10 |
-| C7 | Real email address | ⬜ | Replace placeholder in contact section |
-| C8 | CV / resume PDF | ⬜ | Needed for I5 |
-| C9 | Cal.com link or embed code | ⬜ | Needed for I1 |
+| C1 | Hero tagline — one sharp sentence positioning you | ⬜ | Example: "Delivering complex programs in high-trust environments" |
+| C2 | Full bio text (for /about) | ⬜ | Sharp + warm tone, Courts + Defence Tech background |
+| C3 | Career stats — real numbers (years, projects, etc.) | ⬜ | Replace placeholders in about teaser |
+| C4 | Work history — roles, companies, dates, one key win each | ⬜ | Needed for career timeline |
+| C5 | Certifications list | ⬜ | Name, issuer, year |
+| C6 | Case study 1 — title, challenge, approach, outcome, metrics | ⬜ | |
+| C7 | Case study 2 — title, challenge, approach, outcome, metrics | ⬜ | |
+| C8 | Case study 3 — optional | ⬜ | |
+| C9 | Real email address | ⬜ | |
+| C10 | Cal.com link or embed code | ⬜ | |
+| C11 | CV / resume PDF | ⬜ | |
 
 ---
 
@@ -110,6 +156,7 @@ Live site: https://emilfreijd.github.io/EmilFreijd
 
 | Date | What was done |
 |------|---------------|
-| 2026-05-21 | Initial site built: hero, about, expertise, projects, contact sections |
-| 2026-05-21 | Dark modern design with CSS animations, grid bg, gradient glows |
-| 2026-05-21 | Responsive layout, scroll reveal, active nav highlight |
+| 2026-05-21 | Initial site built: hero, about, expertise, projects, contact |
+| 2026-05-21 | Dark modern design — CSS animations, grid bg, gradient glows, responsive |
+| 2026-05-21 | PROGRESS.md created |
+| 2026-05-21 | Architecture session — decisions locked, site map defined, PROGRESS.md refined |
