@@ -106,6 +106,7 @@ PRs: [#1 — Initial build](https://github.com/EmilFreijd/EmilFreijd/pull/1) · 
 | CO2 | Cal.com link — secondary | ✅ | Replace `CAL_LINK` in `Contact.astro` |
 | CO3 | LinkedIn link (primary) | ✅ | Wired up |
 | CO4 | Confidentiality note | ✅ | Translated EN/SV |
+| CO5 | Spam honeypot field | ⬜ | Hidden `<input name="_gotcha">` in the form — Formspree ignores it, most bots fill it and get blocked |
 
 ---
 
@@ -120,6 +121,11 @@ PRs: [#1 — Initial build](https://github.com/EmilFreijd/EmilFreijd/pull/1) · 
 | U5 | Language switcher (EN ↔ SV) | ✅ | In nav + mobile drawer, preserves current page |
 | U6 | Project / case study filtering by sector | ⬜ | Client-side JS, add when case studies exist |
 | U7 | Page transitions (Astro View Transitions) | ⬜ | One-line addition to BaseLayout |
+| U8 | Favicon + Apple Touch icon | ⬜ | `.ico` + 180px PNG in `public/`, `<link>` tags in BaseLayout — shows in every tab and bookmark |
+| U9 | Active nav link highlight | ⬜ | `Astro.url.pathname` check in Nav.astro — quick CSS, improves wayfinding |
+| U10 | Custom 404 page | ⬜ | `src/pages/404.astro` — keeps users on-brand instead of GitHub Pages default |
+| U11 | Skip-to-content link | ⬜ | First focusable element in BaseLayout, visible on keyboard focus — 2 lines of HTML + CSS |
+| U12 | `theme-color` meta tag | ⬜ | Two `<meta name="theme-color" media="...">` tags in BaseLayout — mobile browser chrome matches dark/light mode |
 
 ---
 
@@ -131,6 +137,8 @@ PRs: [#1 — Initial build](https://github.com/EmilFreijd/EmilFreijd/pull/1) · 
 | SE2 | JSON-LD Person schema | ✅ | In BaseLayout |
 | SE3 | Canonical URLs | ✅ | In BaseLayout |
 | SE4 | Sitemap.xml + robots.txt | ⬜ | Add `@astrojs/sitemap` integration |
+| SE5 | `hreflang` alternate link tags | ⬜ | Pair EN/SV URLs in BaseLayout `<head>` — prevents duplicate-content penalty for bilingual site |
+| SE6 | Open Graph image | ⬜ | 1200×630 PNG in `public/og-image.png`, referenced in BaseLayout — controls preview card when URL is shared on LinkedIn |
 
 ---
 
