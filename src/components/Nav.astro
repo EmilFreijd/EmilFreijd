@@ -1,23 +1,54 @@
 ---
+import { useTranslations, getPath, getOtherLangPath, type Lang } from '@/i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t    = useTranslations(lang);
 const base = import.meta.env.BASE_URL;
+
 const links = [
-  { label: 'About',   href: `${base}about`   },
-  { label: 'Work',    href: `${base}work`     },
-  { label: 'Contact', href: `${base}contact`  },
+  { label: t('nav.about'),   href: getPath(lang, 'about')   },
+  { label: t('nav.work'),    href: getPath(lang, 'work')     },
+  { label: t('nav.contact'), href: getPath(lang, 'contact')  },
 ];
+
+const otherLangHref  = getOtherLangPath(Astro.url);
+const otherLangLabel = t('lang.label');
 ---
 <nav id="nav">
   <div class="nav-inner">
     <a href={base} class="nav-logo">EF</a>
+
     <ul class="nav-links">
       {links.map(l => <li><a href={l.href}>{l.label}</a></li>)}
     </ul>
-    <button class="nav-burger" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+
+    <div class="nav-controls">
+      <!-- Language switcher -->
+      <a href={otherLangHref} class="nav-lang" title={otherLangLabel}>
+        {lang === 'en' ? 'SV' : 'EN'}
+      </a>
+
+      <!-- Theme toggle -->
+      <button class="nav-theme" id="theme-toggle" aria-label="Toggle theme">
+        <!-- Sun (shown in dark mode) -->
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <!-- Moon (shown in light mode) -->
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+
+      <!-- Mobile burger -->
+      <button class="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
+
   <div class="nav-mobile">
     {links.map(l => <a href={l.href}>{l.label}</a>)}
+    <div class="nav-mobile-meta">
+      <a href={otherLangHref} class="nav-lang">{otherLangLabel}</a>
+    </div>
   </div>
 </nav>
 
@@ -30,7 +61,7 @@ const links = [
     border-bottom: 1px solid transparent;
   }
   #nav.scrolled {
-    background: rgba(8,8,16,0.88);
+    background: var(--nav-scrolled);
     backdrop-filter: blur(14px);
     border-bottom-color: var(--border);
   }
@@ -41,17 +72,21 @@ const links = [
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: var(--space-6);
   }
   .nav-logo {
     font-weight: 700;
     font-size: 1.15rem;
     letter-spacing: 0.05em;
     color: var(--accent-2);
+    flex-shrink: 0;
   }
   .nav-links {
     list-style: none;
     display: flex;
     gap: 2.5rem;
+    flex: 1;
+    justify-content: center;
   }
   .nav-links a {
     font-size: 0.9rem;
@@ -61,7 +96,43 @@ const links = [
   }
   .nav-links a:hover { color: var(--text); }
 
-  /* Burger */
+  .nav-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-shrink: 0;
+  }
+
+  .nav-lang {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    color: var(--text-muted);
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition);
+  }
+  .nav-lang:hover { color: var(--accent-2); border-color: rgba(124,106,247,0.3); }
+
+  .nav-theme {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    width: 34px; height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all var(--transition);
+  }
+  .nav-theme:hover { color: var(--accent-2); border-color: rgba(124,106,247,0.3); }
+
+  /* Show correct icon per theme */
+  [data-theme="dark"]  .icon-moon { display: none; }
+  [data-theme="light"] .icon-sun  { display: none; }
+
   .nav-burger {
     display: none;
     flex-direction: column;
@@ -73,22 +144,22 @@ const links = [
   }
   .nav-burger span {
     display: block;
-    width: 22px;
-    height: 2px;
+    width: 22px; height: 2px;
     background: var(--text-dim);
     border-radius: 2px;
     transition: all var(--transition);
   }
 
-  /* Mobile drawer */
   .nav-mobile {
     display: none;
     flex-direction: column;
     padding: var(--space-4) var(--space-8) var(--space-6);
     gap: var(--space-4);
-    background: rgba(8,8,16,0.96);
+    background: var(--nav-scrolled);
+    backdrop-filter: blur(14px);
     border-top: 1px solid var(--border);
   }
+  .nav-mobile.open { display: flex; }
   .nav-mobile a {
     font-size: 1.05rem;
     font-weight: 500;
@@ -97,18 +168,23 @@ const links = [
     transition: color var(--transition);
   }
   .nav-mobile a:hover { color: var(--text); }
-  .nav-mobile.open { display: flex; }
+  .nav-mobile-meta {
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--border);
+  }
+  .nav-mobile-meta .nav-lang { font-size: 0.85rem; }
 
   @media (max-width: 640px) {
-    .nav-links { display: none; }
+    .nav-links  { display: none; }
     .nav-burger { display: flex; }
   }
 </style>
 
 <script>
-  const nav = document.getElementById('nav')!;
+  const nav    = document.getElementById('nav')!;
   const burger = nav.querySelector('.nav-burger') as HTMLButtonElement;
   const drawer = nav.querySelector('.nav-mobile') as HTMLElement;
+  const toggle = document.getElementById('theme-toggle') as HTMLButtonElement;
 
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 40);
@@ -117,5 +193,12 @@ const links = [
   burger.addEventListener('click', () => {
     const open = drawer.classList.toggle('open');
     burger.setAttribute('aria-expanded', String(open));
+  });
+
+  toggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next    = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
   });
 </script>
