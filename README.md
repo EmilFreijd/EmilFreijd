@@ -1,3 +1,5 @@
-# Hi, I´m @EmilFreijd.
+# Emil Freijd
 
-Follow me on linkedin www.emilfreijd.se (you will be redirected to linkedin).
+Senior IT Program Manager — portfolio at **[emilfreijd.github.io/EmilFreijd](https://emilfreijd.github.io/EmilFreijd)**
+
+LinkedIn: [emilfreijd.se](https://www.emilfreijd.se)
