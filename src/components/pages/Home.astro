@@ -1,0 +1,305 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { useTranslations, getPath, type Lang } from '@/i18n/utils';
+import { getCollection } from 'astro:content';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t    = useTranslations(lang);
+const base = import.meta.env.BASE_URL;
+
+const featured = (await getCollection('work', e => e.data.featured && !e.data.draft))
+  .sort((a, b) => b.data.year - a.data.year)
+  .slice(0, 3);
+---
+<BaseLayout lang={lang}>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+      <div class="hero-glow glow-1"></div>
+      <div class="hero-glow glow-2"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        {t('hero.badge')}
+      </div>
+      <h1><span class="hero-name">Emil Freijd</span></h1>
+      <p class="hero-title">{t('hero.title')}</p>
+      <p class="hero-sub">{t('hero.subtitle')}</p>
+      <div class="hero-cta">
+        <a href="https://www.emilfreijd.se" target="_blank" rel="noopener" class="btn btn-primary">
+          {t('hero.cta.primary')}
+        </a>
+        <a href={getPath(lang, 'work')} class="btn btn-ghost">{t('hero.cta.secondary')}</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT TEASER -->
+  <section id="about" class="about-section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="section-label">{t('about.label')}</p>
+          <h2>{t('about.heading')}</h2>
+          <p class="about-body">{t('about.body')}</p>
+          <div class="about-tags">
+            <span class="tag">Program Management</span>
+            <span class="tag">IT Leadership</span>
+            <span class="tag">Digital Transformation</span>
+            <span class="tag">Stakeholder Management</span>
+            <span class="tag">Agile / SAFe</span>
+            <span class="tag">Change Management</span>
+          </div>
+          <a href={getPath(lang, 'about')} class="about-link">{t('about.link')}</a>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card">
+            <span class="stat-number">10<span class="stat-plus">+</span></span>
+            <span class="stat-label">{t('about.stat.years')}</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">25<span class="stat-plus">+</span></span>
+            <span class="stat-label">{t('about.stat.projects')}</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">50<span class="stat-plus">+</span></span>
+            <span class="stat-label">{t('about.stat.stakeholders')}</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">5<span class="stat-plus">+</span></span>
+            <span class="stat-label">{t('about.stat.countries')}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERTISE -->
+  <section id="expertise" class="expertise-section">
+    <div class="container">
+      <p class="section-label center">{t('expertise.label')}</p>
+      <h2 class="center">{t('expertise.heading')}</h2>
+      <div class="expertise-grid">
+
+        <div class="expertise-card" data-reveal>
+          <div class="expertise-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>{t('expertise.l.title')}</h3>
+          <p>{t('expertise.l.desc')}</p>
+          <ul class="expertise-list">
+            <li>{t('expertise.l.1')}</li>
+            <li>{t('expertise.l.2')}</li>
+            <li>{t('expertise.l.3')}</li>
+          </ul>
+        </div>
+
+        <div class="expertise-card featured" data-reveal>
+          <div class="expertise-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          </div>
+          <h3>{t('expertise.d.title')}</h3>
+          <p>{t('expertise.d.desc')}</p>
+          <ul class="expertise-list">
+            <li>{t('expertise.d.1')}</li>
+            <li>{t('expertise.d.2')}</li>
+            <li>{t('expertise.d.3')}</li>
+          </ul>
+        </div>
+
+        <div class="expertise-card" data-reveal>
+          <div class="expertise-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <h3>{t('expertise.s.title')}</h3>
+          <p>{t('expertise.s.desc')}</p>
+          <ul class="expertise-list">
+            <li>{t('expertise.s.1')}</li>
+            <li>{t('expertise.s.2')}</li>
+            <li>{t('expertise.s.3')}</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK TEASERS -->
+  <section id="work" class="work-section">
+    <div class="container">
+      <p class="section-label center">{t('work.label')}</p>
+      <h2 class="center">{t('work.heading')}</h2>
+      <p class="section-sub center">{t('work.desc')}</p>
+
+      {featured.length > 0 ? (
+        <div class="work-grid">
+          {featured.map(e => (
+            <a href={getPath(lang, `work/${e.slug}`)} class="work-card" data-reveal>
+              <div class="work-card-header">
+                <span class="work-tag">{e.data.sector.replace('-', ' ')}</span>
+                <span class="work-year">{e.data.year}</span>
+              </div>
+              <h3>{e.data.title}</h3>
+              <p>{e.data.description}</p>
+              <div class="work-metrics">
+                {e.data.metrics.slice(0, 2).map(m => (
+                  <span class="metric"><strong>{m.value}</strong> {m.label}</span>
+                ))}
+              </div>
+              <span class="work-cta">{t('work.read')}</span>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="work-empty">
+          <p>{t('work.empty')}</p>
+          <p class="work-empty-sub">{t('work.empty.sub')}</p>
+        </div>
+      )}
+
+      <div class="work-footer">
+        <a href={getPath(lang, 'work')} class="btn btn-ghost">{t('work.viewAll')}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA STRIP -->
+  <section id="contact" class="cta-strip">
+    <div class="container">
+      <div class="cta-inner">
+        <div class="cta-text">
+          <h2>{t('cta.heading')}</h2>
+          <p>{t('cta.desc')}</p>
+        </div>
+        <div class="cta-actions">
+          <a href="https://www.emilfreijd.se" target="_blank" rel="noopener" class="btn btn-primary">{t('cta.primary')}</a>
+          <a href={getPath(lang, 'contact')} class="btn btn-ghost">{t('cta.ghost')}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Hero */
+  #hero {
+    position: relative; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 var(--space-8); overflow: hidden;
+  }
+  .hero-bg { position: absolute; inset: 0; pointer-events: none; }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--hero-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--hero-grid) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+  .hero-glow { position: absolute; border-radius: 50%; filter: blur(90px); }
+  .glow-1 { width:600px;height:600px;background:radial-gradient(circle,var(--accent) 0%,transparent 70%);top:-150px;left:-100px;opacity:.35; }
+  .glow-2 { width:500px;height:500px;background:radial-gradient(circle,#a78bfa 0%,transparent 70%);bottom:-100px;right:-80px;opacity:.2; }
+  .hero-content { position: relative; z-index: 1; max-width: 800px; text-align: center; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: var(--space-2);
+    font-size: .8rem; font-weight: 500; letter-spacing: .05em;
+    color: var(--accent-2);
+    background: rgba(124,106,247,.12); border: 1px solid rgba(124,106,247,.25);
+    padding: .35rem 1rem; border-radius: 99px; margin-bottom: var(--space-8);
+  }
+  .badge-dot {
+    width:7px;height:7px;background:var(--accent-2);border-radius:50%;
+    box-shadow:0 0 8px var(--accent-2);animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.85)} }
+  .hero-name {
+    display:block;font-size:clamp(3rem,8vw,6rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;
+    background: var(--gradient-text);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    margin-bottom:var(--space-2);
+  }
+  .hero-title { font-size:clamp(1.1rem,2.5vw,1.4rem);font-weight:500;color:var(--text-dim);margin-bottom:var(--space-6);letter-spacing:.02em; }
+  .hero-sub   { font-size:clamp(1rem,1.8vw,1.15rem);color:var(--text-muted);line-height:1.7;max-width:580px;margin:0 auto var(--space-10); }
+  .hero-cta   { display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap; }
+  .hero-scroll { position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:var(--space-2);color:var(--text-muted);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase; }
+  .scroll-line { width:1px;height:40px;background:linear-gradient(to bottom,var(--text-muted),transparent);animation:scrollDrop 2s ease-in-out infinite; }
+  @keyframes scrollDrop { 0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom} }
+
+  /* About teaser */
+  .about-section { background: var(--surface); }
+  .about-grid { display:grid;grid-template-columns:1fr 1fr;gap:var(--space-20);align-items:center; }
+  .about-text h2 { margin-bottom: var(--space-6); }
+  .about-body { color:var(--text-dim);line-height:1.75;margin-bottom:var(--space-5);font-size:1.025rem; }
+  .about-tags { display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-6); }
+  .about-link { display:inline-block;margin-top:var(--space-6);font-size:.9rem;font-weight:600;color:var(--accent-2); }
+  .about-link:hover { text-decoration:underline; }
+  .about-stats { display:grid;grid-template-columns:1fr 1fr;gap:var(--space-5); }
+  .stat-card { background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem 1.5rem;display:flex;flex-direction:column;gap:var(--space-1);transition:border-color var(--transition),transform var(--transition); }
+  .stat-card:hover { border-color:rgba(124,106,247,.3);transform:translateY(-3px); }
+  .stat-number { font-size:2.4rem;font-weight:800;color:var(--text);line-height:1;letter-spacing:-.03em; }
+  .stat-plus   { font-size:1.5rem;color:var(--accent-2); }
+  .stat-label  { font-size:.82rem;color:var(--text-muted);font-weight:500; }
+
+  /* Expertise */
+  .expertise-section { background: var(--bg); }
+  .expertise-section h2 { margin-bottom: var(--space-2); }
+  .expertise-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6);margin-top:var(--space-12); }
+  .expertise-card { background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-8);position:relative;overflow:hidden;transition:all var(--transition); }
+  .expertise-card::before { content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity var(--transition); }
+  .expertise-card:hover::before,.expertise-card.featured::before { opacity:1; }
+  .expertise-card:hover { border-color:rgba(124,106,247,.25);transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.3); }
+  .expertise-card.featured { border-color:rgba(124,106,247,.3);background:linear-gradient(135deg,rgba(124,106,247,.06),var(--surface)); }
+  .expertise-icon { width:52px;height:52px;background:var(--accent-glow);border:1px solid rgba(124,106,247,.2);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;color:var(--accent-2);margin-bottom:var(--space-5); }
+  .expertise-card h3 { margin-bottom:var(--space-3); }
+  .expertise-card p  { font-size:.9rem;color:var(--text-muted);line-height:1.65;margin-bottom:var(--space-5); }
+  .expertise-list { list-style:none;display:flex;flex-direction:column;gap:var(--space-2); }
+  .expertise-list li { font-size:.85rem;color:var(--text-dim);padding-left:1.1rem;position:relative; }
+  .expertise-list li::before { content:'→';position:absolute;left:0;color:var(--accent);font-size:.75rem; }
+
+  /* Work */
+  .work-section { background: var(--surface); }
+  .work-section h2 { margin-bottom: var(--space-2); }
+  .work-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:var(--space-6); }
+  .work-card { display:flex;flex-direction:column;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-8);transition:all var(--transition); }
+  .work-card:hover { border-color:rgba(124,106,247,.25);transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.3); }
+  .work-card-header { display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-4); }
+  .work-tag  { font-size:.75rem;font-weight:600;color:var(--accent-2);background:rgba(124,106,247,.1);border:1px solid rgba(124,106,247,.2);padding:.25rem .7rem;border-radius:99px;text-transform:capitalize; }
+  .work-year { font-size:.8rem;color:var(--text-muted);font-weight:500; }
+  .work-card h3 { margin-bottom:var(--space-3); }
+  .work-card p  { font-size:.9rem;color:var(--text-muted);line-height:1.65;margin-bottom:var(--space-6);flex:1; }
+  .work-metrics { display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-6); }
+  .metric       { font-size:.8rem;color:var(--text-dim);background:var(--surface);border:1px solid var(--border);padding:.3rem .75rem;border-radius:var(--radius-sm); }
+  .metric strong { color:var(--accent-2); }
+  .work-cta   { font-size:.85rem;font-weight:600;color:var(--accent-2); }
+  .work-empty { text-align:center;padding:var(--space-20) 0;color:var(--text-dim); }
+  .work-empty-sub { font-size:.9rem;color:var(--text-muted);margin-top:var(--space-2); }
+  .work-footer { display:flex;justify-content:center;margin-top:var(--space-12); }
+
+  /* CTA strip */
+  .cta-strip { background: var(--bg); }
+  .cta-inner { display:flex;align-items:center;justify-content:space-between;gap:var(--space-8);flex-wrap:wrap; }
+  .cta-text h2 { margin-bottom:var(--space-3); }
+  .cta-text p  { color:var(--text-muted);max-width:500px;font-size:1.025rem; }
+  .cta-actions { display:flex;gap:var(--space-4);flex-wrap:wrap; }
+
+  @media (max-width: 900px) {
+    .about-grid,.cta-inner { flex-direction:column; }
+    .about-grid     { grid-template-columns:1fr;gap:var(--space-12); }
+    .expertise-grid { grid-template-columns:1fr; }
+    .cta-inner      { text-align:center; }
+    .cta-actions    { justify-content:center; }
+  }
+  @media (max-width: 600px) {
+    .about-stats { grid-template-columns:1fr 1fr; }
+    .hero-cta    { flex-direction:column;align-items:center; }
+  }
+</style>
