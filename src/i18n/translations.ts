@@ -105,6 +105,12 @@ export const ui = {
     'about.forward.heading':  'What I want to build.',
     'about.values.label':     'What matters',
     'about.values.heading':   'Outside work too.',
+    'about.teaser.tag1':      'Program Management',
+    'about.teaser.tag2':      'IT Leadership',
+    'about.teaser.tag3':      'Digital Transformation',
+    'about.teaser.tag4':      'Stakeholder Management',
+    'about.teaser.tag5':      'Agile / SAFe',
+    'about.teaser.tag6':      'Change Management',
 
     // Work index
     'work.index.label':   'Work',
@@ -265,6 +271,12 @@ export const ui = {
     'about.forward.heading':  'Vad jag vill bygga.',
     'about.values.label':     'Vad som spelar roll',
     'about.values.heading':   'Även utanför jobbet.',
+    'about.teaser.tag1':      'Programstyrning',
+    'about.teaser.tag2':      'IT-ledarskap',
+    'about.teaser.tag3':      'Digital omvandling',
+    'about.teaser.tag4':      'Intressenthantering',
+    'about.teaser.tag5':      'Agile / SAFe',
+    'about.teaser.tag6':      'Förändringsledning',
 
     // Work index
     'work.index.label':    'Projekt',
