@@ -1,118 +1,130 @@
 # Content Pipeline
 
-This repository is the production site. Content is published here — either manually or via an automated pipeline from a private development workspace (Daedalus).
+This repository is the production site. Content flows in from a private development workspace (Daedalus) via GitHub Actions — but only when both language versions are complete.
 
 ---
 
-## How it works
+## Principle
 
-Emil writes in Swedish. The pipeline translates to English. Both versions land in `src/content/stream/`.
+Content is only published when both an English and a Swedish version exist in Daedalus. Emil writes both. No auto-translation. No partial publishes.
+
+---
+
+## Flow
 
 ```
-Emil writes in Swedish
-        ↓
-  Daedalus (private workspace)
-        ↓  GitHub Action: translate via Claude API
-        ↓  push both files to EmilFreijd/EmilFreijd
-        ↓
-  src/content/stream/
-  ├── slug.mdx          ← English (generated)
-  └── slug-sv.mdx       ← Swedish (source of truth)
-        ↓
-  emilfreijd.se/stream/slug/       ← serves EN
-  emilfreijd.se/sv/stream/slug/    ← serves SV (falls back to EN if missing)
+Daedalus (private workspace)
+├── workspace/drafts/
+│   ├── slug.en.md       ← Emil writes English version
+│   └── slug.sv.md       ← Emil writes Swedish version
+│
+│   When both are complete:
+│   → Mark ready (create issue with label ready-to-publish)
+│
+├── GitHub Actions
+│   ├── publish-en.yml   → pushes slug.mdx        (lang: en)
+│   └── publish-sv.yml   → pushes slug-sv.mdx     (lang: sv)
+│
+└── Gate: both files must exist before either action runs
+
+EmilFreijd/src/content/stream/
+├── slug.mdx             ← English, served at /stream/slug/
+└── slug-sv.mdx          ← Swedish, served at /sv/stream/slug/
 ```
 
 ---
 
 ## File naming convention
 
-| File | Language | Rule |
-|------|----------|------|
-| `court-system-modernisation.mdx`    | English  | Default — no suffix |
-| `court-system-modernisation-sv.mdx` | Swedish  | `-sv` suffix |
-
-Both files live in `src/content/stream/`. The routing uses the `lang` frontmatter field to distinguish them.
+| Daedalus source    | Published to EmilFreijd     | Language |
+|--------------------|-----------------------------|----------|
+| `slug.en.md`       | `src/content/stream/slug.mdx`    | English  |
+| `slug.sv.md`       | `src/content/stream/slug-sv.mdx` | Swedish  |
 
 ---
 
 ## Frontmatter schema
 
-```mdx
+Every `.mdx` file must have valid frontmatter:
+
+```yaml
 ---
 title:       "Title of the piece"
 description: "One-sentence summary — shows in cards and meta."
 date:        2025-01-15
 kind:        case          # case | project | essay | update
-lang:        en            # en | sv  (default: en)
+lang:        en            # en | sv
 timeless:    false         # true = appears in Timeless filter
 featured:    false         # true = shown on home page (max 3)
 draft:       false         # true = not published
 sector:      public-sector # public-sector | defence | enterprise | personal | other
 tags:        ["Program Management", "Digital Transformation"]
-metrics:                   # optional — shows sidebar on detail page
+metrics:                   # optional — renders sidebar on detail page
   - { value: "47", label: "Courts migrated" }
   - { value: "18 months", label: "Delivery timeline" }
 ---
 ```
 
-**Kind values:**
-- `case` — Case study, detailed program write-up
-- `project` — Shorter project description
-- `essay` — Long-form thinking, principles
-- `update` — Short signal, quick note
+**Valid `kind` values:** `case` · `project` · `essay` · `update`  
+**Invalid:** `article`, `story` (not in schema — will break the build)
 
 ---
 
-## Bilingual publishing
+## Routing behaviour
 
-Every entry has an English file. The Swedish file is optional — if it exists, `/sv/stream/slug/` serves it; if not, the English version is shown instead.
+The site handles missing SV versions gracefully:
 
-**To publish in both languages:**
-1. Create `slug-sv.mdx` with `lang: sv` in frontmatter (Emil writes this)
-2. Create `slug.mdx` with `lang: en` (pipeline translates from SV, or Emil writes it)
+| Situation | `/stream/slug/` | `/sv/stream/slug/` |
+|-----------|-----------------|---------------------|
+| Both files exist | EN content | SV content |
+| Only EN exists | EN content | EN content (fallback) |
+| Only SV exists | — not routed — | — not routed — |
 
-**To publish English only** (e.g., initial draft):
-1. Create only `slug.mdx` with `lang: en`
-2. Add `slug-sv.mdx` later when ready
+EN is required. SV is recommended but optional. The EN file is what creates the route.
 
 ---
 
-## Adding content manually (hotfix / direct)
+## Publishing workflow (Daedalus)
+
+1. Write `slug.en.md` and `slug.sv.md` in `workspace/drafts/`
+2. When both are done, move both to `workspace/staging/`
+3. Create a GitHub Issue in Daedalus:
+   ```
+   Title:  Publish: [piece title]
+   Label:  ready-to-publish
+   Files:  workspace/staging/slug.en.md
+           workspace/staging/slug.sv.md
+   ```
+4. Gate check: Actions verify both files exist before running
+5. `publish-en.yml` — converts `slug.en.md` → `slug.mdx`, pushes to EmilFreijd
+6. `publish-sv.yml` — converts `slug.sv.md` → `slug-sv.mdx`, pushes to EmilFreijd
+7. Both files archived to `published/YYYY-MM/` in Daedalus
+8. Site live within ~2 minutes
+
+---
+
+## Direct publish (hotfix / manual)
+
+Skip Daedalus entirely for corrections or quick additions:
 
 ```bash
-# In src/content/stream/
-# 1. Create slug.mdx (English)
-# 2. Optionally create slug-sv.mdx (Swedish)
-# 3. Both must pass schema validation (see above)
-git add src/content/stream/
+# Edit or create files directly in src/content/stream/
+git add src/content/stream/slug.mdx src/content/stream/slug-sv.mdx
 git commit -m "Publish: [title]"
 git push origin main
-# → Live at emilfreijd.se within ~2 minutes via GitHub Actions
+# → Live at emilfreijd.se within ~2 minutes
 ```
-
----
-
-## Adding content via Daedalus pipeline
-
-1. Write content in Swedish in Daedalus (`workspace/drafts/`)
-2. Move to `workspace/staging/` when ready
-3. Create GitHub Issue with label `ready-to-publish`
-4. GitHub Action automatically:
-   - Translates Swedish → English via Claude API
-   - Creates `slug.mdx` (EN) and `slug-sv.mdx` (SV)
-   - Commits and pushes to this repo
-   - Archives source to `published/YYYY-MM/` in Daedalus
-5. Site deploys within ~2 minutes
 
 ---
 
 ## What does NOT work
 
-- `kind: article` — not in schema. Use `essay` instead.
-- A `type` field — schema has no `type` key.
-- `.sv.mdx` suffix — Astro strips dots from slugs. Use `-sv.mdx` instead.
-- Same slug for EN and SV — they must have different filenames (`slug.mdx` vs `slug-sv.mdx`).
+| Wrong | Correct |
+|-------|---------|
+| `kind: article` | `kind: essay` |
+| `kind: story` | `kind: essay` |
+| A `type` field | No `type` field in schema |
+| `.sv.mdx` suffix | `-sv.mdx` suffix (dots break Astro slug generation) |
 
 ---
 
