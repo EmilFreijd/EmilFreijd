@@ -8,7 +8,7 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const sv = lang === 'sv';
-const yearsInIT = new Date().getFullYear() - 2017;
+const yearsInIT = new Date().getFullYear() - 2018;
 const allCases = await getCollection('stream', e => !e.data.draft && e.data.kind === 'case');
 
 const traits = sv ? [
@@ -49,39 +49,89 @@ const forwardItems = sv ? [
   'Eventually, an independent practice built on genuine systems understanding',
 ];
 
-// EDIT: Fill in real roles, organisations, and dates
-const timeline = [
+const timeline = sv ? [
   {
-    role:    sv ? 'Senior IT-programchef' : 'Senior IT Program Manager',
-    org:     '—',
-    period:  sv ? '20XX – nu' : '20XX – Present',
-    sector:  '—',
-    summary: sv
-      ? '(Fyll i organisation, period och en mening om det viktigaste du levererade.)'
-      : '(Fill in organisation, period, and one sentence on your key delivery.)',
+    role:    'Team- & projektledare',
+    org:     'Domstolsverket',
+    period:  'Oktober 2025 – nu',
+    sector:  'Offentlig sektor',
+    summary: 'Äger och prioriterar verksamhetskritiska digitala plattformar med långsiktig påverkan på organisationens stabilitet. Ansvarar för styrning, arkitekturval, riskhantering och roadmap i komplexa miljöer med höga krav på säkerhet och tillgänglighet.',
   },
   {
-    role:    sv ? 'IT-projektledare' : 'IT Project Manager',
-    org:     '—',
-    period:  '20XX – 20XX',
-    sector:  '—',
-    summary: sv
-      ? '(Fyll i organisation, period och ett nyckelresultat.)'
-      : '(Fill in organisation, period, and one key result.)',
+    role:    'Delägare',
+    org:     'Norumi AB',
+    period:  'Januari 2025 – nu',
+    sector:  'IT-rådgivning',
+    summary: 'Medgrundare av initiativ inom strategisk IT-rådgivning och ägarredo digitalisering. Fokus på AI, automation och plattformstänk som värdedrivare för organisationer som vill växa eller konsolidera.',
   },
   {
-    role:    sv ? 'Tidigare roll' : 'Earlier role',
-    org:     '—',
-    period:  '20XX – 20XX',
-    sector:  '—',
-    summary: sv ? '(Lägg till fler roller efter behov.)' : '(Add more roles as needed.)',
+    role:    'Team- & projektledare',
+    org:     'Domstolsverket',
+    period:  'Maj 2023 – Oktober 2025',
+    sector:  'Offentlig sektor',
+    summary: 'Ledde team inom digitala plattformar och identitets- och åtkomsthantering (IAM). Samordning och leverans i miljöer med höga krav på säkerhet, efterlevnad och kontinuitet.',
+  },
+  {
+    role:    'Teamledare & systemtekniker',
+    org:     'Domstolsverket',
+    period:  'April 2021 – Maj 2023',
+    sector:  'Offentlig sektor',
+    summary: 'Kombinerade tekniskt ansvar med teamledning och förbättringsarbete. Bidrog till ökad stabilitet, standardisering och effektivitet i digitala lösningar.',
+  },
+  {
+    role:    'Junior systemtekniker',
+    org:     'Domstolsverket',
+    period:  'Augusti 2020 – April 2021',
+    sector:  'Offentlig sektor',
+    summary: 'Drift, felsökning och vidareutveckling av centrala IT-tjänster. Byggde grund inom informationssäkerhet och systemförvaltning i en komplex offentlig organisation.',
+  },
+] : [
+  {
+    role:    'Team & Project Manager',
+    org:     'Domstolsverket',
+    period:  'October 2025 – Present',
+    sector:  'Public sector',
+    summary: 'Owns and prioritises mission-critical digital platforms with long-term impact on organisational stability. Responsible for governance, architecture decisions, risk management, and roadmap in high-security environments.',
+  },
+  {
+    role:    'Co-owner',
+    org:     'Norumi AB',
+    period:  'January 2025 – Present',
+    sector:  'IT Advisory',
+    summary: 'Co-founded a strategic IT advisory initiative focused on AI, automation, and platform thinking — helping organisations treat IT as a value driver, not a cost centre.',
+  },
+  {
+    role:    'Team & Project Manager',
+    org:     'Domstolsverket',
+    period:  'May 2023 – October 2025',
+    sector:  'Public sector',
+    summary: 'Led teams across digital platforms and identity & access management (IAM). Coordinated delivery in environments with strict security, compliance, and continuity requirements.',
+  },
+  {
+    role:    'Team Lead & Systems Engineer',
+    org:     'Domstolsverket',
+    period:  'April 2021 – May 2023',
+    sector:  'Public sector',
+    summary: 'Combined technical ownership with team leadership and improvement work. Drove stability, standardisation, and efficiency across digital services.',
+  },
+  {
+    role:    'Junior Systems Engineer',
+    org:     'Domstolsverket',
+    period:  'August 2020 – April 2021',
+    sector:  'Public sector',
+    summary: 'Operations, troubleshooting, and development of core IT services. Built foundations in information security and system management within a large public-sector organisation.',
   },
 ];
 
-// EDIT: Fill in real certifications
 const certifications = [
-  { name: sv ? 'Certifieringsnamn' : 'Certification name', issuer: '—', year: '20XX' },
-  { name: sv ? 'Certifieringsnamn' : 'Certification name', issuer: '—', year: '20XX' },
+  { name: 'CCNA Routing and Switching: Introduction to Networks',         issuer: 'Cisco',                              year: '—' },
+  { name: 'CCNA Routing and Switching: Routing and Switching Essentials', issuer: 'Cisco',                              year: '—' },
+  { name: 'Python Advanced Certification',                                 issuer: '—',                                  year: '—' },
+  {
+    name:   sv ? 'ISO/IEC 27001 — kandidatuppsats (publikation)' : 'ISO/IEC 27001 Research Publication',
+    issuer: 'Jönköping University · Secify',
+    year:   '2020',
+  },
 ];
 
 const skills = [
