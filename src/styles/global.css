@@ -146,6 +146,10 @@ h3 { font-size: 1.15rem; font-weight: 700; }
   background: rgba(255,255,255,0.04);
   transform: translateY(-2px);
 }
+[data-theme="light"] .btn-ghost:hover {
+  border-color: rgba(0,0,0,0.15);
+  background: rgba(0,0,0,0.04);
+}
 
 /* ─── Cards ────────────────────────────────────────────────────── */
 .card {
@@ -186,7 +190,7 @@ h3 { font-size: 1.15rem; font-weight: 700; }
 }
 .page-hero h1 {
   font-size: clamp(2.5rem, 5vw, 4rem);
-  background: linear-gradient(135deg, #fff 30%, var(--accent-2) 100%);
+  background: var(--gradient-text);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
