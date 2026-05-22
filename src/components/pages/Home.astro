@@ -30,7 +30,7 @@ const featured = (await getCollection('work', e => e.data.featured && !e.data.dr
       <p class="hero-title">{t('hero.title')}</p>
       <p class="hero-sub">{t('hero.subtitle')}</p>
       <div class="hero-cta">
-        <a href="https://www.emilfreijd.se" target="_blank" rel="noopener" class="btn btn-primary">
+        <a href="https://www.linkedin.com/in/emilfreijd" target="_blank" rel="noopener" class="btn btn-primary">
           {t('hero.cta.primary')}
         </a>
         <a href={getPath(lang, 'work')} class="btn btn-ghost">{t('hero.cta.secondary')}</a>
@@ -102,9 +102,9 @@ const featured = (await getCollection('work', e => e.data.featured && !e.data.dr
           </ul>
         </div>
 
-        <div class="expertise-card featured" data-reveal>
+        <div class="expertise-card" data-reveal>
           <div class="expertise-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
           </div>
           <h3>{t('expertise.d.title')}</h3>
           <p>{t('expertise.d.desc')}</p>
@@ -115,9 +115,9 @@ const featured = (await getCollection('work', e => e.data.featured && !e.data.dr
           </ul>
         </div>
 
-        <div class="expertise-card" data-reveal>
+        <div class="expertise-card featured" data-reveal>
           <div class="expertise-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 6a6 6 0 0 1 6 6"/><circle cx="12" cy="12" r="2"/><path d="M12 22a10 10 0 0 1-10-10"/><path d="M12 18a6 6 0 0 1-6-6"/></svg>
           </div>
           <h3>{t('expertise.s.title')}</h3>
           <p>{t('expertise.s.desc')}</p>
@@ -125,6 +125,19 @@ const featured = (await getCollection('work', e => e.data.featured && !e.data.dr
             <li>{t('expertise.s.1')}</li>
             <li>{t('expertise.s.2')}</li>
             <li>{t('expertise.s.3')}</li>
+          </ul>
+        </div>
+
+        <div class="expertise-card" data-reveal>
+          <div class="expertise-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 8h10"/><path d="M7 12h6"/></svg>
+          </div>
+          <h3>{t('expertise.a.title')}</h3>
+          <p>{t('expertise.a.desc')}</p>
+          <ul class="expertise-list">
+            <li>{t('expertise.a.1')}</li>
+            <li>{t('expertise.a.2')}</li>
+            <li>{t('expertise.a.3')}</li>
           </ul>
         </div>
 
@@ -180,7 +193,7 @@ const featured = (await getCollection('work', e => e.data.featured && !e.data.dr
           <p>{t('cta.desc')}</p>
         </div>
         <div class="cta-actions">
-          <a href="https://www.emilfreijd.se" target="_blank" rel="noopener" class="btn btn-primary">{t('cta.primary')}</a>
+          <a href="https://www.linkedin.com/in/emilfreijd" target="_blank" rel="noopener" class="btn btn-primary">{t('cta.primary')}</a>
           <a href={getPath(lang, 'contact')} class="btn btn-ghost">{t('cta.ghost')}</a>
         </div>
       </div>
@@ -252,7 +265,7 @@ const featured = (await getCollection('work', e => e.data.featured && !e.data.dr
   /* Expertise */
   .expertise-section { background: var(--bg); }
   .expertise-section h2 { margin-bottom: var(--space-2); }
-  .expertise-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6);margin-top:var(--space-12); }
+  .expertise-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-6);margin-top:var(--space-12); }
   .expertise-card { background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-8);position:relative;overflow:hidden;transition:all var(--transition); }
   .expertise-card::before { content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity var(--transition); }
   .expertise-card:hover::before,.expertise-card.featured::before { opacity:1; }
