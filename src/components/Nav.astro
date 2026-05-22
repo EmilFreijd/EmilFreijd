@@ -17,7 +17,7 @@ const otherLangLabel = t('lang.label');
 ---
 <nav id="nav">
   <div class="nav-inner">
-    <a href={base} class="nav-logo">EF</a>
+    <a href={getPath(lang, '')} class="nav-logo">EF</a>
 
     <ul class="nav-links">
       {links.map(l => <li><a href={l.href}>{l.label}</a></li>)}
