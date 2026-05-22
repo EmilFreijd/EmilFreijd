@@ -11,6 +11,9 @@ const base = import.meta.env.BASE_URL;
 const featured = (await getCollection('work', e => e.data.featured && !e.data.draft))
   .sort((a, b) => b.data.year - a.data.year)
   .slice(0, 3);
+
+const allPublished = await getCollection('work', e => !e.data.draft);
+const yearsInIT = new Date().getFullYear() - 2017;
 ---
 <BaseLayout lang={lang}>
 
@@ -62,19 +65,19 @@ const featured = (await getCollection('work', e => e.data.featured && !e.data.dr
         </div>
         <div class="about-stats">
           <div class="stat-card">
-            <span class="stat-number">10<span class="stat-plus">+</span></span>
+            <span class="stat-number">{yearsInIT}<span class="stat-plus">+</span></span>
             <span class="stat-label">{t('about.stat.years')}</span>
           </div>
           <div class="stat-card">
-            <span class="stat-number">25<span class="stat-plus">+</span></span>
+            <span class="stat-number">{allPublished.length}</span>
             <span class="stat-label">{t('about.stat.projects')}</span>
           </div>
           <div class="stat-card">
-            <span class="stat-number">50<span class="stat-plus">+</span></span>
+            <span class="stat-number">10<span class="stat-plus">+</span></span>
             <span class="stat-label">{t('about.stat.stakeholders')}</span>
           </div>
           <div class="stat-card">
-            <span class="stat-number">5<span class="stat-plus">+</span></span>
+            <span class="stat-number">3</span>
             <span class="stat-label">{t('about.stat.countries')}</span>
           </div>
         </div>
@@ -115,7 +118,7 @@ const featured = (await getCollection('work', e => e.data.featured && !e.data.dr
           </ul>
         </div>
 
-        <div class="expertise-card featured" data-reveal>
+        <div class="expertise-card" data-reveal>
           <div class="expertise-icon">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 6a6 6 0 0 1 6 6"/><circle cx="12" cy="12" r="2"/><path d="M12 22a10 10 0 0 1-10-10"/><path d="M12 18a6 6 0 0 1-6-6"/></svg>
           </div>

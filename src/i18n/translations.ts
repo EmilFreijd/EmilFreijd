@@ -10,8 +10,8 @@ export const ui = {
     'lang.label':  'Svenska',
 
     // Hero
-    'hero.badge':         'Technical leadership · High-trust environments',
-    'hero.title':         'Senior IT Program Manager',
+    'hero.badge':         'Open for the right conversation',
+    'hero.title':         'IT Leader · Platforms, Teams & AI',
     'hero.subtitle':      'I work at the intersection of technical leadership and platform delivery. Managing teams, driving adoption of complex systems, building the organisational capability to operate them — in environments where the margin for vague ownership is zero.',
     'hero.cta.primary':   'Connect on LinkedIn',
     'hero.cta.secondary': 'View My Work',
@@ -22,9 +22,9 @@ export const ui = {
     'about.body':              'Senior IT professional with a track record of leading cross-functional teams and managing large-scale programs across public sector and enterprise environments. I operate at the intersection of strategy and execution — where clear thinking, decisive leadership, and structured delivery matter most.',
     'about.link':              'Full background →',
     'about.stat.years':        'Years in IT',
-    'about.stat.projects':     'Projects Delivered',
-    'about.stat.stakeholders': 'Stakeholders Managed',
-    'about.stat.countries':    'Countries Operated In',
+    'about.stat.projects':     'Published cases',
+    'about.stat.stakeholders': 'Managed platforms',
+    'about.stat.countries':    'Sectors',
 
     // Expertise
     'expertise.label':          'Expertise',
@@ -61,7 +61,7 @@ export const ui = {
 
     // CTA strip (home)
     'cta.heading': "Let's connect.",
-    'cta.desc':    'Open to conversations about senior IT leadership, program delivery, and advisory opportunities.',
+    'cta.desc':    "Open to conversations — about technology, leadership, or whatever you're building.",
     'cta.primary': 'LinkedIn',
     'cta.ghost':   'Get in touch',
 
@@ -146,10 +146,10 @@ export const ui = {
     'lang.label':  'English',
 
     // Hero
-    'hero.badge':         'Tekniskt ledarskap · Miljöer med höga krav',
-    'hero.title':         'Senior IT-programledare',
+    'hero.badge':         'Öppen för rätt samtal',
+    'hero.title':         'IT-ledare · Plattformar, Team & AI',
     'hero.subtitle':      'Jag arbetar i skärningspunkten mellan tekniskt ledarskap och plattformsleverans. Leder team, driver adoption av komplexa system och bygger den organisatoriska förmågan att förvalta dem — i miljöer där utrymmet för otydligt ägarskap är noll.',
-    'hero.cta.primary':   'Anslut på LinkedIn',
+    'hero.cta.primary':   'Connecta på LinkedIn',
     'hero.cta.secondary': 'Se mina projekt',
 
     // About teaser (home)
@@ -158,9 +158,9 @@ export const ui = {
     'about.body':              'Senior IT-proffs med dokumenterad erfarenhet av att leda tvärfunktionella team och hantera storskaliga program inom offentlig sektor och näringsliv. Jag verkar i skärningspunkten mellan strategi och genomförande — där tydligt tänkande, beslutsamt ledarskap och strukturerad leverans spelar störst roll.',
     'about.link':              'Full bakgrund →',
     'about.stat.years':        'År inom IT',
-    'about.stat.projects':     'Levererade projekt',
-    'about.stat.stakeholders': 'Hanterade intressenter',
-    'about.stat.countries':    'Länder',
+    'about.stat.projects':     'Publicerade case',
+    'about.stat.stakeholders': 'Förvaltade plattformar',
+    'about.stat.countries':    'Sektorer',
 
     // Expertise
     'expertise.label':    'Kompetens',
@@ -197,7 +197,7 @@ export const ui = {
 
     // CTA strip (home)
     'cta.heading': 'Låt oss koppla upp.',
-    'cta.desc':    'Öppen för samtal om senior IT-ledarskap, programleverans och rådgivningsuppdrag.',
+    'cta.desc':    'Öppen för samtal — om teknik, ledarskap eller vad du håller på att bygga.',
     'cta.primary': 'LinkedIn',
     'cta.ghost':   'Kontakta mig',
 
@@ -251,7 +251,7 @@ export const ui = {
     'contact.form.success':   '✓ Meddelande skickat — jag hör av mig snart.',
     'contact.li.heading':     'LinkedIn',
     'contact.li.desc':        'Bäst för professionella presentationer och nätverkande.',
-    'contact.li.link':        'Anslut på LinkedIn →',
+    'contact.li.link':        'Connecta på LinkedIn →',
     'contact.cal.heading':    'Boka ett samtal',
     'contact.cal.desc':       'Om du föredrar att prata, boka en 30-minuters intro direkt.',
     'contact.cal.link':       'Boka via Cal.com →',
