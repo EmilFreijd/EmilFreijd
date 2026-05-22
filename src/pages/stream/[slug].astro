@@ -1,12 +1,12 @@
 ---
-import WorkDetail from '@/components/pages/WorkDetail.astro';
+import StreamDetail from '@/components/pages/StreamDetail.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('work', e => !e.data.draft);
+  const entries = await getCollection('stream', e => !e.data.draft);
   return entries.map(entry => ({ params: { slug: entry.slug }, props: { entry } }));
 }
 
 const { entry } = Astro.props;
 ---
-<WorkDetail lang="sv" entry={entry} />
+<StreamDetail lang="en" entry={entry} />
