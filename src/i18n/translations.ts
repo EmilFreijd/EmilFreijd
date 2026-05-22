@@ -196,7 +196,7 @@ export const ui = {
     'work.empty.sub': 'Skriver ihop 2–3 flaggskeppsprojekt. Kom tillbaka snart.',
 
     // CTA strip (home)
-    'cta.heading': 'Låt oss koppla upp.',
+    'cta.heading': 'Låt oss connecta.',
     'cta.desc':    'Öppen för samtal — om teknik, ledarskap eller vad du håller på att bygga.',
     'cta.primary': 'LinkedIn',
     'cta.ghost':   'Kontakta mig',
