@@ -10,6 +10,7 @@ const stream = defineCollection({
     timeless:    z.boolean().default(false),
     featured:    z.boolean().default(false),
     draft:       z.boolean().default(false),
+    lang:        z.enum(['en', 'sv']).default('en'),
     sector:      z.enum(['public-sector', 'defence', 'enterprise', 'personal', 'other']).optional(),
     metrics:     z.array(z.object({ value: z.string(), label: z.string() })).optional(),
     tags:        z.array(z.string()).optional(),

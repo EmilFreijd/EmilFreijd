@@ -8,11 +8,19 @@ const { lang } = Astro.props;
 const t    = useTranslations(lang);
 const base = import.meta.env.BASE_URL;
 
-const featured = (await getCollection('stream', e => e.data.featured && !e.data.draft))
+const allStream   = await getCollection('stream', e => !e.data.draft);
+const enStream    = allStream.filter(e => e.data.lang !== 'sv');
+
+const featured = enStream
+  .filter(e => e.data.featured)
+  .map(e => {
+    const sv = allStream.find(s => s.slug === `${e.slug}-sv`);
+    return lang === 'sv' && sv ? { ...sv, slug: e.slug } : e;
+  })
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
-const allPublished = await getCollection('stream', e => !e.data.draft && e.data.kind === 'case');
+const allPublished = enStream.filter(e => e.data.kind === 'case');
 const yearsInIT = new Date().getFullYear() - 2017;
 
 const kindLabel: Record<string, string> = {

@@ -7,8 +7,15 @@ interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const items = (await getCollection('stream', e => !e.data.draft))
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const allStream = await getCollection('stream', e => !e.data.draft);
+const enItems   = allStream.filter(e => e.data.lang !== 'sv');
+const items = (lang === 'sv'
+  ? enItems.map(e => {
+      const sv = allStream.find(s => s.slug === `${e.slug}-sv`);
+      return sv ? { ...sv, slug: e.slug } : e;
+    })
+  : enItems
+).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
 const kindLabel: Record<string, string> = {
   case:    t('stream.kind.case'),
