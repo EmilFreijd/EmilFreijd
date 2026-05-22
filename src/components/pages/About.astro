@@ -9,7 +9,7 @@ const t = useTranslations(lang);
 
 const sv = lang === 'sv';
 const yearsInIT = new Date().getFullYear() - 2018;
-const allCases = await getCollection('stream', e => !e.data.draft && e.data.kind === 'case');
+const allCases = await getCollection('stream', e => !e.data.draft && e.data.kind === 'case' && e.data.lang !== 'sv');
 
 const traits = sv ? [
   { title: 'Systemtänkande',           desc: 'Ser helheter och beroenden snabbt. Förstår vad som faktiskt driver ett problem snarare än vad som syns på ytan.' },
