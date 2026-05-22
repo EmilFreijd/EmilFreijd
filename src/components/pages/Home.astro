@@ -8,12 +8,19 @@ const { lang } = Astro.props;
 const t    = useTranslations(lang);
 const base = import.meta.env.BASE_URL;
 
-const featured = (await getCollection('work', e => e.data.featured && !e.data.draft))
-  .sort((a, b) => b.data.year - a.data.year)
+const featured = (await getCollection('stream', e => e.data.featured && !e.data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
-const allPublished = await getCollection('work', e => !e.data.draft);
+const allPublished = await getCollection('stream', e => !e.data.draft && e.data.kind === 'case');
 const yearsInIT = new Date().getFullYear() - 2017;
+
+const kindLabel: Record<string, string> = {
+  case:    'Case',
+  project: lang === 'sv' ? 'Projekt' : 'Project',
+  essay:   lang === 'sv' ? 'Text' : 'Essay',
+  update:  lang === 'sv' ? 'Uppdatering' : 'Update',
+};
 ---
 <BaseLayout lang={lang}>
 
@@ -36,7 +43,7 @@ const yearsInIT = new Date().getFullYear() - 2017;
         <a href="https://www.linkedin.com/in/emilfreijd" target="_blank" rel="noopener" class="btn btn-primary">
           {t('hero.cta.primary')}
         </a>
-        <a href={getPath(lang, 'work')} class="btn btn-ghost">{t('hero.cta.secondary')}</a>
+        <a href={getPath(lang, 'stream')} class="btn btn-ghost">{t('hero.cta.secondary')}</a>
       </div>
     </div>
     <div class="hero-scroll">
@@ -158,10 +165,10 @@ const yearsInIT = new Date().getFullYear() - 2017;
       {featured.length > 0 ? (
         <div class="work-grid">
           {featured.map(e => (
-            <a href={getPath(lang, `work/${e.slug}`)} class="work-card" data-reveal>
+            <a href={getPath(lang, `stream/${e.slug}`)} class="work-card" data-reveal>
               <div class="work-card-header">
-                <span class="work-tag">{e.data.sector.replace('-', ' ')}</span>
-                <span class="work-year">{e.data.year}</span>
+                <span class="work-tag">{e.data.sector ? e.data.sector.replaceAll('-', ' ') : kindLabel[e.data.kind]}</span>
+                <span class="work-year">{e.data.date.getFullYear()}</span>
               </div>
               <h3>{e.data.title}</h3>
               <p>{e.data.description}</p>
@@ -182,7 +189,7 @@ const yearsInIT = new Date().getFullYear() - 2017;
       )}
 
       <div class="work-footer">
-        <a href={getPath(lang, 'work')} class="btn btn-ghost">{t('work.viewAll')}</a>
+        <a href={getPath(lang, 'stream')} class="btn btn-ghost">{t('work.viewAll')}</a>
       </div>
     </div>
   </section>

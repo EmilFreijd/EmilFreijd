@@ -6,6 +6,7 @@ export const ui = {
     // Nav
     'nav.about':   'About',
     'nav.work':    'Work',
+    'nav.stream':  'Stream',
     'nav.contact': 'Contact',
     'lang.label':  'Svenska',
 
@@ -52,12 +53,26 @@ export const ui = {
 
     // Work teaser (home)
     'work.label':     'Work',
-    'work.heading':   'Selected case studies',
-    'work.desc':      "Deep dives into programs I've led — challenge, approach, and measurable outcome.",
-    'work.read':      'Read case study →',
-    'work.viewAll':   'View all work →',
-    'work.empty':     'Case studies coming soon.',
-    'work.empty.sub': 'Writing up 2–3 flagship programs. Check back shortly.',
+    'work.heading':   'Selected work.',
+    'work.desc':      'Cases, projects, and essays — the real work.',
+    'work.read':      'Read →',
+    'work.viewAll':   'View all →',
+    'work.empty':     'Nothing published yet.',
+    'work.empty.sub': 'Writing up the first pieces. Check back shortly.',
+
+    // Stream page
+    'stream.label':          'Stream',
+    'stream.heading':        'Everything in one place.',
+    'stream.desc':           'Cases, projects, essays, and notes — a single timeline.',
+    'stream.filter.all':     'All',
+    'stream.filter.timeless':'Timeless',
+    'stream.kind.case':      'Case',
+    'stream.kind.project':   'Project',
+    'stream.kind.essay':     'Essay',
+    'stream.kind.update':    'Update',
+    'stream.read':           'Read →',
+    'stream.empty':          'Nothing published yet.',
+    'stream.back':           '← Stream',
 
     // CTA strip (home)
     'cta.heading': "Let's connect.",
@@ -142,6 +157,7 @@ export const ui = {
     // Nav
     'nav.about':   'Om mig',
     'nav.work':    'Projekt',
+    'nav.stream':  'Flöde',
     'nav.contact': 'Kontakt',
     'lang.label':  'English',
 
@@ -187,13 +203,27 @@ export const ui = {
     'expertise.a.3':      'Miljöer byggda för att utvecklas i, inte bara förvaltas',
 
     // Work teaser (home)
-    'work.label':     'Projekt',
-    'work.heading':   'Utvalda fallstudier',
-    'work.desc':      'Fördjupade genomgångar av program jag lett — utmaning, tillvägagångssätt och mätbart resultat.',
-    'work.read':      'Läs fallstudie →',
-    'work.viewAll':   'Se alla projekt →',
-    'work.empty':     'Fallstudier kommer snart.',
-    'work.empty.sub': 'Skriver ihop 2–3 flaggskeppsprojekt. Kom tillbaka snart.',
+    'work.label':     'Arbeten',
+    'work.heading':   'Utvalda arbeten.',
+    'work.desc':      'Case, projekt och texter — det verkliga arbetet.',
+    'work.read':      'Läs →',
+    'work.viewAll':   'Se allt →',
+    'work.empty':     'Inget publicerat ännu.',
+    'work.empty.sub': 'Skriver ihop de första bidragen. Kom tillbaka snart.',
+
+    // Stream page
+    'stream.label':          'Flöde',
+    'stream.heading':        'Allt på ett ställe.',
+    'stream.desc':           'Case, projekt, texter och anteckningar — en enda tidslinje.',
+    'stream.filter.all':     'Allt',
+    'stream.filter.timeless':'Tidlöst',
+    'stream.kind.case':      'Case',
+    'stream.kind.project':   'Projekt',
+    'stream.kind.essay':     'Text',
+    'stream.kind.update':    'Uppdatering',
+    'stream.read':           'Läs →',
+    'stream.empty':          'Inget publicerat ännu.',
+    'stream.back':           '← Flöde',
 
     // CTA strip (home)
     'cta.heading': 'Låt oss connecta.',
