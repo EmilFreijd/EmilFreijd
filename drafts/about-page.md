@@ -1,8 +1,7 @@
 # About Page — Draft Content
 
-Source: Daedalus (freijd.com). Needs light adaptation before use — the Daedalus versions
-are written inward (reflective/personal site). This site is outward-facing (professional
-portfolio). Tone shift: less "how I experience myself" → more "what this means for you."
+Sajten är en enda, personlig-professionell sajt. About-sidan får ha personlighet.
+Tonen: ärlig, skarp, mänsklig — inte en polerad fasad.
 
 ---
 
@@ -15,15 +14,8 @@ Or as a subheading under "Background & approach":
 
 ---
 
-## Bio intro (adapt from Daedalus About intro)
+## Bio intro
 
-Original:
-> Jag arbetar i miljöer där teknik och organisation behöver hänga ihop — och där förståelse
-> för helheten är en förutsättning för att förändra enskilda delar.
->
-> Det som driver mig är komplexa problem som kräver både systemtänkande och genomförandekraft.
-
-Suggested adaptation for this site:
 > Jag arbetar i miljöer där teknik och organisation måste hänga ihop — och där förståelse
 > för helheten är en förutsättning för att förändra enskilda delar. Det som driver mig är
 > komplexa problem som kräver både systemtänkande och faktisk genomförandekraft.
@@ -31,9 +23,7 @@ Suggested adaptation for this site:
 
 ---
 
-## Six core traits (directly usable, possibly as a skills/approach section)
-
-These are strong. Could display as a grid or simple list under a "How I work" heading.
+## Six core traits (as a "How I work" section)
 
 1. **Systemtänkande** — Ser helheter och beroenden snabbt. Förstår vad som faktiskt driver
    ett problem snarare än vad som syns på ytan.
@@ -55,25 +45,7 @@ These are strong. Could display as a grid or simple list under a "How I work" he
 
 ---
 
-## How I work (bullet form — could replace or extend the skills section)
-
-### Hur jag tänker
-- Systemtänkande och helhetsförståelse
-- Mönsterigenkänning och organisatorisk problemlösning
-- Strategisk orientering och långsiktig riktning
-- Mental uthållighet och förmåga att hålla flera spår levande
-
-### Hur jag arbetar
-- Hög handlingskraft och ansvarstagande
-- Förmåga att hålla i förändring över tid
-- Bra känsla för makt, timing och organisatorisk förankring
-- Byggarinstinkt snarare än ren administrativ läggning
-
----
-
-## Three proof points (from Daedalus site config — very usable)
-
-Could become a "how I approach problems" sub-section on the About page.
+## Three proof points (as a "how I approach problems" sub-section)
 
 **1. Från symptom till struktur**
 Jag börjar med varför problemet uppstår, inte vad som syns på ytan. Det ger lösningar som
@@ -89,8 +61,31 @@ och människors faktiska behov möts.
 
 ---
 
+## Vad jag vill bygga (forward-looking section — personal but professional)
+
+Lockas av verkligt svåra problem och av att bygga något med verklig betydelse.
+Det handlar mindre om att maximera storlek till varje pris och mer om att skapa
+något skarpt, användbart och värdigt min kapacitet.
+
+- Teknisk strategi och systemförändring
+- Komplex leverans- och förändringsledning
+- Plattforms- och arkitekturansvar
+- På sikt en egen praktik byggd på verklig systemförståelse
+
+---
+
+## Vad jag värdesätter (makes it human — keep it brief)
+
+Jag vill inte bara bygga professionellt starka saker. Jag vill också leva på ett sätt som
+går att respektera: med familj, närvaro, riktning och ett vardagsliv som faktiskt känns
+stort. Ambition och närvaro är inte motsatser — de förstärker varandra när man bygger
+rätt saker.
+
+---
+
 ## Notes on what still needs Emil's input
 
 - Real career timeline (roles, org names if ok to use, periods, one key win per role)
 - Certifications (names, issuers, years)
-- Stats: confirm "15+" for team members, or pick a different stat (see NOTES.md)
+- Stats: confirm numbers for team members stat (see NOTES.md)
+
