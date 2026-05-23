@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.0",
+    "@astrojs/sitemap": "^3.7.2",
     "@formspree/ajax": "^1.1.5",
     "astro": "^5.0.0"
   }

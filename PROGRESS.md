@@ -142,8 +142,8 @@ Repo: https://github.com/EmilFreijd/EmilFreijd
 | SE1 | Open Graph + Twitter Card meta tags | ✅ | In BaseLayout |
 | SE2 | JSON-LD Person schema | ✅ | In BaseLayout |
 | SE3 | Canonical URLs | ✅ | In BaseLayout |
-| SE4 | Sitemap.xml + robots.txt | ⬜ | Add `@astrojs/sitemap` integration |
-| SE5 | `hreflang` alternate link tags | ⬜ | Pair EN/SV URLs in BaseLayout `<head>` |
+| SE4 | Sitemap.xml | ✅ | `@astrojs/sitemap` with i18n config — generates `sitemap-index.xml` |
+| SE5 | `hreflang` alternate link tags | ✅ | EN/SV/x-default pairs in BaseLayout `<head>`, computed from `Astro.url.pathname` |
 | SE6 | Open Graph image | ⬜ | 1200×630 PNG at `public/og.png` — controls LinkedIn share preview |
 
 ---
@@ -156,19 +156,30 @@ Repo: https://github.com/EmilFreijd/EmilFreijd
 
 ---
 
-## Content still needing Emil's input
+## Backlog
+
+| # | Item | Priority | Notes |
+|---|------|----------|-------|
+| B1 | Favicon + Apple Touch icon + OG image | High | Favicon: `.ico` + SVG in `public/`. OG: 1200×630 PNG at `public/og.png`. BaseLayout `<head>` already references `/og.png`. |
+| B2 | Daedalus content pipeline | High | Create private `emilfreijd/daedalus` repo, write `publish-en.yml` + `publish-sv.yml` with gate check (both lang files required). See `PIPELINE.md`. |
+| B3 | Active nav link highlight | Medium | `Nav.astro`: compare `Astro.url.pathname` with link path, apply `.active` class + CSS underline. |
+| B4 | Cloudflare Web Analytics | Medium | One script tag in BaseLayout. Free, no cookies, GDPR-safe. |
+| B5 | Now page `/now` | Medium | Draft ready in `drafts/now-page.md`. New Astro page + SV version. |
+| B6 | CV / resume PDF | Low | Add `public/cv.pdf`, uncomment download link in `About.astro`. |
+| B7 | Page transitions (View Transitions API) | Low | One import in BaseLayout: `import { ViewTransitions } from 'astro:transitions'`. |
+| B8 | Spam honeypot on contact form | Low | Hidden `<input name="_gotcha">` in contact form. |
+
+## Content still needed
 
 | # | Item | Status | Notes |
 |---|------|--------|-------|
-| C1 | Career timeline — real roles, orgs, dates, one key win | ⬜ | Edit `timeline` array in `About.astro` |
-| C2 | Certifications list | ⬜ | Edit `certifications` array in `About.astro` |
-| C3 | Case study 1 — real content | ⬜ | `court-system-modernisation.mdx` |
-| C4 | Case study 2 — real content | ⬜ | `defence-programme-delivery.mdx` |
-| C5 | Essays — publish 3 ready drafts | ⬜ | From `drafts/writing-section.md` |
-| C6 | Personal projects — publish 2 ready drafts | ⬜ | From `drafts/personal-projects.md` |
-| C7 | Updates — publish 4 ready items | ⬜ | From `drafts/updates-feed.md` |
-| C8 | CV / resume PDF | ⬜ | Add to `public/cv.pdf` |
-| C9 | Now page content | ⬜ | Draft ready in `drafts/now-page.md` |
+| C1 | 3 essays | ✅ | Published: building-with-friction, direction-in-public, better-inputs |
+| C2 | 2 personal projects | ✅ | Published: accountability-agent, creative-operating-system |
+| C3 | 4 updates | ✅ | Published: update-better-inputs, update-living-feed, update-publish-early, update-what-projects-prove |
+| C4 | Design Thinking lab | ✅ | Published: design-thinking-lab (EN + SV) |
+| C5 | Career case studies (Domstolsverket programs) | ⬜ | The big ones — real program narratives from Emil's work history |
+| C6 | CV / resume PDF | ⬜ | Add to `public/cv.pdf` |
+| C7 | Now page content | ⬜ | Draft in `drafts/now-page.md` |
 
 ---
 
@@ -194,3 +205,12 @@ Repo: https://github.com/EmilFreijd/EmilFreijd
 | 2026-05-22 | Custom domain emilfreijd.se — CNAME, base path, site URL updated |
 | 2026-05-22 | README.md updated with real positioning and links |
 | 2026-05-22 | About page rebuilt: real bio, six traits, three proof points, forward/values sections |
+| 2026-05-22 | Career timeline, certifications, and skills populated with real data from LinkedIn |
+| 2026-05-22 | Bilingual MDX routing: lang frontmatter field, -sv suffix convention, SV fallback |
+| 2026-05-22 | PIPELINE.md added — bilingual publish gate documented |
+| 2026-05-22 | BUG-01/04/05 fixed: page-hero heading, ghost button hover, about-teaser tags |
+| 2026-05-23 | Placeholder cases removed (court-system-modernisation, defence-programme-delivery) |
+| 2026-05-23 | 9 stream entries published: 3 essays, 2 projects, 4 updates (EN + SV each) |
+| 2026-05-23 | Design Thinking lab case published (EN + SV) |
+| 2026-05-23 | Sitemap (`@astrojs/sitemap`) + hreflang EN/SV/x-default added |
+| 2026-05-23 | JSON-LD URL corrected from GitHub Pages to emilfreijd.se |
