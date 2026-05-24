@@ -158,28 +158,7 @@ Repo: https://github.com/EmilFreijd/EmilFreijd
 
 ## Backlog
 
-| # | Item | Priority | Notes |
-|---|------|----------|-------|
-| B1 | Favicon + Apple Touch icon + OG image | High | Favicon: `.ico` + SVG in `public/`. OG: 1200×630 PNG at `public/og.png`. BaseLayout `<head>` already references `/og.png`. |
-| B2 | Daedalus content pipeline | High | Create private `emilfreijd/daedalus` repo, write `publish-en.yml` + `publish-sv.yml` with gate check (both lang files required). See `PIPELINE.md`. |
-| B3 | Active nav link highlight | Medium | `Nav.astro`: compare `Astro.url.pathname` with link path, apply `.active` class + CSS underline. |
-| B4 | Cloudflare Web Analytics | Medium | One script tag in BaseLayout. Free, no cookies, GDPR-safe. |
-| B5 | Now page `/now` | Medium | Draft ready in `drafts/now-page.md`. New Astro page + SV version. |
-| B6 | CV / resume PDF | Low | Add `public/cv.pdf`, uncomment download link in `About.astro`. |
-| B7 | Page transitions (View Transitions API) | Low | One import in BaseLayout: `import { ViewTransitions } from 'astro:transitions'`. |
-| B8 | Spam honeypot on contact form | Low | Hidden `<input name="_gotcha">` in contact form. |
-
-## Content still needed
-
-| # | Item | Status | Notes |
-|---|------|--------|-------|
-| C1 | 3 essays | ✅ | Published: building-with-friction, direction-in-public, better-inputs |
-| C2 | 2 personal projects | ✅ | Published: accountability-agent, creative-operating-system |
-| C3 | 4 updates | ✅ | Published: update-better-inputs, update-living-feed, update-publish-early, update-what-projects-prove |
-| C4 | Design Thinking lab | ✅ | Published: design-thinking-lab (EN + SV) |
-| C5 | Career case studies (Domstolsverket programs) | ⬜ | The big ones — real program narratives from Emil's work history |
-| C6 | CV / resume PDF | ⬜ | Add to `public/cv.pdf` |
-| C7 | Now page content | ⬜ | Draft in `drafts/now-page.md` |
+Tracked as GitHub Issues: https://github.com/EmilFreijd/EmilFreijd/issues
 
 ---
 
