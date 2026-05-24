@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="6" fill="#0f0f1a"/>
+  <rect width="32" height="32" rx="6" fill="none" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.25"/>
+  <text
+    x="16"
+    y="21.5"
+    font-family="Inter, system-ui, -apple-system, sans-serif"
+    font-size="13"
+    font-weight="700"
+    letter-spacing="0.8"
+    text-anchor="middle"
+    fill="#a78bfa">EF</text>
+</svg>
