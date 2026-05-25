@@ -23,7 +23,7 @@ export const ui = {
     'about.body':              'Senior IT professional with a track record of leading cross-functional teams and managing large-scale programs across public sector and enterprise environments. I operate at the intersection of strategy and execution — where clear thinking, decisive leadership, and structured delivery matter most.',
     'about.link':              'Full background →',
     'about.stat.years':        'Years in IT',
-    'about.stat.projects':     'Published cases',
+    'about.stat.projects':     'Published pieces',
     'about.stat.stakeholders': 'Managed platforms',
     'about.stat.countries':    'Sectors',
 
@@ -83,9 +83,8 @@ export const ui = {
     // About page
     'about.page.label':    'About',
     'about.page.heading':  'Background & approach.',
-    'about.page.intro':    'Senior IT professional operating at the intersection of technology leadership and structured delivery — with experience across public sector and enterprise environments.',
-    'about.story.label':   'The full story',
     'about.page.intro':    'IT leader operating where technology, organisation, and delivery have to fit together. Here\'s the full story.',
+    'about.story.label':   'The full story',
     'about.story.heading': 'Built to understand. Built to change.',
     'about.cta':           'Get in touch →',
     'about.cv.note':       'CV available on request —',
@@ -189,7 +188,7 @@ export const ui = {
     'about.body':              'Senior IT-proffs med dokumenterad erfarenhet av att leda tvärfunktionella team och hantera storskaliga program inom offentlig sektor och näringsliv. Jag verkar i skärningspunkten mellan strategi och genomförande — där tydligt tänkande, beslutsamt ledarskap och strukturerad leverans spelar störst roll.',
     'about.link':              'Full bakgrund →',
     'about.stat.years':        'År inom IT',
-    'about.stat.projects':     'Publicerade case',
+    'about.stat.projects':     'Publicerade inlägg',
     'about.stat.stakeholders': 'Förvaltade plattformar',
     'about.stat.countries':    'Sektorer',
 
@@ -249,9 +248,8 @@ export const ui = {
     // About page
     'about.page.label':    'Om mig',
     'about.page.heading':  'Bakgrund & approach.',
-    'about.page.intro':    'Senior IT-proffs i skärningspunkten mellan teknikledarskap och strukturerad leverans — med erfarenhet från offentlig sektor och företagsmiljöer.',
-    'about.story.label':   'Den fullständiga berättelsen',
     'about.page.intro':    'IT-ledare som arbetar där teknik, organisation och leverans måste hänga ihop. Här är hela berättelsen.',
+    'about.story.label':   'Den fullständiga berättelsen',
     'about.story.heading': 'Bygger för att förstå. Förstår för att förändra.',
     'about.cta':           'Kontakta mig →',
     'about.cv.note':       'CV tillgängligt på förfrågan —',

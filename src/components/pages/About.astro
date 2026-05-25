@@ -9,7 +9,7 @@ const t = useTranslations(lang);
 
 const sv = lang === 'sv';
 const yearsInIT = new Date().getFullYear() - 2018;
-const allCases = await getCollection('stream', e => !e.data.draft && e.data.kind === 'case' && e.data.lang !== 'sv');
+const allEntries = await getCollection('stream', e => !e.data.draft && e.data.lang !== 'sv');
 
 const traits = sv ? [
   { title: 'Systemtänkande',           desc: 'Ser helheter och beroenden snabbt. Förstår vad som faktiskt driver ett problem snarare än vad som syns på ytan.' },
@@ -127,7 +127,6 @@ const certifications = [
   { name: 'CCNA Routing and Switching: Introduction to Networks',         issuer: 'Cisco',                              year: '2017' },
   { name: 'CCNA Routing and Switching: Routing and Switching Essentials', issuer: 'Cisco',                              year: '2018' },
   { name: 'Fundamentals of Business Certificate',                          issuer: 'Smartly (Pedago LLC)',               year: '2020' },
-  { name: 'Python Advanced Certification',                                 issuer: '—',                                  year: '—' },
   {
     name:   sv ? 'ISO/IEC 27001 — kandidatuppsats (publikation)' : 'ISO/IEC 27001 Research Publication',
     issuer: 'Jönköping University · Secify',
@@ -186,7 +185,7 @@ const skills = [
             <span class="bio-stat-label">{t('about.stat.years')}</span>
           </div>
           <div class="bio-stat">
-            <span class="bio-stat-value">{allCases.length > 0 ? allCases.length : '2+'}</span>
+            <span class="bio-stat-value">{allEntries.length}</span>
             <span class="bio-stat-label">{t('about.stat.projects')}</span>
           </div>
           <div class="bio-stat">
