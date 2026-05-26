@@ -84,7 +84,7 @@ export const ui = {
     'about.page.heading':  'Background & approach.',
     'about.page.intro':    'IT leader operating where technology, organisation, and delivery have to fit together. Here\'s the full story.',
     'about.story.label':   'The full story',
-    'about.story.heading': 'Built to understand. Built to change.',
+    'about.story.heading': 'Building to understand. Understanding to change.',
     'about.cta':           'Get in touch →',
     'about.cv.note':       'CV available on request —',
     'about.cv.link':       'get in touch',
