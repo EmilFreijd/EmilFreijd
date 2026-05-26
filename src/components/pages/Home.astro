@@ -20,7 +20,7 @@ const featured = enStream
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
-const allPublished = enStream.filter(e => e.data.kind === 'case');
+const publishedCount = enStream.length;
 const yearsInIT = new Date().getFullYear() - 2017;
 
 const kindLabel: Record<string, string> = {
@@ -84,7 +84,7 @@ const kindLabel: Record<string, string> = {
             <span class="stat-label">{t('about.stat.years')}</span>
           </div>
           <div class="stat-card">
-            <span class="stat-number">{allPublished.length}</span>
+            <span class="stat-number">{publishedCount}</span>
             <span class="stat-label">{t('about.stat.projects')}</span>
           </div>
           <div class="stat-card">
