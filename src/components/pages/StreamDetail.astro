@@ -20,6 +20,32 @@ const kindLabel: Record<string, string> = {
   essay:   t('stream.kind.essay'),
   update:  t('stream.kind.update'),
 };
+
+// Procedural cover image — deterministic from slug
+function seedRand(slug: string, index: number): number {
+  let h = index + 1;
+  for (let i = 0; i < slug.length; i++) {
+    h = Math.imul(h ^ slug.charCodeAt(i), 0x9e3779b9);
+  }
+  h ^= h >>> 16;
+  return (h >>> 0) / 0xffffffff;
+}
+
+const kindRgb: Record<string, string> = {
+  case:    '124,106,247',
+  project: '52,211,153',
+  essay:   '251,146,60',
+  update:  '148,163,184',
+};
+const rgb = kindRgb[kind] || '124,106,247';
+const CW = 800, CH = 260, PAD = 70;
+const nodes = Array.from({ length: 8 }, (_, i) => ({
+  cx: Math.round(seedRand(entry.slug, i * 4)     * (CW - PAD * 2) + PAD),
+  cy: Math.round(seedRand(entry.slug, i * 4 + 1) * (CH - PAD * 2) + PAD),
+  r:  Math.round(seedRand(entry.slug, i * 4 + 2) * 14) + 5,
+  o:  Math.round(seedRand(entry.slug, i * 4 + 3) * 40 + 20),
+}));
+const edges = [[0,1],[1,2],[2,3],[3,4],[0,3],[1,4],[2,5],[4,6],[5,7],[1,6]];
 ---
 <BaseLayout lang={lang} title={`${title} — Emil Freijd`} description={description}>
 
@@ -37,6 +63,43 @@ const kindLabel: Record<string, string> = {
         <div class="case-tags">{tags.map(tag => <span class="tag">{tag}</span>)}</div>
       )}
     </div>
+  </div>
+
+  <div class="post-cover-wrap" aria-hidden="true">
+    <svg class="post-cover-svg" viewBox={`0 0 ${CW} ${CH}`} xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="cfade-l" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0%"   stop-color="var(--surface)" stop-opacity="1"/>
+          <stop offset="18%"  stop-color="var(--surface)" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="cfade-r" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="82%"  stop-color="var(--surface)" stop-opacity="0"/>
+          <stop offset="100%" stop-color="var(--surface)" stop-opacity="1"/>
+        </linearGradient>
+        <linearGradient id="cfade-b" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="50%"  stop-color="var(--surface)" stop-opacity="0"/>
+          <stop offset="100%" stop-color="var(--surface)" stop-opacity="1"/>
+        </linearGradient>
+      </defs>
+      {Array.from({ length: 12 }, (_, x) => (
+        <line x1={x * 73} y1="0" x2={x * 73} y2={CH} stroke={`rgb(${rgb})`} stroke-width="0.5" opacity="0.07"/>
+      ))}
+      {Array.from({ length: 4 }, (_, y) => (
+        <line x1="0" y1={y * 87} x2={CW} y2={y * 87} stroke={`rgb(${rgb})`} stroke-width="0.5" opacity="0.07"/>
+      ))}
+      {edges.map(([a, b]) => (
+        <line x1={nodes[a].cx} y1={nodes[a].cy} x2={nodes[b].cx} y2={nodes[b].cy} stroke={`rgb(${rgb})`} stroke-width="1" opacity="0.18"/>
+      ))}
+      {nodes.map(n => (
+        <circle cx={n.cx} cy={n.cy} r={n.r * 3} fill={`rgba(${rgb},0.05)`}/>
+      ))}
+      {nodes.map(n => (
+        <circle cx={n.cx} cy={n.cy} r={n.r} fill={`rgba(${rgb},${(n.o / 100).toFixed(2)})`}/>
+      ))}
+      <rect width={CW} height={CH} fill="url(#cfade-l)"/>
+      <rect width={CW} height={CH} fill="url(#cfade-r)"/>
+      <rect width={CW} height={CH} fill="url(#cfade-b)"/>
+    </svg>
   </div>
 
   <section class="case-body-section">
@@ -80,7 +143,9 @@ const kindLabel: Record<string, string> = {
 </BaseLayout>
 
 <style>
-  .case-hero { background: var(--surface); border-bottom: 1px solid var(--border); }
+  .case-hero { background: var(--surface); }
+  .post-cover-wrap { background: var(--surface); border-bottom: 1px solid var(--border); height: 200px; overflow: hidden; }
+  .post-cover-svg  { width: 100%; height: 100%; display: block; }
   .back-link { display: inline-block; font-size: .875rem; color: var(--text-muted); margin-bottom: var(--space-6); transition: color var(--transition); }
   .back-link:hover { color: var(--accent-2); }
   .case-meta { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-5); }

@@ -5,7 +5,6 @@ export const ui = {
   en: {
     // Nav
     'nav.about':   'About',
-    'nav.work':    'Work',
     'nav.stream':  'Stream',
     'nav.contact': 'Contact',
     'lang.label':  'Svenska',
@@ -23,7 +22,7 @@ export const ui = {
     'about.body':              'Senior IT professional with a track record of leading cross-functional teams and managing large-scale programs across public sector and enterprise environments. I operate at the intersection of strategy and execution — where clear thinking, decisive leadership, and structured delivery matter most.',
     'about.link':              'Full background →',
     'about.stat.years':        'Years in IT',
-    'about.stat.projects':     'Published cases',
+    'about.stat.projects':     'Published pieces',
     'about.stat.stakeholders': 'Managed platforms',
     'about.stat.countries':    'Sectors',
 
@@ -52,7 +51,7 @@ export const ui = {
     'expertise.a.3':            'Environments built to develop in, not just maintain',
 
     // Work teaser (home)
-    'work.label':     'Work',
+    'work.label':     'Stream',
     'work.heading':   'Selected work.',
     'work.desc':      'Cases, projects, and essays — the real work.',
     'work.read':      'Read →',
@@ -83,9 +82,8 @@ export const ui = {
     // About page
     'about.page.label':    'About',
     'about.page.heading':  'Background & approach.',
-    'about.page.intro':    'Senior IT professional operating at the intersection of technology leadership and structured delivery — with experience across public sector and enterprise environments.',
-    'about.story.label':   'The full story',
     'about.page.intro':    'IT leader operating where technology, organisation, and delivery have to fit together. Here\'s the full story.',
+    'about.story.label':   'The full story',
     'about.story.heading': 'Built to understand. Built to change.',
     'about.cta':           'Get in touch →',
     'about.cv.note':       'CV available on request —',
@@ -154,7 +152,7 @@ export const ui = {
 
     // Footer
     'footer.about':   'About',
-    'footer.work':    'Work',
+    'footer.work':    'Stream',
     'footer.contact': 'Contact',
 
     // 404
@@ -171,7 +169,6 @@ export const ui = {
   sv: {
     // Nav
     'nav.about':   'Om mig',
-    'nav.work':    'Projekt',
     'nav.stream':  'Flöde',
     'nav.contact': 'Kontakt',
     'lang.label':  'English',
@@ -189,7 +186,7 @@ export const ui = {
     'about.body':              'Senior IT-proffs med dokumenterad erfarenhet av att leda tvärfunktionella team och hantera storskaliga program inom offentlig sektor och näringsliv. Jag verkar i skärningspunkten mellan strategi och genomförande — där tydligt tänkande, beslutsamt ledarskap och strukturerad leverans spelar störst roll.',
     'about.link':              'Full bakgrund →',
     'about.stat.years':        'År inom IT',
-    'about.stat.projects':     'Publicerade case',
+    'about.stat.projects':     'Publicerade inlägg',
     'about.stat.stakeholders': 'Förvaltade plattformar',
     'about.stat.countries':    'Sektorer',
 
@@ -218,7 +215,7 @@ export const ui = {
     'expertise.a.3':      'Miljöer byggda för att utvecklas i, inte bara förvaltas',
 
     // Work teaser (home)
-    'work.label':     'Arbeten',
+    'work.label':     'Flöde',
     'work.heading':   'Utvalda arbeten.',
     'work.desc':      'Case, projekt och texter — det verkliga arbetet.',
     'work.read':      'Läs →',
@@ -249,9 +246,8 @@ export const ui = {
     // About page
     'about.page.label':    'Om mig',
     'about.page.heading':  'Bakgrund & approach.',
-    'about.page.intro':    'Senior IT-proffs i skärningspunkten mellan teknikledarskap och strukturerad leverans — med erfarenhet från offentlig sektor och företagsmiljöer.',
-    'about.story.label':   'Den fullständiga berättelsen',
     'about.page.intro':    'IT-ledare som arbetar där teknik, organisation och leverans måste hänga ihop. Här är hela berättelsen.',
+    'about.story.label':   'Den fullständiga berättelsen',
     'about.story.heading': 'Bygger för att förstå. Förstår för att förändra.',
     'about.cta':           'Kontakta mig →',
     'about.cv.note':       'CV tillgängligt på förfrågan —',
@@ -294,7 +290,7 @@ export const ui = {
 
     // Contact page
     'contact.label':          'Kontakt',
-    'contact.heading':        'Låt oss koppla upp.',
+    'contact.heading':        'Låt oss connecta.',
     'contact.desc':           'Öppen för samtal om IT-ledarskap, programleverans, rådgivningsuppdrag och intressanta problem i branschen.',
     'contact.form.heading':   'Skicka ett meddelande',
     'contact.form.sub':       'Jag svarar inom ett par dagar.',
@@ -320,7 +316,7 @@ export const ui = {
 
     // Footer
     'footer.about':   'Om mig',
-    'footer.work':    'Projekt',
+    'footer.work':    'Flöde',
     'footer.contact': 'Kontakt',
 
     // 404
