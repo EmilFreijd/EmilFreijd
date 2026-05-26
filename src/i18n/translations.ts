@@ -5,7 +5,6 @@ export const ui = {
   en: {
     // Nav
     'nav.about':   'About',
-    'nav.work':    'Work',
     'nav.stream':  'Stream',
     'nav.contact': 'Contact',
     'lang.label':  'Svenska',
@@ -52,7 +51,7 @@ export const ui = {
     'expertise.a.3':            'Environments built to develop in, not just maintain',
 
     // Work teaser (home)
-    'work.label':     'Work',
+    'work.label':     'Stream',
     'work.heading':   'Selected work.',
     'work.desc':      'Cases, projects, and essays — the real work.',
     'work.read':      'Read →',
@@ -153,7 +152,7 @@ export const ui = {
 
     // Footer
     'footer.about':   'About',
-    'footer.work':    'Work',
+    'footer.work':    'Stream',
     'footer.contact': 'Contact',
 
     // 404
@@ -170,7 +169,6 @@ export const ui = {
   sv: {
     // Nav
     'nav.about':   'Om mig',
-    'nav.work':    'Projekt',
     'nav.stream':  'Flöde',
     'nav.contact': 'Kontakt',
     'lang.label':  'English',
@@ -217,7 +215,7 @@ export const ui = {
     'expertise.a.3':      'Miljöer byggda för att utvecklas i, inte bara förvaltas',
 
     // Work teaser (home)
-    'work.label':     'Arbeten',
+    'work.label':     'Flöde',
     'work.heading':   'Utvalda arbeten.',
     'work.desc':      'Case, projekt och texter — det verkliga arbetet.',
     'work.read':      'Läs →',
@@ -292,7 +290,7 @@ export const ui = {
 
     // Contact page
     'contact.label':          'Kontakt',
-    'contact.heading':        'Låt oss koppla upp.',
+    'contact.heading':        'Låt oss connecta.',
     'contact.desc':           'Öppen för samtal om IT-ledarskap, programleverans, rådgivningsuppdrag och intressanta problem i branschen.',
     'contact.form.heading':   'Skicka ett meddelande',
     'contact.form.sub':       'Jag svarar inom ett par dagar.',
@@ -318,7 +316,7 @@ export const ui = {
 
     // Footer
     'footer.about':   'Om mig',
-    'footer.work':    'Projekt',
+    'footer.work':    'Flöde',
     'footer.contact': 'Kontakt',
 
     // 404
