@@ -48,7 +48,7 @@ const kindLabel: Record<string, string> = {
       <p class="hero-title">{t('hero.title')}</p>
       <p class="hero-sub">{t('hero.subtitle')}</p>
       <div class="hero-cta">
-        <a href="https://www.linkedin.com/in/emilfreijd" target="_blank" rel="noopener" class="btn btn-primary">
+        <a href="https://www.linkedin.com/in/emilfreijd" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
           {t('hero.cta.primary')}
         </a>
         <a href={getPath(lang, 'stream')} class="btn btn-ghost">{t('hero.cta.secondary')}</a>
@@ -180,11 +180,13 @@ const kindLabel: Record<string, string> = {
               </div>
               <h3>{e.data.title}</h3>
               <p>{e.data.description}</p>
-              <div class="work-metrics">
-                {e.data.metrics.slice(0, 2).map(m => (
-                  <span class="metric"><strong>{m.value}</strong> {m.label}</span>
-                ))}
-              </div>
+              {e.data.metrics && e.data.metrics.length > 0 && (
+                <div class="work-metrics">
+                  {e.data.metrics.slice(0, 2).map(m => (
+                    <span class="metric"><strong>{m.value}</strong> {m.label}</span>
+                  ))}
+                </div>
+              )}
               <span class="work-cta">{t('work.read')}</span>
             </a>
           ))}
@@ -211,7 +213,7 @@ const kindLabel: Record<string, string> = {
           <p>{t('cta.desc')}</p>
         </div>
         <div class="cta-actions">
-          <a href="https://www.linkedin.com/in/emilfreijd" target="_blank" rel="noopener" class="btn btn-primary">{t('cta.primary')}</a>
+          <a href="https://www.linkedin.com/in/emilfreijd" target="_blank" rel="noopener noreferrer" class="btn btn-primary">{t('cta.primary')}</a>
           <a href={getPath(lang, 'contact')} class="btn btn-ghost">{t('cta.ghost')}</a>
         </div>
       </div>
