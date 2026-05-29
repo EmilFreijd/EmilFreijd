@@ -59,3 +59,8 @@ Issues: https://github.com/EmilFreijd/EmilFreijd/issues
 | 2026-05-24 | SVG favicon — EF monogram, dark theme |
 | 2026-05-24 | Backlog moved to GitHub Issues (#3–#15) |
 | 2026-05-24 | Stale tracking files removed (BUGS.md, NOTES.md, Smartly Certificate.jpeg) |
+| 2026-05-25 | Security-first policy added — CLAUDE.md + SECURITY.md |
+| 2026-05-25 | Dependabot configured for npm and GitHub Actions |
+| 2026-05-26 | Draft stream entries moved to GitHub Issues (#17–#24) — stream reduced to one published piece (`design-thinking-lab`) pending bilingual completion |
+| 2026-05-28 | Bug fixes: LinkedIn URL, duplicate i18n key, removed fake case count, Python cert placeholder; tab title, featured flag, stats, procedural post covers |
+| 2026-05-29 | GitHub Actions pinned to commit SHAs (security policy compliance) |
