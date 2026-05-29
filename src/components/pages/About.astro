@@ -8,7 +8,7 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const sv = lang === 'sv';
-const yearsInIT = new Date().getFullYear() - 2018;
+const yearsInIT = new Date().getFullYear() - 2017;
 const allEntries = await getCollection('stream', e => !e.data.draft && e.data.lang !== 'sv');
 
 const traits = sv ? [
