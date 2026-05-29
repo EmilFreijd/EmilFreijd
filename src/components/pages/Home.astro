@@ -6,7 +6,6 @@ import { getCollection } from 'astro:content';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t    = useTranslations(lang);
-const base = import.meta.env.BASE_URL;
 
 const allStream   = await getCollection('stream', e => !e.data.draft);
 const enStream    = allStream.filter(e => e.data.lang !== 'sv');

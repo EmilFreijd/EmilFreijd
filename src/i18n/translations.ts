@@ -110,16 +110,7 @@ export const ui = {
     'about.teaser.tag5':      'Agile / SAFe',
     'about.teaser.tag6':      'Change Management',
 
-    // Work index
-    'work.index.label':   'Work',
-    'work.index.heading': 'Case studies.',
-    'work.index.desc':    "A selection of programs I've led — written up with the context, approach, and measurable outcomes. No vanity metrics, no vague language.",
-    'work.list.empty':    'Case studies coming soon.',
-    'work.list.empty.sub':"Writing up 2–3 flagship programs. Each covers the challenge, approach, and measurable outcomes.",
-    'work.list.empty.cta':'Get in touch in the meantime →',
-
     // Case study
-    'case.back':         '← All case studies',
     'case.glance':       'At a glance',
     'case.cta.heading':  'Want to work together?',
     'case.cta.desc':     "If this kind of work is relevant to what you're building, let's talk.",
@@ -139,7 +130,6 @@ export const ui = {
     'contact.form.message':   'Message',
     'contact.form.message.ph':"Tell me what's on your mind...",
     'contact.form.submit':    'Send message',
-    'contact.form.sending':   'Sending…',
     'contact.form.success':   "✓ Message sent — I'll be in touch shortly.",
     'contact.li.heading':     'LinkedIn',
     'contact.li.desc':        'Best for professional introductions and networking.',
@@ -274,16 +264,7 @@ export const ui = {
     'about.teaser.tag5':      'Agile / SAFe',
     'about.teaser.tag6':      'Förändringsledning',
 
-    // Work index
-    'work.index.label':    'Projekt',
-    'work.index.heading':  'Fallstudier.',
-    'work.index.desc':     'Ett urval av program jag lett — med kontext, tillvägagångssätt och mätbara resultat. Inga tomma ord, inga fina siffror utan sammanhang.',
-    'work.list.empty':     'Fallstudier kommer snart.',
-    'work.list.empty.sub': 'Skriver ihop 2–3 flaggskeppsprojekt. Varje studie täcker utmaning, tillvägagångssätt och resultat.',
-    'work.list.empty.cta': 'Kontakta mig under tiden →',
-
     // Case study
-    'case.back':        '← Alla fallstudier',
     'case.glance':      'I korthet',
     'case.cta.heading': 'Vill du samarbeta?',
     'case.cta.desc':    'Om det här arbetet är relevant för vad du bygger, låt oss prata.',
@@ -303,7 +284,6 @@ export const ui = {
     'contact.form.message':   'Meddelande',
     'contact.form.message.ph':'Berätta vad du har på hjärtat...',
     'contact.form.submit':    'Skicka meddelande',
-    'contact.form.sending':   'Skickar…',
     'contact.form.success':   '✓ Meddelande skickat — jag hör av mig snart.',
     'contact.li.heading':     'LinkedIn',
     'contact.li.desc':        'Bäst för professionella presentationer och nätverkande.',
