@@ -1,22 +1,23 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { useTranslations, getPath } from '@/i18n/utils';
 
-const base = import.meta.env.BASE_URL;
+// GitHub Pages serves a single 404.html for all unmatched routes, so this page
+// is English-first with a pointer to the Swedish home page.
+const t = useTranslations('en');
 ---
-<BaseLayout title="404 — Emil Freijd" description="Page not found.">
+<BaseLayout title={`${t('404.label')} — Emil Freijd`} description={t('404.body')}>
   <section class="not-found">
     <div class="container">
-      <p class="section-label">404</p>
-      <h1>Page not found.</h1>
-      <p class="not-found-body">
-        The page you're looking for doesn't exist or has been moved.
-      </p>
+      <p class="section-label">{t('404.label')}</p>
+      <h1>{t('404.heading')}</h1>
+      <p class="not-found-body">{t('404.body')}</p>
       <div class="not-found-actions">
-        <a href={base} class="btn btn-primary">Back to home</a>
-        <a href={`${base}contact`} class="btn btn-ghost">Get in touch</a>
+        <a href={getPath('en', '')} class="btn btn-primary">{t('404.home')}</a>
+        <a href={getPath('en', 'contact')} class="btn btn-ghost">{t('404.contact')}</a>
       </div>
       <p class="not-found-sv">
-        Letar du på svenska? <a href={`${base}sv`}>Gå till startsidan →</a>
+        Letar du på svenska? <a href={getPath('sv', '')}>Gå till startsidan →</a>
       </p>
     </div>
   </section>
