@@ -2,7 +2,8 @@
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
 import '@/styles/global.css';
-import type { Lang } from '@/i18n/utils';
+import { useTranslations, type Lang } from '@/i18n/utils';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title?:       string;
@@ -15,6 +16,8 @@ const {
   description = 'IT leader delivering platforms, teams, and technology programs in high-trust environments.',
   lang        = 'en',
 } = Astro.props;
+
+const t = useTranslations(lang);
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImage      = new URL('/og.png', Astro.site);
@@ -62,8 +65,14 @@ const svURL     = new URL(svPath, Astro.site);
       }
     </script>
 
+    <!-- Smooth client-side page transitions -->
+    <ClientRouter />
+
     <!-- Favicon -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#080810" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f4f5fb" media="(prefers-color-scheme: light)" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -80,25 +89,31 @@ const svURL     = new URL(svPath, Astro.site);
     </script>
   </head>
   <body>
+    <a href="#main-content" class="skip-link">{t('a11y.skip')}</a>
     <Nav lang={lang} />
-    <slot />
+    <main id="main-content">
+      <slot />
+    </main>
     <Footer lang={lang} />
 
     <script>
-      // Scroll reveal
-      const observer = new IntersectionObserver(
-        entries => entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('revealed');
-            observer.unobserve(e.target);
-          }
-        }),
-        { threshold: 0.12 }
-      );
-      document.querySelectorAll('[data-reveal]').forEach((el, i) => {
-        (el as HTMLElement).style.transitionDelay = `${(i % 3) * 0.1}s`;
-        observer.observe(el);
-      });
+      // Scroll reveal — re-run after every (view-transition) navigation
+      function initReveal() {
+        const observer = new IntersectionObserver(
+          entries => entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add('revealed');
+              observer.unobserve(e.target);
+            }
+          }),
+          { threshold: 0.12 }
+        );
+        document.querySelectorAll('[data-reveal]').forEach((el, i) => {
+          (el as HTMLElement).style.transitionDelay = `${(i % 3) * 0.1}s`;
+          observer.observe(el);
+        });
+      }
+      document.addEventListener('astro:page-load', initReveal);
     </script>
   </body>
 </html>

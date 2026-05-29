@@ -203,6 +203,24 @@ h3 { font-size: 1.15rem; font-weight: 700; }
   line-height: 1.7;
 }
 
+/* ─── Skip-to-content link (accessibility) ─────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -200%;
+  left: var(--space-4);
+  z-index: 9999;
+  padding: 0.6rem 1.1rem;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  transition: top 0.15s ease;
+}
+.skip-link:focus {
+  top: var(--space-4);
+}
+
 /* ─── Reveal animation ─────────────────────────────────────────── */
 [data-reveal] {
   opacity: 0;

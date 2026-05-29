@@ -8,6 +8,7 @@ export const ui = {
     'nav.stream':  'Stream',
     'nav.contact': 'Contact',
     'lang.label':  'Svenska',
+    'a11y.skip':   'Skip to content',
 
     // Hero
     'hero.badge':         'Open for the right conversation',
@@ -162,6 +163,7 @@ export const ui = {
     'nav.stream':  'Flöde',
     'nav.contact': 'Kontakt',
     'lang.label':  'English',
+    'a11y.skip':   'Hoppa till innehåll',
 
     // Hero
     'hero.badge':         'Öppen för rätt samtal',

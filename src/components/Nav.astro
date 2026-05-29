@@ -13,13 +13,23 @@ const links = [
 
 const otherLangHref  = getOtherLangPath(Astro.url);
 const otherLangLabel = t('lang.label');
+
+const home = getPath(lang, '');
+const path = Astro.url.pathname;
+const isActive = (href: string) => (href === home ? path === href : path.startsWith(href));
 ---
 <nav id="nav">
   <div class="nav-inner">
     <a href={getPath(lang, '')} class="nav-logo">EF</a>
 
     <ul class="nav-links">
-      {links.map(l => <li><a href={l.href}>{l.label}</a></li>)}
+      {links.map(l => (
+        <li>
+          <a href={l.href} class:list={{ active: isActive(l.href) }} aria-current={isActive(l.href) ? 'page' : undefined}>
+            {l.label}
+          </a>
+        </li>
+      ))}
     </ul>
 
     <div class="nav-controls">
@@ -44,7 +54,7 @@ const otherLangLabel = t('lang.label');
   </div>
 
   <div class="nav-mobile">
-    {links.map(l => <a href={l.href}>{l.label}</a>)}
+    {links.map(l => <a href={l.href} class:list={{ active: isActive(l.href) }} aria-current={isActive(l.href) ? 'page' : undefined}>{l.label}</a>)}
     <div class="nav-mobile-meta">
       <a href={otherLangHref} class="nav-lang">{otherLangLabel}</a>
     </div>
@@ -88,12 +98,22 @@ const otherLangLabel = t('lang.label');
     justify-content: center;
   }
   .nav-links a {
+    position: relative;
     font-size: 0.9rem;
     font-weight: 500;
     color: var(--text-dim);
     transition: color var(--transition);
   }
   .nav-links a:hover { color: var(--text); }
+  .nav-links a.active { color: var(--text); }
+  .nav-links a.active::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -7px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
 
   .nav-controls {
     display: flex;
@@ -167,6 +187,7 @@ const otherLangLabel = t('lang.label');
     transition: color var(--transition);
   }
   .nav-mobile a:hover { color: var(--text); }
+  .nav-mobile a.active { color: var(--accent-2); }
   .nav-mobile-meta {
     padding-top: var(--space-3);
     border-top: 1px solid var(--border);
@@ -180,24 +201,41 @@ const otherLangLabel = t('lang.label');
 </style>
 
 <script>
-  const nav    = document.getElementById('nav')!;
-  const burger = nav.querySelector('.nav-burger') as HTMLButtonElement;
-  const drawer = nav.querySelector('.nav-mobile') as HTMLElement;
-  const toggle = document.getElementById('theme-toggle') as HTMLButtonElement;
+  // Per-page elements are swapped on view-transition navigation, so (re)bind
+  // their listeners on every astro:page-load. The window-level scroll listener
+  // is bound once and survives navigations.
+  function initNav() {
+    const nav    = document.getElementById('nav');
+    if (!nav) return;
+    const burger = nav.querySelector('.nav-burger') as HTMLButtonElement | null;
+    const drawer = nav.querySelector('.nav-mobile') as HTMLElement | null;
+    const toggle = document.getElementById('theme-toggle') as HTMLButtonElement | null;
 
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
+    burger?.addEventListener('click', () => {
+      const open = drawer!.classList.toggle('open');
+      burger.setAttribute('aria-expanded', String(open));
+    });
 
-  burger.addEventListener('click', () => {
-    const open = drawer.classList.toggle('open');
-    burger.setAttribute('aria-expanded', String(open));
+    toggle?.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next    = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  }
+
+  function updateNavScroll() {
+    const nav = document.getElementById('nav');
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 40);
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    initNav();
+    updateNavScroll();
   });
 
-  toggle.addEventListener('click', () => {
-    const current = document.documentElement.getAttribute('data-theme');
-    const next    = current === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
-  });
+  if (!(window as any).__navScrollBound) {
+    window.addEventListener('scroll', updateNavScroll, { passive: true });
+    (window as any).__navScrollBound = true;
+  }
 </script>
