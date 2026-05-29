@@ -6,8 +6,8 @@ export async function getStaticPaths() {
   const all = await getCollection('stream', e => !e.data.draft);
   const enEntries = all.filter(e => e.data.lang !== 'sv');
   return enEntries.map(entry => {
-    const svEntry = all.find(e => e.slug === `${entry.slug}-sv`);
-    return { params: { slug: entry.slug }, props: { entry: svEntry ?? entry } };
+    const svEntry = all.find(e => e.id === `${entry.id}-sv`);
+    return { params: { slug: entry.id }, props: { entry: svEntry ?? entry } };
   });
 }
 

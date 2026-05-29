@@ -40,10 +40,10 @@ const kindRgb: Record<string, string> = {
 const rgb = kindRgb[kind] || '124,106,247';
 const CW = 800, CH = 260, PAD = 70;
 const nodes = Array.from({ length: 8 }, (_, i) => ({
-  cx: Math.round(seedRand(entry.slug, i * 4)     * (CW - PAD * 2) + PAD),
-  cy: Math.round(seedRand(entry.slug, i * 4 + 1) * (CH - PAD * 2) + PAD),
-  r:  Math.round(seedRand(entry.slug, i * 4 + 2) * 14) + 5,
-  o:  Math.round(seedRand(entry.slug, i * 4 + 3) * 40 + 20),
+  cx: Math.round(seedRand(entry.id, i * 4)     * (CW - PAD * 2) + PAD),
+  cy: Math.round(seedRand(entry.id, i * 4 + 1) * (CH - PAD * 2) + PAD),
+  r:  Math.round(seedRand(entry.id, i * 4 + 2) * 14) + 5,
+  o:  Math.round(seedRand(entry.id, i * 4 + 3) * 40 + 20),
 }));
 const edges = [[0,1],[1,2],[2,3],[3,4],[0,3],[1,4],[2,5],[4,6],[5,7],[1,6]];
 ---

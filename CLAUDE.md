@@ -1,6 +1,6 @@
 # Claude Code — Project Instructions
 
-This is the personal portfolio site of Emil Freijd, built with Astro 5 and deployed to GitHub Pages at emilfreijd.se.
+This is the personal portfolio site of Emil Freijd, built with Astro 6 and deployed to GitHub Pages at emilfreijd.se.
 
 ---
 
@@ -24,8 +24,8 @@ If a proposed solution has a security trade-off, state it explicitly before impl
 
 ## Architecture
 
-- **Framework:** Astro 5 (static output, no server-side rendering)
-- **Content:** MDX content collections in `src/content/stream/`
+- **Framework:** Astro 6 (static output, no server-side rendering)
+- **Content:** MDX content collection (glob loader) in `src/content/stream/`, configured in `src/content.config.ts`
 - **i18n:** EN default at `/`, SV at `/sv/` — all strings via `src/i18n/translations.ts`
 - **Styles:** Single CSS file `src/styles/global.css` with CSS custom properties
 - **Deployment:** GitHub Actions → GitHub Pages → custom domain emilfreijd.se

@@ -11,8 +11,8 @@ const allStream = await getCollection('stream', e => !e.data.draft);
 const enItems   = allStream.filter(e => e.data.lang !== 'sv');
 const items = (lang === 'sv'
   ? enItems.map(e => {
-      const sv = allStream.find(s => s.slug === `${e.slug}-sv`);
-      return sv ? { ...sv, slug: e.slug } : e;
+      const sv = allStream.find(s => s.id === `${e.id}-sv`);
+      return sv ? { ...sv, id: e.id } : e;
     })
   : enItems
 ).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
@@ -54,11 +54,11 @@ const kindLabel: Record<string, string> = {
                     <span class="item-sector">{item.data.sector.replaceAll('-', ' ')}</span>
                   )}
                 </div>
-                <a href={getPath(lang, `stream/${item.slug}`)} class="item-title">
+                <a href={getPath(lang, `stream/${item.id}`)} class="item-title">
                   {item.data.title}
                 </a>
                 <p class="item-desc">{item.data.description}</p>
-                <a href={getPath(lang, `stream/${item.slug}`)} class="item-cta">
+                <a href={getPath(lang, `stream/${item.id}`)} class="item-cta">
                   {t('stream.read')}
                 </a>
               </div>

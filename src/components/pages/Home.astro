@@ -14,8 +14,8 @@ const enStream    = allStream.filter(e => e.data.lang !== 'sv');
 const featured = enStream
   .filter(e => e.data.featured)
   .map(e => {
-    const sv = allStream.find(s => s.slug === `${e.slug}-sv`);
-    return lang === 'sv' && sv ? { ...sv, slug: e.slug } : e;
+    const sv = allStream.find(s => s.id === `${e.id}-sv`);
+    return lang === 'sv' && sv ? { ...sv, id: e.id } : e;
   })
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
@@ -173,7 +173,7 @@ const kindLabel: Record<string, string> = {
       {featured.length > 0 ? (
         <div class="work-grid">
           {featured.map(e => (
-            <a href={getPath(lang, `stream/${e.slug}`)} class="work-card" data-reveal>
+            <a href={getPath(lang, `stream/${e.id}`)} class="work-card" data-reveal>
               <div class="work-card-header">
                 <span class="work-tag">{e.data.sector ? e.data.sector.replaceAll('-', ' ') : kindLabel[e.data.kind]}</span>
                 <span class="work-year">{e.data.date.getFullYear()}</span>
