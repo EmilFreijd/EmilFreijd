@@ -10,7 +10,7 @@ Issues: https://github.com/EmilFreijd/EmilFreijd/issues
 
 | Decision | Choice | Rationale |
 |----------|--------|-----------|
-| Build system | Astro 5 (static) | Component-based, MDX for case studies, fast GitHub Pages builds |
+| Build system | Astro 6 (static) | Component-based, MDX for case studies, fast GitHub Pages builds |
 | Structure | Hybrid — home + sub-pages | Scrollable home, dedicated /about /stream /contact |
 | Languages | EN (default) + SV at /sv/ | Astro i18n routing, prefixDefaultLocale: false |
 | Primary CTA | LinkedIn | Audience is clients/peers, not recruiters |
@@ -64,3 +64,6 @@ Issues: https://github.com/EmilFreijd/EmilFreijd/issues
 | 2026-05-26 | Draft stream entries moved to GitHub Issues (#17–#24) — stream reduced to one published piece (`design-thinking-lab`) pending bilingual completion |
 | 2026-05-28 | Bug fixes: LinkedIn URL, duplicate i18n key, removed fake case count, Python cert placeholder; tab title, featured flag, stats, procedural post covers |
 | 2026-05-29 | GitHub Actions pinned to commit SHAs (security policy compliance) |
+| 2026-05-29 | OG/social share image added (`public/og.png` + generator script) |
+| 2026-05-29 | Bug fixes: optional metrics guard on home cards, years-in-IT baseline aligned to 2017, `rel="noreferrer"` on all external links |
+| 2026-05-29 | Upgraded Astro 5 → 6 (resolves 2 npm audit advisories); migrated content collection to the glob loader (`src/content.config.ts`, `entry.slug` → `entry.id`) |
