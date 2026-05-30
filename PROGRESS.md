@@ -69,3 +69,5 @@ Issues: https://github.com/EmilFreijd/EmilFreijd/issues
 | 2026-05-29 | Upgraded Astro 5 → 6 (resolves 2 npm audit advisories); migrated content collection to the glob loader (`src/content.config.ts`, `entry.slug` → `entry.id`) |
 | 2026-05-29 | Cleanup: localized 404 via i18n keys, removed dead translation keys + unused vars |
 | 2026-05-29 | Quick wins (#3 #5 #9 #10 #14 #15 #27 #30): Apple touch icon, active nav highlight, View Transitions (ClientRouter), spam honeypot, skip-to-content link, theme-color meta, SV contact meta description, aria-hidden on decorative icons |
+| 2026-05-29 | #28 best-effort Swedish 404 (client-side language swap for /sv/ routes) |
+| 2026-05-29 | #13 Lighthouse CI quality gate (≥0.9 perf/a11y/best-practices/SEO) on every deploy; action pinned to SHA |

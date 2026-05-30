@@ -10,17 +10,39 @@ const t = useTranslations('en');
   <section class="not-found">
     <div class="container">
       <p class="section-label">{t('404.label')}</p>
-      <h1>{t('404.heading')}</h1>
-      <p class="not-found-body">{t('404.body')}</p>
+      <h1 id="nf-heading">{t('404.heading')}</h1>
+      <p class="not-found-body" id="nf-body">{t('404.body')}</p>
       <div class="not-found-actions">
-        <a href={getPath('en', '')} class="btn btn-primary">{t('404.home')}</a>
-        <a href={getPath('en', 'contact')} class="btn btn-ghost">{t('404.contact')}</a>
+        <a href={getPath('en', '')} class="btn btn-primary" id="nf-home">{t('404.home')}</a>
+        <a href={getPath('en', 'contact')} class="btn btn-ghost" id="nf-contact">{t('404.contact')}</a>
       </div>
-      <p class="not-found-sv">
+      <p class="not-found-sv" id="nf-switch">
         Letar du på svenska? <a href={getPath('sv', '')}>Gå till startsidan →</a>
       </p>
     </div>
   </section>
+
+  <!--
+    GitHub Pages serves one 404.html for every unmatched route, so this page is
+    built in English. When the missing route is under /sv/, swap the copy to
+    Swedish on the client (best effort — true per-language 404 isn't possible
+    with a single static 404 document).
+  -->
+  <script is:inline>
+    (function () {
+      if (!location.pathname.replace(/^\//, '').startsWith('sv')) return;
+      document.documentElement.lang = 'sv';
+      var set = function (id, text) { var el = document.getElementById(id); if (el) el.textContent = text; };
+      set('nf-heading', 'Sidan hittades inte.');
+      set('nf-body', 'Sidan du letar efter finns inte eller har flyttats.');
+      var home = document.getElementById('nf-home');
+      if (home) { home.textContent = 'Till startsidan'; home.setAttribute('href', '/sv/'); }
+      var contact = document.getElementById('nf-contact');
+      if (contact) { contact.textContent = 'Kontakta mig'; contact.setAttribute('href', '/sv/contact/'); }
+      var sw = document.getElementById('nf-switch');
+      if (sw) sw.innerHTML = 'Looking for English? <a href="/">Go to the homepage →</a>';
+    })();
+  </script>
 </BaseLayout>
 
 <style>
