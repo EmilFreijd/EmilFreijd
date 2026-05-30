@@ -71,4 +71,4 @@ Issues: https://github.com/EmilFreijd/EmilFreijd/issues
 | 2026-05-29 | Quick wins (#3 #5 #9 #10 #14 #15 #27 #30): Apple touch icon, active nav highlight, View Transitions (ClientRouter), spam honeypot, skip-to-content link, theme-color meta, SV contact meta description, aria-hidden on decorative icons |
 | 2026-05-29 | #28 best-effort Swedish 404 (client-side language swap for /sv/ routes) |
 | 2026-05-29 | #13 Lighthouse CI quality gate (≥0.9 perf/a11y/best-practices/SEO) on every deploy; action pinned to SHA |
-| 2026-05-29 | #8 CV: generated privacy-safe `public/cv.pdf` (no address/phone/personal email) + download link; corrected timeline (Norumi 2018–2019, added Telia 2018–2019), added Professional Scrum Master I (2019) and a Languages section (SV native · EN C2 · ES A1) |
+| 2026-05-29 | Strengthened About from source CV (no public PDF, no PII per Emil's choice): added Professional Scrum Master I (2019) + Python Advanced (2020), a Languages section (SV native · EN C2 · ES A1), and an Education section (BSc IT Infrastructure & Network Design, JTH 2017–2020). Career timeline left as-is pending Emil's clarification |
