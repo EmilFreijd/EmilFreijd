@@ -58,13 +58,6 @@ const timeline = sv ? [
     summary: 'Äger och prioriterar verksamhetskritiska digitala plattformar med långsiktig påverkan på organisationens stabilitet. Ansvarar för styrning, arkitekturval, riskhantering och roadmap i komplexa miljöer med höga krav på säkerhet och tillgänglighet.',
   },
   {
-    role:    'Delägare',
-    org:     'Norumi AB',
-    period:  'Januari 2025 – nu',
-    sector:  'IT-rådgivning',
-    summary: 'Medgrundare av initiativ inom strategisk IT-rådgivning och ägarredo digitalisering. Fokus på AI, automation och plattformstänk som värdedrivare för organisationer som vill växa eller konsolidera.',
-  },
-  {
     role:    'Team- & projektledare',
     org:     'Domstolsverket',
     period:  'Maj 2023 – Oktober 2025',
@@ -85,6 +78,20 @@ const timeline = sv ? [
     sector:  'Offentlig sektor',
     summary: 'Drift, felsökning och vidareutveckling av centrala IT-tjänster. Byggde grund inom informationssäkerhet och systemförvaltning i en komplex offentlig organisation.',
   },
+  {
+    role:    'Medgrundare / konsult',
+    org:     'Norumi AB',
+    period:  '2018 – 2019',
+    sector:  'IT-rådgivning',
+    summary: 'Medgrundare av initiativ inom strategisk IT-rådgivning och ägarredo digitalisering. Fokus på AI, automation och plattformstänk för organisationer där IT är en värdedrivare, inte en kostnadsfunktion.',
+  },
+  {
+    role:    'Nätverkstekniker / ingenjör',
+    org:     'Telia Company',
+    period:  '2018 – 2019',
+    sector:  'Telekom',
+    summary: 'Nätverksleverans för internationella företagskunder med höga krav på säkerhet och tillgänglighet.',
+  },
 ] : [
   {
     role:    'Team & Project Manager',
@@ -92,13 +99,6 @@ const timeline = sv ? [
     period:  'October 2025 – Present',
     sector:  'Public sector',
     summary: 'Owns and prioritises mission-critical digital platforms with long-term impact on organisational stability. Responsible for governance, architecture decisions, risk management, and roadmap in high-security environments.',
-  },
-  {
-    role:    'Co-owner',
-    org:     'Norumi AB',
-    period:  'January 2025 – Present',
-    sector:  'IT Advisory',
-    summary: 'Co-founded a strategic IT advisory initiative focused on AI, automation, and platform thinking — helping organisations treat IT as a value driver, not a cost centre.',
   },
   {
     role:    'Team & Project Manager',
@@ -121,11 +121,26 @@ const timeline = sv ? [
     sector:  'Public sector',
     summary: 'Operations, troubleshooting, and development of core IT services. Built foundations in information security and system management within a large public-sector organisation.',
   },
+  {
+    role:    'Co-founder / Consultant',
+    org:     'Norumi AB',
+    period:  '2018 – 2019',
+    sector:  'IT Advisory',
+    summary: 'Co-founded a strategic IT advisory initiative focused on AI, automation, and platform thinking — helping organisations treat IT as a value driver, not a cost centre.',
+  },
+  {
+    role:    'Network Technician / Engineer',
+    org:     'Telia Company',
+    period:  '2018 – 2019',
+    sector:  'Telecom',
+    summary: 'Network delivery for international enterprise customers with strict security and uptime requirements.',
+  },
 ];
 
 const certifications = [
   { name: 'CCNA Routing and Switching: Introduction to Networks',         issuer: 'Cisco',                              year: '2017' },
   { name: 'CCNA Routing and Switching: Routing and Switching Essentials', issuer: 'Cisco',                              year: '2018' },
+  { name: 'Professional Scrum Master I (PSM I)',                           issuer: 'Scrum.org',                          year: '2019' },
   { name: 'Fundamentals of Business Certificate',                          issuer: 'Smartly (Pedago LLC)',               year: '2020' },
   {
     name:   sv ? 'ISO/IEC 27001 — kandidatuppsats (publikation)' : 'ISO/IEC 27001 Research Publication',
@@ -146,6 +161,12 @@ const skills = [
   {
     group: sv ? 'Teknik & plattformar' : 'Technology & Platforms',
     items: ['AI / ML Solutions', 'Enterprise Architecture', 'Cloud & On-Premises', 'Platform Operations', 'Systems Integration'],
+  },
+  {
+    group: sv ? 'Språk' : 'Languages',
+    items: sv
+      ? ['Svenska — modersmål', 'Engelska — C2', 'Spanska — A1']
+      : ['Swedish — native', 'English — C2', 'Spanish — A1'],
   },
 ];
 ---
@@ -193,6 +214,7 @@ const skills = [
             <span class="bio-stat-label">{t('about.stat.countries')}</span>
           </div>
           <div class="bio-cv">
+            <a class="bio-cv-download" href="/cv.pdf" download>{t('about.cv.download')}</a>
             <p class="bio-cv-note">{t('about.cv.note')} <a href={getPath(lang, 'contact')}>{t('about.cv.link')}</a>.</p>
           </div>
         </div>
@@ -341,6 +363,23 @@ const skills = [
   .bio-stat-value { font-size: 2rem; font-weight: 800; color: var(--accent-2); letter-spacing: -.03em; }
   .bio-stat-label { font-size: .85rem; color: var(--text-muted); }
   .bio-cv-note { font-size: .85rem; color: var(--text-muted); }
+  .bio-cv-download {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--accent-2);
+    padding: .55rem 1rem;
+    border: 1px solid rgba(124,106,247,.3);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-4);
+    transition: all var(--transition);
+  }
+  .bio-cv-download:hover {
+    background: var(--accent-glow);
+    transform: translateY(-2px);
+  }
   .bio-cv-note a { color: var(--accent-2); border-bottom: 1px solid rgba(167,139,250,.3); }
 
   /* Traits */
