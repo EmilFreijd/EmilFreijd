@@ -11,6 +11,6 @@
     "@astrojs/mdx": "^6.0.1",
     "@astrojs/sitemap": "^3.7.3",
     "@formspree/ajax": "^1.1.5",
-    "astro": "^6.4.2"
+    "astro": "^6.4.3"
   }
 }
