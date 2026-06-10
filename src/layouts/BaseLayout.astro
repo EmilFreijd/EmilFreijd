@@ -2,25 +2,41 @@
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
 import '@/styles/global.css';
+import '@fontsource/inter/300.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/inter/800.css';
 import { useTranslations, type Lang } from '@/i18n/utils';
+import { SITE_NAME, LINKEDIN_URL } from '@/consts';
 import { ClientRouter } from 'astro:transitions';
 
 interface Props {
-  title?:       string;
-  description?: string;
-  lang?:        Lang;
+  title?:         string;
+  description?:   string;
+  lang?:          Lang;
+  ogType?:        'website' | 'article';
+  publishedDate?: Date;
+  /** Point the canonical elsewhere (e.g. SV fallback pages → the EN original). */
+  canonicalPath?: string;
 }
 
 const {
   title       = 'Emil Freijd — IT Leader',
   description = 'IT leader delivering platforms, teams, and technology programs in high-trust environments.',
   lang        = 'en',
+  ogType      = 'website',
+  publishedDate,
+  canonicalPath,
 } = Astro.props;
 
 const t = useTranslations(lang);
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const canonicalURL = new URL(canonicalPath ?? Astro.url.pathname, Astro.site);
 const ogImage      = new URL('/og.png', Astro.site);
+const ogLocale     = lang === 'sv' ? 'sv_SE' : 'en_GB';
+const ogLocaleAlt  = lang === 'sv' ? 'en_GB' : 'sv_SE';
 
 const isSwedish = lang === 'sv';
 const enPath    = isSwedish ? Astro.url.pathname.replace(/^\/sv/, '') || '/' : Astro.url.pathname;
@@ -41,11 +57,18 @@ const svURL     = new URL(svPath, Astro.site);
     <link rel="alternate" hreflang="x-default" href={enURL} />
 
     <!-- Open Graph -->
-    <meta property="og:type"        content="website" />
+    <meta property="og:type"        content={ogType} />
+    <meta property="og:site_name"   content={SITE_NAME} />
+    <meta property="og:locale"      content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogLocaleAlt} />
     <meta property="og:url"         content={canonicalURL} />
     <meta property="og:title"       content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image"       content={ogImage} />
+    <meta property="og:image:alt"   content="Emil Freijd — IT Leader" />
+    {ogType === 'article' && publishedDate && (
+      <meta property="article:published_time" content={publishedDate.toISOString()} />
+    )}
 
     <!-- Twitter Card -->
     <meta name="twitter:card"        content="summary_large_image" />
@@ -54,16 +77,31 @@ const svURL     = new URL(svPath, Astro.site);
     <meta name="twitter:image"       content={ogImage} />
 
     <!-- JSON-LD -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Emil Freijd",
-        "jobTitle": "IT Leader",
-        "url": "https://emilfreijd.se",
-        "sameAs": ["https://www.linkedin.com/in/emilfreijd"]
-      }
-    </script>
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Emil Freijd',
+      jobTitle: 'IT Leader',
+      url: 'https://emilfreijd.se',
+      sameAs: [LINKEDIN_URL],
+    })} />
+    {ogType === 'article' && publishedDate && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: title,
+        description: description,
+        datePublished: publishedDate.toISOString(),
+        inLanguage: lang,
+        author: { '@type': 'Person', name: 'Emil Freijd', url: 'https://emilfreijd.se' },
+        mainEntityOfPage: canonicalURL.toString(),
+        image: ogImage.toString(),
+      })} />
+    )}
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="Emil Freijd — Stream" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Emil Freijd — Flöde" href="/sv/rss.xml" />
 
     <!-- Smooth client-side page transitions -->
     <ClientRouter />
@@ -74,17 +112,19 @@ const svURL     = new URL(svPath, Astro.site);
     <meta name="theme-color" content="#080810" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#f4f5fb" media="(prefers-color-scheme: light)" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-
-    <!-- Theme: runs before paint to prevent flash -->
+    <!-- Theme: runs before paint to prevent flash. Also marks JS as available
+         so CSS only hides reveal-animated content when it can be revealed.
+         Re-applied after every view-transition swap, which replaces <html> attributes. -->
     <script is:inline>
       (function () {
-        const stored = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.setAttribute('data-theme', stored || (prefersDark ? 'dark' : 'light'));
+        function applyTheme() {
+          const stored = localStorage.getItem('theme');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.setAttribute('data-theme', stored || (prefersDark ? 'dark' : 'light'));
+          document.documentElement.classList.add('js');
+        }
+        applyTheme();
+        document.addEventListener('astro:after-swap', applyTheme);
       })();
     </script>
   </head>
