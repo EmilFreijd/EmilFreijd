@@ -14,6 +14,7 @@ const year = new Date().getFullYear();
         <a href={getPath(lang, 'about')}>{t('footer.about')}</a>
         <a href={getPath(lang, 'stream')}>{t('footer.work')}</a>
         <a href={getPath(lang, 'contact')}>{t('footer.contact')}</a>
+        <a href={lang === 'sv' ? '/sv/rss.xml' : '/rss.xml'}>{t('footer.rss')}</a>
       </nav>
       <p class="footer-copy">© {year} Emil Freijd</p>
     </div>

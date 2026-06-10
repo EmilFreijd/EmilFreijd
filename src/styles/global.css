@@ -222,14 +222,41 @@ h3 { font-size: 1.15rem; font-weight: 700; }
 }
 
 /* ─── Reveal animation ─────────────────────────────────────────── */
-[data-reveal] {
+/* Only hide reveal-animated content when JS is available to reveal it
+   (the .js class is set by an inline script in BaseLayout). */
+.js [data-reveal] {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
-[data-reveal].revealed {
+.js [data-reveal].revealed {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ─── Reduced motion ───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Show reveal-animated content immediately */
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Disable view-transition animations */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }
 
 /* ─── Responsive ───────────────────────────────────────────────── */

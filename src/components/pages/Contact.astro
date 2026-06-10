@@ -1,14 +1,11 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { useTranslations, getPath, type Lang } from '@/i18n/utils';
+import { useTranslations, type Lang } from '@/i18n/utils';
+import { FORMSPREE_ID, FORMSPREE_URL, LINKEDIN_URL, CAL_URL } from '@/consts';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-
-const FORMSPREE_ID  = 'xwvzoqrk';
-const FORMSPREE_URL = `https://formspree.io/f/${FORMSPREE_ID}`;
-const CAL_LINK      = 'https://cal.com/emilfreijd';
 ---
 <BaseLayout
   lang={lang}
@@ -22,6 +19,14 @@ const CAL_LINK      = 'https://cal.com/emilfreijd';
       <p class="section-label">{t('contact.label')}</p>
       <h1>{t('contact.heading')}</h1>
       <p>{t('contact.desc')}</p>
+      <div class="contact-fit">
+        <p class="contact-fit-heading">{t('contact.fit.heading')}</p>
+        <ul>
+          <li>{t('contact.fit.1')}</li>
+          <li>{t('contact.fit.2')}</li>
+          <li>{t('contact.fit.3')}</li>
+        </ul>
+      </div>
     </div>
   </div>
 
@@ -41,7 +46,7 @@ const CAL_LINK      = 'https://cal.com/emilfreijd';
           <!-- Global form-level errors (e.g. rate limit, server error) -->
           <div data-fs-error class="form-error-global"></div>
 
-          <form action={FORMSPREE_URL} method="POST" class="contact-form" id="contact-form">
+          <form action={FORMSPREE_URL} method="POST" class="contact-form" id="contact-form" data-form-id={FORMSPREE_ID}>
             <!-- Honeypot: hidden from users; Formspree discards submissions where this is filled -->
             <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none" />
             <div class="form-row">
@@ -78,13 +83,14 @@ const CAL_LINK      = 'https://cal.com/emilfreijd';
               {t('contact.form.submit')}
             </button>
           </form>
+          <p class="contact-closing">{t('contact.closing')}</p>
         </div>
 
         <div class="contact-sidebar">
           <div class="contact-method">
             <h3>{t('contact.li.heading')}</h3>
             <p>{t('contact.li.desc')}</p>
-            <a href="https://www.linkedin.com/in/emilfreijd" target="_blank" rel="noopener noreferrer" class="contact-link">
+            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="contact-link">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
               {t('contact.li.link')}
             </a>
@@ -92,7 +98,7 @@ const CAL_LINK      = 'https://cal.com/emilfreijd';
           <div class="contact-method">
             <h3>{t('contact.cal.heading')}</h3>
             <p>{t('contact.cal.desc')}</p>
-            <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" class="contact-link">
+            <a href={CAL_URL} target="_blank" rel="noopener noreferrer" class="contact-link">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
               {t('contact.cal.link')}
             </a>
@@ -108,6 +114,12 @@ const CAL_LINK      = 'https://cal.com/emilfreijd';
 </BaseLayout>
 
 <style>
+  .contact-fit { margin-top:var(--space-6);max-width:560px; }
+  .contact-fit-heading { font-size:.85rem;font-weight:600;color:var(--text-dim);margin-bottom:var(--space-3); }
+  .contact-fit ul { list-style:none;display:flex;flex-direction:column;gap:var(--space-2); }
+  .contact-fit li { font-size:.9rem;color:var(--text-muted);line-height:1.6;padding-left:1.1rem;position:relative; }
+  .contact-fit li::before { content:'→';position:absolute;left:0;color:var(--accent);font-size:.75rem; }
+  .contact-closing { font-size:.85rem;color:var(--text-muted);margin-top:var(--space-6);font-style:italic; }
   .contact-section { background:var(--bg); }
   .contact-grid { display:grid;grid-template-columns:1fr 320px;gap:var(--space-16);align-items:start; }
   .contact-form-wrap h2 { margin-bottom:var(--space-2); }
@@ -144,5 +156,13 @@ const CAL_LINK      = 'https://cal.com/emilfreijd';
 
 <script>
   import { initForm } from '@formspree/ajax';
-  initForm({ formElement: '#contact-form', formId: 'xwvzoqrk', useDefaultStyles: false });
+
+  // Re-init on every (view-transition) navigation — the form element is
+  // replaced on each swap, and module scripts only run once per session.
+  // The form id lives in src/consts.ts and reaches the client via data-form-id.
+  document.addEventListener('astro:page-load', () => {
+    const form = document.getElementById('contact-form');
+    if (!form?.dataset.formId) return;
+    initForm({ formElement: '#contact-form', formId: form.dataset.formId, useDefaultStyles: false });
+  });
 </script>

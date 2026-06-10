@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { useTranslations, getPath, type Lang } from '@/i18n/utils';
+import { useTranslations, getPath, localizeStream, type Lang } from '@/i18n/utils';
 import { getCollection } from 'astro:content';
 
 interface Props { lang: Lang; }
@@ -8,14 +8,8 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const allStream = await getCollection('stream', e => !e.data.draft);
-const enItems   = allStream.filter(e => e.data.lang !== 'sv');
-const items = (lang === 'sv'
-  ? enItems.map(e => {
-      const sv = allStream.find(s => s.id === `${e.id}-sv`);
-      return sv ? { ...sv, id: e.id } : e;
-    })
-  : enItems
-).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const items = localizeStream(allStream, lang)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
 const kindLabel: Record<string, string> = {
   case:    t('stream.kind.case'),
@@ -24,7 +18,7 @@ const kindLabel: Record<string, string> = {
   update:  t('stream.kind.update'),
 };
 ---
-<BaseLayout lang={lang}>
+<BaseLayout lang={lang} title={t('meta.stream.title')} description={t('meta.stream.desc')}>
 
   <section class="stream-hero page-hero">
     <div class="container">
@@ -32,8 +26,8 @@ const kindLabel: Record<string, string> = {
       <h1>{t('stream.heading')}</h1>
       <p class="stream-intro">{t('stream.desc')}</p>
       <div class="filter-bar">
-        <button class="filter-btn active" data-filter="all">{t('stream.filter.all')}</button>
-        <button class="filter-btn" data-filter="timeless">{t('stream.filter.timeless')}</button>
+        <button class="filter-btn active" data-filter="all" aria-pressed="true">{t('stream.filter.all')}</button>
+        <button class="filter-btn" data-filter="timeless" aria-pressed="false">{t('stream.filter.timeless')}</button>
       </div>
     </div>
   </section>
@@ -74,19 +68,28 @@ const kindLabel: Record<string, string> = {
 </BaseLayout>
 
 <script>
-  const btns  = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
-  const items = document.querySelectorAll<HTMLLIElement>('.stream-item');
+  // Re-bind on every (view-transition) navigation — module scripts only run
+  // once per session, so listeners must be re-attached to the swapped DOM.
+  function initStreamFilter() {
+    const btns  = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+    const items = document.querySelectorAll<HTMLLIElement>('.stream-item');
 
-  btns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      btns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      items.forEach(item => {
-        item.hidden = filter === 'timeless' && item.dataset.timeless !== 'true';
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btns.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
+        const filter = btn.dataset.filter;
+        items.forEach(item => {
+          item.hidden = filter === 'timeless' && item.dataset.timeless !== 'true';
+        });
       });
     });
-  });
+  }
+  document.addEventListener('astro:page-load', initStreamFilter);
 </script>
 
 <style>

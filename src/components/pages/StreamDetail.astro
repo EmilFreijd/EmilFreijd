@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { useTranslations, getPath, type Lang } from '@/i18n/utils';
+import { LINKEDIN_URL } from '@/consts';
 import type { CollectionEntry } from 'astro:content';
 import { render } from 'astro:content';
 
@@ -13,6 +14,12 @@ const t = useTranslations(lang);
 const { Content } = await render(entry);
 const { title, description, sector, date, kind, tags, metrics } = entry.data;
 const hasSidebar = metrics && metrics.length > 0;
+
+// SV route serving the EN original because no SV file exists yet:
+// mark entry content with the correct lang and canonicalise to the EN URL.
+const isFallback     = entry.data.lang !== lang;
+const contentLang    = isFallback ? entry.data.lang : undefined;
+const canonicalPath  = isFallback ? `/stream/${entry.id}/` : undefined;
 
 const kindLabel: Record<string, string> = {
   case:    t('stream.kind.case'),
@@ -47,18 +54,26 @@ const nodes = Array.from({ length: 8 }, (_, i) => ({
 }));
 const edges = [[0,1],[1,2],[2,3],[3,4],[0,3],[1,4],[2,5],[4,6],[5,7],[1,6]];
 ---
-<BaseLayout lang={lang} title={`${title} — Emil Freijd`} description={description}>
+<BaseLayout
+  lang={lang}
+  title={`${title} — Emil Freijd`}
+  description={description}
+  ogType="article"
+  publishedDate={date}
+  canonicalPath={canonicalPath}
+>
 
   <div class="case-hero page-hero">
     <div class="container">
       <a href={getPath(lang, 'stream')} class="back-link">{t('stream.back')}</a>
+      {isFallback && <p class="fallback-note">{t('stream.fallback')}</p>}
       <div class="case-meta">
         <span class="kind-tag" data-kind={kind}>{kindLabel[kind]}</span>
         {sector && <span class="case-sector">{sector.replaceAll('-', ' ')}</span>}
         <span class="case-year">{date.getFullYear()}</span>
       </div>
-      <h1>{title}</h1>
-      <p class="case-desc">{description}</p>
+      <h1 lang={contentLang}>{title}</h1>
+      <p class="case-desc" lang={contentLang}>{description}</p>
       {tags && tags.length > 0 && (
         <div class="case-tags">{tags.map(tag => <span class="tag">{tag}</span>)}</div>
       )}
@@ -118,7 +133,7 @@ const edges = [[0,1],[1,2],[2,3],[3,4],[0,3],[1,4],[2,5],[4,6],[5,7],[1,6]];
             </div>
           </aside>
         )}
-        <article class="case-content prose">
+        <article class="case-content prose" lang={contentLang}>
           <Content />
         </article>
       </div>
@@ -133,7 +148,7 @@ const edges = [[0,1],[1,2],[2,3],[3,4],[0,3],[1,4],[2,5],[4,6],[5,7],[1,6]];
           <p>{t('case.cta.desc')}</p>
         </div>
         <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-          <a href="https://www.linkedin.com/in/emilfreijd" target="_blank" rel="noopener noreferrer" class="btn btn-primary">LinkedIn</a>
+          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="btn btn-primary">LinkedIn</a>
           <a href={getPath(lang, 'contact')} class="btn btn-ghost">{t('cta.ghost')}</a>
         </div>
       </div>
@@ -147,6 +162,12 @@ const edges = [[0,1],[1,2],[2,3],[3,4],[0,3],[1,4],[2,5],[4,6],[5,7],[1,6]];
   .post-cover-wrap { background: var(--surface); border-bottom: 1px solid var(--border); height: 200px; overflow: hidden; }
   .post-cover-svg  { width: 100%; height: 100%; display: block; }
   .back-link { display: inline-block; font-size: .875rem; color: var(--text-muted); margin-bottom: var(--space-6); transition: color var(--transition); }
+  .fallback-note {
+    font-size: .85rem; color: var(--text-muted);
+    background: var(--surface-2); border: 1px solid var(--border); border-left: 3px solid var(--accent);
+    border-radius: var(--radius-sm); padding: var(--space-3) var(--space-4);
+    margin-bottom: var(--space-6); max-width: 680px;
+  }
   .back-link:hover { color: var(--accent-2); }
   .case-meta { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-5); }
 
