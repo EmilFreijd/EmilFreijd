@@ -5,12 +5,24 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "overrides": {
+    "yaml-language-server": {
+      "yaml": "^2.8.3"
+    }
   },
   "dependencies": {
     "@astrojs/mdx": "^6.0.1",
+    "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.3",
+    "@fontsource/inter": "^5.2.8",
     "@formspree/ajax": "^1.1.5",
     "astro": "^6.4.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "typescript": "^6.0.3"
   }
 }

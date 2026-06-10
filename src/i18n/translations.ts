@@ -9,6 +9,14 @@ export const ui = {
     'nav.contact': 'Contact',
     'lang.label':  'Svenska',
     'a11y.skip':   'Skip to content',
+    'a11y.theme':  'Toggle theme',
+    'a11y.menu':   'Toggle menu',
+
+    // Page metadata
+    'meta.home.title':   'Emil Freijd — IT Leader',
+    'meta.home.desc':    'IT leader delivering platforms, teams, and technology programs in high-trust environments.',
+    'meta.stream.title': 'Stream — Emil Freijd',
+    'meta.stream.desc':  'Cases, projects, essays, and notes from Emil Freijd — a single timeline.',
 
     // Hero
     'hero.badge':         'Open for the right conversation',
@@ -73,6 +81,7 @@ export const ui = {
     'stream.read':           'Read →',
     'stream.empty':          'Nothing published yet.',
     'stream.back':           '← Stream',
+    'stream.fallback':       'This piece is not yet available in Swedish — showing the English original.',
 
     // CTA strip (home)
     'cta.heading': "Let's connect.",
@@ -147,6 +156,7 @@ export const ui = {
     'footer.about':   'About',
     'footer.work':    'Stream',
     'footer.contact': 'Contact',
+    'footer.rss':     'RSS',
 
     // 404
     '404.label':   '404',
@@ -166,6 +176,14 @@ export const ui = {
     'nav.contact': 'Kontakt',
     'lang.label':  'English',
     'a11y.skip':   'Hoppa till innehåll',
+    'a11y.theme':  'Växla tema',
+    'a11y.menu':   'Växla meny',
+
+    // Page metadata
+    'meta.home.title':   'Emil Freijd — IT-ledare',
+    'meta.home.desc':    'IT-ledare som levererar plattformar, team och teknikprogram i miljöer med höga förtroendekrav.',
+    'meta.stream.title': 'Flöde — Emil Freijd',
+    'meta.stream.desc':  'Case, projekt, texter och anteckningar från Emil Freijd — en enda tidslinje.',
 
     // Hero
     'hero.badge':         'Öppen för rätt samtal',
@@ -230,6 +248,7 @@ export const ui = {
     'stream.read':           'Läs →',
     'stream.empty':          'Inget publicerat ännu.',
     'stream.back':           '← Flöde',
+    'stream.fallback':       'Det här inlägget finns ännu inte på svenska — visar det engelska originalet.',
 
     // CTA strip (home)
     'cta.heading': 'Låt oss connecta.',
@@ -304,6 +323,7 @@ export const ui = {
     'footer.about':   'Om mig',
     'footer.work':    'Flöde',
     'footer.contact': 'Kontakt',
+    'footer.rss':     'RSS',
 
     // 404
     '404.label':   '404',
