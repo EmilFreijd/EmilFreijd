@@ -79,3 +79,4 @@ Issues: https://github.com/EmilFreijd/EmilFreijd/issues
 | 2026-06-10 | SEO (#52 #53 #54): robots.txt with sitemap reference, RSS feeds at /rss.xml + /sv/rss.xml, `og:site_name`/`og:locale`/`og:image:alt`, `og:type=article` + `article:published_time` + Article JSON-LD on stream entries |
 | 2026-06-10 | CI (#50 #51): PR validation workflow (`astro check` + build), Lighthouse moved to pre-deploy gate against built dist (was post-deploy on prod); added @astrojs/check + typescript devDeps; npm `overrides` pins transitive `yaml` ≥2.8.3 (GHSA-48c2-rrv3-qjmp, dev-only) |
 | 2026-06-10 | Refactor #57: shared `src/consts.ts` (LinkedIn/Cal/Formspree IDs, years-in-IT base) + `localizeStream()` helper replacing triplicated SV-counterpart lookup |
+| 2026-06-10 | #12 sharper contact copy applied: problem-first heading, "right fit" bullets, body text and closing note from the issue (SV) + drafted EN equivalents — EN wording pending Emil's review |
