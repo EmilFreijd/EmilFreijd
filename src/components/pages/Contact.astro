@@ -19,6 +19,14 @@ const t = useTranslations(lang);
       <p class="section-label">{t('contact.label')}</p>
       <h1>{t('contact.heading')}</h1>
       <p>{t('contact.desc')}</p>
+      <div class="contact-fit">
+        <p class="contact-fit-heading">{t('contact.fit.heading')}</p>
+        <ul>
+          <li>{t('contact.fit.1')}</li>
+          <li>{t('contact.fit.2')}</li>
+          <li>{t('contact.fit.3')}</li>
+        </ul>
+      </div>
     </div>
   </div>
 
@@ -75,6 +83,7 @@ const t = useTranslations(lang);
               {t('contact.form.submit')}
             </button>
           </form>
+          <p class="contact-closing">{t('contact.closing')}</p>
         </div>
 
         <div class="contact-sidebar">
@@ -105,6 +114,12 @@ const t = useTranslations(lang);
 </BaseLayout>
 
 <style>
+  .contact-fit { margin-top:var(--space-6);max-width:560px; }
+  .contact-fit-heading { font-size:.85rem;font-weight:600;color:var(--text-dim);margin-bottom:var(--space-3); }
+  .contact-fit ul { list-style:none;display:flex;flex-direction:column;gap:var(--space-2); }
+  .contact-fit li { font-size:.9rem;color:var(--text-muted);line-height:1.6;padding-left:1.1rem;position:relative; }
+  .contact-fit li::before { content:'→';position:absolute;left:0;color:var(--accent);font-size:.75rem; }
+  .contact-closing { font-size:.85rem;color:var(--text-muted);margin-top:var(--space-6);font-style:italic; }
   .contact-section { background:var(--bg); }
   .contact-grid { display:grid;grid-template-columns:1fr 320px;gap:var(--space-16);align-items:start; }
   .contact-form-wrap h2 { margin-bottom:var(--space-2); }

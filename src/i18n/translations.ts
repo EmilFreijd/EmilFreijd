@@ -129,8 +129,13 @@ export const ui = {
 
     // Contact page
     'contact.label':          'Contact',
-    'contact.heading':        "Let's connect.",
-    'contact.desc':           'Open to conversations about IT leadership, program delivery, advisory opportunities, and interesting problems in the industry.',
+    'contact.heading':        'Got a problem that needs both systems understanding and the ability to execute? Then we should talk.',
+    'contact.desc':           "It might be a project that has stalled, a change that needs structure, or a technical decision that takes more than a technician. Write, tell me where you stand, and we'll take it from there.",
+    'contact.fit.heading':    'This is a fit if:',
+    'contact.fit.1':          "You have a technical or organisational problem that more meetings won't solve.",
+    'contact.fit.2':          'You need someone who can move between strategy and hands-on building.',
+    'contact.fit.3':          'You want a straight conversation about what it actually takes.',
+    'contact.closing':        'No agendas. Just a conversation about things worth thinking about.',
     'contact.form.heading':   'Send a message',
     'contact.form.sub':       "I'll respond within a couple of days.",
     'contact.form.name':      'Name',
@@ -296,8 +301,13 @@ export const ui = {
 
     // Contact page
     'contact.label':          'Kontakt',
-    'contact.heading':        'Låt oss connecta.',
-    'contact.desc':           'Öppen för samtal om IT-ledarskap, programleverans, rådgivningsuppdrag och intressanta problem i branschen.',
+    'contact.heading':        'Har du ett problem som kräver både systemförståelse och genomförandekraft? Då borde vi prata.',
+    'contact.desc':           'Det kan vara ett projekt som kört fast, en förändring som behöver struktur eller ett tekniskt beslut som kräver mer än en tekniker. Skriv, berätta var du står, så tar vi det därifrån.',
+    'contact.fit.heading':    'Det här passar för dig om:',
+    'contact.fit.1':          'Du har ett tekniskt eller organisatoriskt problem som inte löser sig med fler möten.',
+    'contact.fit.2':          'Du behöver någon som kan röra sig mellan strategi och konkret byggande.',
+    'contact.fit.3':          'Du vill ha ett rakt samtal om vad som faktiskt krävs.',
+    'contact.closing':        'Inga agendor. Bara ett samtal om saker som är värda att tänka på.',
     'contact.form.heading':   'Skicka ett meddelande',
     'contact.form.sub':       'Jag svarar inom ett par dagar.',
     'contact.form.name':      'Namn',
