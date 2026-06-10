@@ -9,6 +9,14 @@ export const ui = {
     'nav.contact': 'Contact',
     'lang.label':  'Svenska',
     'a11y.skip':   'Skip to content',
+    'a11y.theme':  'Toggle theme',
+    'a11y.menu':   'Toggle menu',
+
+    // Page metadata
+    'meta.home.title':   'Emil Freijd — IT Leader',
+    'meta.home.desc':    'IT leader delivering platforms, teams, and technology programs in high-trust environments.',
+    'meta.stream.title': 'Stream — Emil Freijd',
+    'meta.stream.desc':  'Cases, projects, essays, and notes from Emil Freijd — a single timeline.',
 
     // Hero
     'hero.badge':         'Open for the right conversation',
@@ -73,6 +81,7 @@ export const ui = {
     'stream.read':           'Read →',
     'stream.empty':          'Nothing published yet.',
     'stream.back':           '← Stream',
+    'stream.fallback':       'This piece is not yet available in Swedish — showing the English original.',
 
     // CTA strip (home)
     'cta.heading': "Let's connect.",
@@ -120,8 +129,13 @@ export const ui = {
 
     // Contact page
     'contact.label':          'Contact',
-    'contact.heading':        "Let's connect.",
-    'contact.desc':           'Open to conversations about IT leadership, program delivery, advisory opportunities, and interesting problems in the industry.',
+    'contact.heading':        'Got a problem that needs both systems understanding and the ability to execute? Then we should talk.',
+    'contact.desc':           "It might be a project that has stalled, a change that needs structure, or a technical decision that takes more than a technician. Write, tell me where you stand, and we'll take it from there.",
+    'contact.fit.heading':    'This is a fit if:',
+    'contact.fit.1':          "You have a technical or organisational problem that more meetings won't solve.",
+    'contact.fit.2':          'You need someone who can move between strategy and hands-on building.',
+    'contact.fit.3':          'You want a straight conversation about what it actually takes.',
+    'contact.closing':        'No agendas. Just a conversation about things worth thinking about.',
     'contact.form.heading':   'Send a message',
     'contact.form.sub':       "I'll respond within a couple of days.",
     'contact.form.name':      'Name',
@@ -147,6 +161,7 @@ export const ui = {
     'footer.about':   'About',
     'footer.work':    'Stream',
     'footer.contact': 'Contact',
+    'footer.rss':     'RSS',
 
     // 404
     '404.label':   '404',
@@ -166,6 +181,14 @@ export const ui = {
     'nav.contact': 'Kontakt',
     'lang.label':  'English',
     'a11y.skip':   'Hoppa till innehåll',
+    'a11y.theme':  'Växla tema',
+    'a11y.menu':   'Växla meny',
+
+    // Page metadata
+    'meta.home.title':   'Emil Freijd — IT-ledare',
+    'meta.home.desc':    'IT-ledare som levererar plattformar, team och teknikprogram i miljöer med höga förtroendekrav.',
+    'meta.stream.title': 'Flöde — Emil Freijd',
+    'meta.stream.desc':  'Case, projekt, texter och anteckningar från Emil Freijd — en enda tidslinje.',
 
     // Hero
     'hero.badge':         'Öppen för rätt samtal',
@@ -230,6 +253,7 @@ export const ui = {
     'stream.read':           'Läs →',
     'stream.empty':          'Inget publicerat ännu.',
     'stream.back':           '← Flöde',
+    'stream.fallback':       'Det här inlägget finns ännu inte på svenska — visar det engelska originalet.',
 
     // CTA strip (home)
     'cta.heading': 'Låt oss connecta.',
@@ -277,8 +301,13 @@ export const ui = {
 
     // Contact page
     'contact.label':          'Kontakt',
-    'contact.heading':        'Låt oss connecta.',
-    'contact.desc':           'Öppen för samtal om IT-ledarskap, programleverans, rådgivningsuppdrag och intressanta problem i branschen.',
+    'contact.heading':        'Har du ett problem som kräver både systemförståelse och genomförandekraft? Då borde vi prata.',
+    'contact.desc':           'Det kan vara ett projekt som kört fast, en förändring som behöver struktur eller ett tekniskt beslut som kräver mer än en tekniker. Skriv, berätta var du står, så tar vi det därifrån.',
+    'contact.fit.heading':    'Det här passar för dig om:',
+    'contact.fit.1':          'Du har ett tekniskt eller organisatoriskt problem som inte löser sig med fler möten.',
+    'contact.fit.2':          'Du behöver någon som kan röra sig mellan strategi och konkret byggande.',
+    'contact.fit.3':          'Du vill ha ett rakt samtal om vad som faktiskt krävs.',
+    'contact.closing':        'Inga agendor. Bara ett samtal om saker som är värda att tänka på.',
     'contact.form.heading':   'Skicka ett meddelande',
     'contact.form.sub':       'Jag svarar inom ett par dagar.',
     'contact.form.name':      'Namn',
@@ -304,6 +333,7 @@ export const ui = {
     'footer.about':   'Om mig',
     'footer.work':    'Flöde',
     'footer.contact': 'Kontakt',
+    'footer.rss':     'RSS',
 
     // 404
     '404.label':   '404',

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { useTranslations, getPath, type Lang } from '@/i18n/utils';
+import { yearsInIT as getYearsInIT } from '@/consts';
 import { getCollection } from 'astro:content';
 
 interface Props { lang: Lang; }
@@ -8,7 +9,7 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const sv = lang === 'sv';
-const yearsInIT = new Date().getFullYear() - 2017;
+const yearsInIT = getYearsInIT();
 const allEntries = await getCollection('stream', e => !e.data.draft && e.data.lang !== 'sv');
 
 const traits = sv ? [

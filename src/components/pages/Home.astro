@@ -1,35 +1,31 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { useTranslations, getPath, type Lang } from '@/i18n/utils';
+import { useTranslations, getPath, localizeStream, type Lang } from '@/i18n/utils';
+import { LINKEDIN_URL, yearsInIT } from '@/consts';
 import { getCollection } from 'astro:content';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t    = useTranslations(lang);
 
-const allStream   = await getCollection('stream', e => !e.data.draft);
-const enStream    = allStream.filter(e => e.data.lang !== 'sv');
+const allStream = await getCollection('stream', e => !e.data.draft);
 
-const featured = enStream
+const featured = localizeStream(allStream, lang)
   .filter(e => e.data.featured)
-  .map(e => {
-    const sv = allStream.find(s => s.id === `${e.id}-sv`);
-    return lang === 'sv' && sv ? { ...sv, id: e.id } : e;
-  })
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
-const publishedCount = enStream.length;
-const yearsInIT = new Date().getFullYear() - 2017;
+const publishedCount = allStream.filter(e => e.data.lang !== 'sv').length;
+const years = yearsInIT();
 
 const kindLabel: Record<string, string> = {
-  case:    'Case',
-  project: lang === 'sv' ? 'Projekt' : 'Project',
-  essay:   lang === 'sv' ? 'Text' : 'Essay',
-  update:  lang === 'sv' ? 'Uppdatering' : 'Update',
+  case:    t('stream.kind.case'),
+  project: t('stream.kind.project'),
+  essay:   t('stream.kind.essay'),
+  update:  t('stream.kind.update'),
 };
 ---
-<BaseLayout lang={lang}>
+<BaseLayout lang={lang} title={t('meta.home.title')} description={t('meta.home.desc')}>
 
   <!-- HERO -->
   <section id="hero">
@@ -47,7 +43,7 @@ const kindLabel: Record<string, string> = {
       <p class="hero-title">{t('hero.title')}</p>
       <p class="hero-sub">{t('hero.subtitle')}</p>
       <div class="hero-cta">
-        <a href="https://www.linkedin.com/in/emilfreijd" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+        <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
           {t('hero.cta.primary')}
         </a>
         <a href={getPath(lang, 'stream')} class="btn btn-ghost">{t('hero.cta.secondary')}</a>
@@ -79,7 +75,7 @@ const kindLabel: Record<string, string> = {
         </div>
         <div class="about-stats">
           <div class="stat-card">
-            <span class="stat-number">{yearsInIT}<span class="stat-plus">+</span></span>
+            <span class="stat-number">{years}<span class="stat-plus">+</span></span>
             <span class="stat-label">{t('about.stat.years')}</span>
           </div>
           <div class="stat-card">
@@ -212,7 +208,7 @@ const kindLabel: Record<string, string> = {
           <p>{t('cta.desc')}</p>
         </div>
         <div class="cta-actions">
-          <a href="https://www.linkedin.com/in/emilfreijd" target="_blank" rel="noopener noreferrer" class="btn btn-primary">{t('cta.primary')}</a>
+          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="btn btn-primary">{t('cta.primary')}</a>
           <a href={getPath(lang, 'contact')} class="btn btn-ghost">{t('cta.ghost')}</a>
         </div>
       </div>
