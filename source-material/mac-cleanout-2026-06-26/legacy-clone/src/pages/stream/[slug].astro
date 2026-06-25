@@ -1,0 +1,12 @@
+---
+import StreamDetail from '@/components/pages/StreamDetail.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('stream', e => !e.data.draft && e.data.lang !== 'sv');
+  return entries.map(entry => ({ params: { slug: entry.slug }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+---
+<StreamDetail lang="en" entry={entry} />

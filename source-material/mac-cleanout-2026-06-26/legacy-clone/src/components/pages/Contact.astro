@@ -1,0 +1,144 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { useTranslations, getPath, type Lang } from '@/i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const FORMSPREE_ID  = 'xwvzoqrk';
+const FORMSPREE_URL = `https://formspree.io/f/${FORMSPREE_ID}`;
+const CAL_LINK      = 'https://cal.com/emilfreijd';
+---
+<BaseLayout
+  lang={lang}
+  title={`${t('contact.label')} — Emil Freijd`}
+  description="Get in touch with Emil Freijd — Senior IT Program Manager."
+>
+  <div class="page-hero">
+    <div class="container">
+      <p class="section-label">{t('contact.label')}</p>
+      <h1>{t('contact.heading')}</h1>
+      <p>{t('contact.desc')}</p>
+    </div>
+  </div>
+
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-grid">
+
+        <div class="contact-form-wrap">
+          <h2>{t('contact.form.heading')}</h2>
+          <p class="contact-form-sub">{t('contact.form.sub')}</p>
+
+          <!-- Shown by Formspree SDK on successful submission -->
+          <div data-fs-success class="form-success">
+            {t('contact.form.success')}
+          </div>
+
+          <!-- Global form-level errors (e.g. rate limit, server error) -->
+          <div data-fs-error class="form-error-global"></div>
+
+          <form action={FORMSPREE_URL} method="POST" class="contact-form" id="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">{t('contact.form.name')}</label>
+                <input type="text" id="name" name="name"
+                  placeholder={t('contact.form.name.ph')}
+                  data-fs-field required />
+                <span data-fs-error="name" class="field-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="email">{t('contact.form.email')}</label>
+                <input type="email" id="email" name="email"
+                  placeholder={t('contact.form.email.ph')}
+                  data-fs-field required />
+                <span data-fs-error="email" class="field-error"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="subject">{t('contact.form.subject')}</label>
+              <input type="text" id="subject" name="subject"
+                placeholder={t('contact.form.subject.ph')}
+                data-fs-field />
+              <span data-fs-error="subject" class="field-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="message">{t('contact.form.message')}</label>
+              <textarea id="message" name="message" rows="6"
+                placeholder={t('contact.form.message.ph')}
+                data-fs-field required></textarea>
+              <span data-fs-error="message" class="field-error"></span>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit" data-fs-submit-btn>
+              {t('contact.form.submit')}
+            </button>
+          </form>
+        </div>
+
+        <div class="contact-sidebar">
+          <div class="contact-method">
+            <h3>{t('contact.li.heading')}</h3>
+            <p>{t('contact.li.desc')}</p>
+            <a href="https://www.emilfreijd.se" target="_blank" rel="noopener" class="contact-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              {t('contact.li.link')}
+            </a>
+          </div>
+          <div class="contact-method">
+            <h3>{t('contact.cal.heading')}</h3>
+            <p>{t('contact.cal.desc')}</p>
+            <a href={CAL_LINK} target="_blank" rel="noopener" class="contact-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              {t('contact.cal.link')}
+            </a>
+          </div>
+          <div class="contact-note">
+            <p><strong>{t('contact.note.label')}</strong> {t('contact.note.body')}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-section { background:var(--bg); }
+  .contact-grid { display:grid;grid-template-columns:1fr 320px;gap:var(--space-16);align-items:start; }
+  .contact-form-wrap h2 { margin-bottom:var(--space-2); }
+  .contact-form-sub { font-size:.9rem;color:var(--text-muted);margin-bottom:var(--space-8); }
+  .contact-form { display:flex;flex-direction:column;gap:var(--space-5); }
+  .form-row { display:grid;grid-template-columns:1fr 1fr;gap:var(--space-5); }
+  .form-group { display:flex;flex-direction:column;gap:var(--space-2); }
+  .form-group label { font-size:.85rem;font-weight:600;color:var(--text-dim); }
+  .form-group input,.form-group textarea { background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.75rem 1rem;font-size:.95rem;color:var(--text);font-family:inherit;transition:border-color var(--transition);outline:none;resize:vertical; }
+  .form-group input::placeholder,.form-group textarea::placeholder { color:var(--text-muted); }
+  .form-group input:focus,.form-group textarea:focus { border-color:var(--accent); }
+  .form-submit { align-self:flex-start; }
+  .form-submit[disabled] { opacity:.6; cursor:not-allowed; }
+
+  /* Formspree SDK states */
+  .form-success,.form-error-global { display:none; }
+  .form-success { font-size:.9rem;color:#4ade80;padding:var(--space-3) var(--space-4);background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);border-radius:var(--radius-sm);margin-bottom:var(--space-5); }
+  .form-error-global { font-size:.875rem;color:#f87171;padding:var(--space-3) var(--space-4);background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:var(--radius-sm);margin-bottom:var(--space-5); }
+  .field-error { font-size:.8rem;color:#f87171;min-height:1.2em; }
+  [data-fs-field][aria-invalid="true"] { border-color:#f87171 !important; }
+  [data-fs-success][data-fs-active],[data-fs-error][data-fs-active] { display:block; }
+  .contact-sidebar { display:flex;flex-direction:column;gap:var(--space-6); }
+  .contact-method { background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-6); }
+  .contact-method h3 { font-size:.95rem;margin-bottom:var(--space-2); }
+  .contact-method p  { font-size:.875rem;color:var(--text-muted);line-height:1.6;margin-bottom:var(--space-4); }
+  .contact-link { display:inline-flex;align-items:center;gap:var(--space-2);font-size:.875rem;font-weight:600;color:var(--accent-2);transition:gap var(--transition); }
+  .contact-link:hover { gap:var(--space-3); }
+  .contact-note { background:var(--surface-2);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius-sm);padding:var(--space-5); }
+  .contact-note p { font-size:.85rem;color:var(--text-muted);line-height:1.65; }
+  .contact-note strong { color:var(--text-dim); }
+  @media (max-width:900px) { .contact-grid { grid-template-columns:1fr; } }
+  @media (max-width:600px) { .form-row { grid-template-columns:1fr; } }
+</style>
+
+<script>
+  import { initForm } from '@formspree/ajax';
+  initForm({ formElement: '#contact-form', formId: 'xwvzoqrk', useDefaultStyles: false });
+</script>
