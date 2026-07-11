@@ -1,0 +1,97 @@
+name: Draft an update
+description: Draft a shorter progress note or update from GitHub mobile.
+title: "[Update] "
+labels: ["content-draft", "content:update"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Draft here for as long as needed. When the content is ready, add the `publish-content` label. Automation will validate it and open a publishing pull request.
+  - type: input
+    id: slug
+    attributes:
+      label: Slug
+      description: Lowercase URL name using letters, numbers, and hyphens.
+      placeholder: july-2026-update
+    validations:
+      required: true
+  - type: input
+    id: date
+    attributes:
+      label: Publication date
+      description: Use YYYY-MM-DD.
+      placeholder: "2026-07-10"
+    validations:
+      required: true
+  - type: dropdown
+    id: sector
+    attributes:
+      label: Sector
+      options: [public-sector, defence, enterprise, personal, other]
+    validations:
+      required: true
+  - type: input
+    id: en-title
+    attributes:
+      label: English title
+    validations:
+      required: true
+  - type: textarea
+    id: en-description
+    attributes:
+      label: English description
+      description: One sentence, maximum 240 characters, used in cards and metadata.
+    validations:
+      required: true
+  - type: textarea
+    id: en-body
+    attributes:
+      label: English body
+      description: Explain what changed, why it matters, and what comes next. Markdown is supported; HTML, JSX, imports, exports, and braces are rejected.
+      placeholder: "## What changed\n\nDescribe the update...\n\n## Next\n\nDescribe the next step..."
+    validations:
+      required: true
+  - type: input
+    id: sv-title
+    attributes:
+      label: Swedish title
+      description: Optional. If used, complete all three Swedish fields.
+  - type: textarea
+    id: sv-description
+    attributes:
+      label: Swedish description
+      description: Optional. One sentence, maximum 240 characters.
+  - type: textarea
+    id: sv-body
+    attributes:
+      label: Swedish body
+      description: Optional. If used, complete all three Swedish fields.
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Optional, comma-separated, maximum 12.
+  - type: textarea
+    id: metrics
+    attributes:
+      label: Metrics
+      description: "Optional. One per line using: value | label"
+  - type: checkboxes
+    id: timeless
+    attributes:
+      label: Timeless
+      options:
+        - label: Timeless content
+  - type: checkboxes
+    id: featured
+    attributes:
+      label: Feature on homepage
+      options:
+        - label: Feature this content
+  - type: checkboxes
+    id: security
+    attributes:
+      label: Security review
+      options:
+        - label: This draft contains no classified, confidential, personal, credential, or employer-restricted information.
+          required: true

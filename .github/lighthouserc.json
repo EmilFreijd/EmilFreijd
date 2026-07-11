@@ -5,9 +5,14 @@
       "url": [
         "http://localhost/",
         "http://localhost/about/",
-        "http://localhost/stream/"
+        "http://localhost/contact/",
+        "http://localhost/stream/",
+        "http://localhost/stream/design-thinking-lab/",
+        "http://localhost/sv/",
+        "http://localhost/sv/contact/",
+        "http://localhost/sv/stream/"
       ],
-      "numberOfRuns": 1
+      "numberOfRuns": 2
     },
     "assert": {
       "assertions": {

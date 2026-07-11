@@ -24,6 +24,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm test
+      - run: npm run check
       - run: npm run build
       # Quality gate: runs against the freshly built dist BEFORE deploy,
       # so a score regression blocks the release instead of shipping first.
