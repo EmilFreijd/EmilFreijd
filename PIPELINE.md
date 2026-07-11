@@ -52,3 +52,10 @@ English creates the canonical route. If a Swedish file is absent, the Swedish ro
 ## Direct editing
 
 For corrections, edit the MDX files directly on a branch and open a pull request. Do not push content directly to `main`; branch protection and CI are part of the publication gate.
+
+## Language convention
+
+- English and Swedish should communicate equivalent meaning, not mirror each other word for word.
+- Prefer established Swedish professional terms in the Swedish interface (`programledning`, `förändringsledning`, `färdplan`).
+- Keep product names, certifications, acronyms, and established technical names in their recognized form (`SAFe`, `PRINCE2`, `IT Object Leader`, `DevSecOps`).
+- Avoid casual mixed-language UI copy. Technical English inside an article is acceptable when it is the clearest term in context.

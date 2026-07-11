@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { useTranslations, getPath, localizeStream, type Lang } from '@/i18n/utils';
-import { LINKEDIN_URL, yearsInIT } from '@/consts';
+import { LINKEDIN_URL } from '@/consts';
 import { getCollection } from 'astro:content';
 
 interface Props { lang: Lang; }
@@ -14,9 +14,6 @@ const featured = localizeStream(allStream, lang)
   .filter(e => e.data.featured)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
-
-const publishedCount = allStream.filter(e => e.data.lang !== 'sv').length;
-const years = yearsInIT();
 
 const kindLabel: Record<string, string> = {
   case:    t('stream.kind.case'),
@@ -34,19 +31,28 @@ const kindLabel: Record<string, string> = {
       <div class="hero-glow glow-1"></div>
       <div class="hero-glow glow-2"></div>
     </div>
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span class="badge-dot"></span>
-        {t('hero.badge')}
+    <div class="hero-content container">
+      <div class="hero-copy">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          {t('hero.badge')}
+        </div>
+        <p class="hero-eyebrow">Emil Freijd</p>
+        <h1>
+          <span>{t('hero.heading.1')}</span>
+          <span class="hero-heading-accent">{t('hero.heading.2')}</span>
+        </h1>
+        <p class="hero-title">{t('hero.title')}</p>
+        <p class="hero-sub">{t('hero.subtitle')}</p>
+        <div class="hero-cta">
+          <a href={getPath(lang, 'stream')} class="btn btn-primary">{t('hero.cta.primary')}</a>
+          <a href={getPath(lang, 'contact')} class="btn btn-ghost">{t('hero.cta.secondary')}</a>
+        </div>
       </div>
-      <h1><span class="hero-name">Emil Freijd</span></h1>
-      <p class="hero-title">{t('hero.title')}</p>
-      <p class="hero-sub">{t('hero.subtitle')}</p>
-      <div class="hero-cta">
-        <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-          {t('hero.cta.primary')}
-        </a>
-        <a href={getPath(lang, 'stream')} class="btn btn-ghost">{t('hero.cta.secondary')}</a>
+      <div class="hero-rail" aria-hidden="true">
+        <span>GOV</span>
+        <span>ARCH</span>
+        <span>DEL</span>
       </div>
     </div>
     <div class="hero-scroll">
@@ -73,24 +79,15 @@ const kindLabel: Record<string, string> = {
           </div>
           <a href={getPath(lang, 'about')} class="about-link">{t('about.link')}</a>
         </div>
-        <div class="about-stats">
-          <div class="stat-card">
-            <span class="stat-number">{years}<span class="stat-plus">+</span></span>
-            <span class="stat-label">{t('about.stat.years')}</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-number">{publishedCount}</span>
-            <span class="stat-label">{t('about.stat.projects')}</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-number">10<span class="stat-plus">+</span></span>
-            <span class="stat-label">{t('about.stat.stakeholders')}</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-number">3</span>
-            <span class="stat-label">{t('about.stat.countries')}</span>
-          </div>
-        </div>
+        <aside class="about-brief">
+          <p class="brief-label">{t('about.current.label')}</p>
+          <h3>{t('about.current.title')}</h3>
+          <p class="brief-body">{t('about.current.desc')}</p>
+          <dl>
+            <div><dt>{t('about.current.scope.label')}</dt><dd>{t('about.current.scope.value')}</dd></div>
+            <div><dt>{t('about.current.context.label')}</dt><dd>{t('about.current.context.value')}</dd></div>
+          </dl>
+        </aside>
       </div>
     </div>
   </section>
@@ -220,9 +217,9 @@ const kindLabel: Record<string, string> = {
 <style>
   /* Hero */
   #hero {
-    position: relative; min-height: 100vh;
+    position: relative; min-height: 100vh; min-height: 100svh; min-height: 100dvh;
     display: flex; align-items: center; justify-content: center;
-    padding: 0 var(--space-8); overflow: hidden;
+    padding: clamp(7rem, 12vh, 10rem) 0 var(--space-20); overflow: hidden;
   }
   .hero-bg { position: absolute; inset: 0; pointer-events: none; }
   .hero-grid {
@@ -236,7 +233,8 @@ const kindLabel: Record<string, string> = {
   .hero-glow { position: absolute; border-radius: 50%; filter: blur(90px); }
   .glow-1 { width:600px;height:600px;background:radial-gradient(circle,var(--accent) 0%,transparent 70%);top:-150px;left:-100px;opacity:.35; }
   .glow-2 { width:500px;height:500px;background:radial-gradient(circle,#a78bfa 0%,transparent 70%);bottom:-100px;right:-80px;opacity:.2; }
-  .hero-content { position: relative; z-index: 1; max-width: 800px; text-align: center; }
+  .hero-content { position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,780px) 1fr;align-items:end;gap:var(--space-16);width:100%; }
+  .hero-copy { max-width:780px; }
   .hero-badge {
     display: inline-flex; align-items: center; gap: var(--space-2);
     font-size: .8rem; font-weight: 500; letter-spacing: .05em;
@@ -249,15 +247,15 @@ const kindLabel: Record<string, string> = {
     box-shadow:0 0 8px var(--accent-2);animation:pulse 2s ease-in-out infinite;
   }
   @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.85)} }
-  .hero-name {
-    display:block;font-size:clamp(3rem,8vw,6rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;
-    background: var(--gradient-text);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-    margin-bottom:var(--space-2);
-  }
-  .hero-title { font-size:clamp(1.1rem,2.5vw,1.4rem);font-weight:500;color:var(--text-dim);margin-bottom:var(--space-6);letter-spacing:.02em; }
-  .hero-sub   { font-size:clamp(1rem,1.8vw,1.15rem);color:var(--text-muted);line-height:1.7;max-width:580px;margin:0 auto var(--space-10); }
-  .hero-cta   { display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap; }
+  .hero-eyebrow { font-size:.78rem;font-weight:650;letter-spacing:.16em;text-transform:uppercase;color:var(--text-dim);margin-bottom:var(--space-4); }
+  .hero-content h1 { font-size:clamp(3.7rem,8vw,7rem);margin-bottom:var(--space-6); }
+  .hero-content h1 span { display:block; }
+  .hero-heading-accent { color:var(--accent-2);font-style:italic;font-weight:520; }
+  .hero-title { font-size:clamp(.78rem,1.4vw,.95rem);font-weight:650;color:var(--text-dim);margin-bottom:var(--space-5);letter-spacing:.12em;text-transform:uppercase; }
+  .hero-sub   { font-size:clamp(1rem,1.8vw,1.17rem);color:var(--text-muted);line-height:1.75;max-width:640px;margin:0 0 var(--space-10); }
+  .hero-cta   { display:flex;gap:var(--space-4);flex-wrap:wrap; }
+  .hero-rail { display:flex;flex-direction:column;align-items:flex-end;gap:var(--space-3);padding-bottom:var(--space-2); }
+  .hero-rail span { font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:500;line-height:.75;color:transparent;-webkit-text-stroke:1px rgba(167,139,250,.3);letter-spacing:-.04em; }
   .hero-scroll { position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:var(--space-2);color:var(--text-muted);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase; }
   .scroll-line { width:1px;height:40px;background:linear-gradient(to bottom,var(--text-muted),transparent);animation:scrollDrop 2s ease-in-out infinite; }
   @keyframes scrollDrop { 0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom} }
@@ -270,23 +268,25 @@ const kindLabel: Record<string, string> = {
   .about-tags { display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-6); }
   .about-link { display:inline-block;margin-top:var(--space-6);font-size:.9rem;font-weight:600;color:var(--accent-2); }
   .about-link:hover { text-decoration:underline; }
-  .about-stats { display:grid;grid-template-columns:1fr 1fr;gap:var(--space-5); }
-  .stat-card { background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem 1.5rem;display:flex;flex-direction:column;gap:var(--space-1);transition:border-color var(--transition),transform var(--transition); }
-  .stat-card:hover { border-color:rgba(124,106,247,.3);transform:translateY(-3px); }
-  .stat-number { font-size:2.4rem;font-weight:800;color:var(--text);line-height:1;letter-spacing:-.03em; }
-  .stat-plus   { font-size:1.5rem;color:var(--accent-2); }
-  .stat-label  { font-size:.82rem;color:var(--text-muted);font-weight:500; }
+  .about-brief { border-top:2px solid var(--accent);border-bottom:1px solid var(--border);padding:var(--space-8) 0; }
+  .brief-label { font-size:.72rem;font-weight:650;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2);margin-bottom:var(--space-4); }
+  .about-brief h3 { font-family:var(--font-display);font-size:clamp(1.8rem,3vw,2.4rem);font-weight:600;margin-bottom:var(--space-4); }
+  .brief-body { color:var(--text-muted);line-height:1.7;margin-bottom:var(--space-6); }
+  .about-brief dl { display:grid;gap:var(--space-4); }
+  .about-brief dl div { display:grid;grid-template-columns:80px 1fr;gap:var(--space-4);padding-top:var(--space-4);border-top:1px solid var(--border); }
+  .about-brief dt { font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted); }
+  .about-brief dd { font-size:.9rem;color:var(--text-dim); }
 
   /* Expertise */
   .expertise-section { background: var(--bg); }
   .expertise-section h2 { margin-bottom: var(--space-2); }
   .expertise-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-6);margin-top:var(--space-12); }
-  .expertise-card { background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-8);position:relative;overflow:hidden;transition:all var(--transition); }
+  .expertise-card { background:transparent;border:none;border-top:1px solid var(--border);border-radius:0;padding:var(--space-8) 0;position:relative;transition:border-color var(--transition); }
   .expertise-card::before { content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity var(--transition); }
   .expertise-card:hover::before,.expertise-card.featured::before { opacity:1; }
-  .expertise-card:hover { border-color:rgba(124,106,247,.25);transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.3); }
-  .expertise-card.featured { border-color:rgba(124,106,247,.3);background:linear-gradient(135deg,rgba(124,106,247,.06),var(--surface)); }
-  .expertise-icon { width:52px;height:52px;background:var(--accent-glow);border:1px solid rgba(124,106,247,.2);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;color:var(--accent-2);margin-bottom:var(--space-5); }
+  .expertise-card:hover { border-color:var(--accent); }
+  .expertise-card.featured { border-color:var(--accent); }
+  .expertise-icon { width:44px;height:44px;background:transparent;border:none;display:flex;align-items:center;justify-content:flex-start;color:var(--accent-2);margin-bottom:var(--space-5); }
   .expertise-card h3 { margin-bottom:var(--space-3); }
   .expertise-card p  { font-size:.9rem;color:var(--text-muted);line-height:1.65;margin-bottom:var(--space-5); }
   .expertise-list { list-style:none;display:flex;flex-direction:column;gap:var(--space-2); }
@@ -321,13 +321,25 @@ const kindLabel: Record<string, string> = {
 
   @media (max-width: 900px) {
     .about-grid,.cta-inner { flex-direction:column; }
+    .hero-content  { grid-template-columns:1fr; }
+    .hero-rail     { display:none; }
     .about-grid     { grid-template-columns:1fr;gap:var(--space-12); }
     .expertise-grid { grid-template-columns:1fr; }
     .cta-inner      { text-align:center; }
     .cta-actions    { justify-content:center; }
   }
   @media (max-width: 600px) {
-    .about-stats { grid-template-columns:1fr 1fr; }
-    .hero-cta    { flex-direction:column;align-items:center; }
+    #hero        { padding-top:7rem; }
+    .hero-content h1 { font-size:clamp(3.2rem,16vw,4.7rem); }
+    .hero-cta    { flex-direction:column;align-items:stretch; }
+    .hero-cta .btn { justify-content:center; }
+    .hero-scroll { display:none; }
+  }
+  @media (max-height: 700px), (orientation: landscape) and (max-height: 600px) {
+    #hero { min-height:auto;padding-top:7rem;padding-bottom:var(--space-16); }
+    .hero-badge { margin-bottom:var(--space-4); }
+    .hero-content h1 { font-size:clamp(3rem,9vw,5rem);margin-bottom:var(--space-4); }
+    .hero-sub { margin-bottom:var(--space-6); }
+    .hero-scroll { display:none; }
   }
 </style>
