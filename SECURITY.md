@@ -13,6 +13,7 @@ This site is developed with security as a gate, not an afterthought. No feature 
 - New dependencies assessed with `npm audit` before merging
 - Third-party scripts evaluated for privacy impact before adding
 - User input never rendered as raw HTML
+- Issue-authored content is schema validated and rejected if it contains executable MDX, JSX, or HTML
 
 ## Reporting a vulnerability
 
@@ -27,5 +28,6 @@ This is a static personal portfolio site with no backend, no authentication, and
 
 ## Known limitations
 
-- GitHub Pages does not support custom HTTP security headers (CSP, HSTS is automatic via custom domain, X-Frame-Options, etc.)
-- Google Fonts are loaded from an external CDN — font requests are visible to Google
+- GitHub Pages does not support custom HTTP security headers. The site uses a CSP and referrer `<meta>` policy, but header-only protections such as HSTS, X-Content-Type-Options, and CSP `frame-ancestors` require a security-header-capable proxy.
+- Inter is self-hosted via `@fontsource/inter`; no third-party font CDN requests are made by the site
+- Contact messages are processed by Formspree; the form warns visitors not to submit restricted or highly sensitive information

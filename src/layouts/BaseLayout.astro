@@ -43,12 +43,15 @@ const enPath    = isSwedish ? Astro.url.pathname.replace(/^\/sv/, '') || '/' : A
 const svPath    = isSwedish ? Astro.url.pathname : `/sv${Astro.url.pathname}`;
 const enURL     = new URL(enPath, Astro.site);
 const svURL     = new URL(svPath, Astro.site);
+const serializeJsonLd = (value: unknown) => JSON.stringify(value).replaceAll('<', '\\u003c');
 ---
 <!doctype html>
 <html lang={lang} data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; frame-src 'none'; upgrade-insecure-requests" />
+    <meta name="referrer" content="no-referrer" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
@@ -77,7 +80,7 @@ const svURL     = new URL(svPath, Astro.site);
     <meta name="twitter:image"       content={ogImage} />
 
     <!-- JSON-LD -->
-    <script type="application/ld+json" set:html={JSON.stringify({
+    <script is:inline type="application/ld+json" set:html={serializeJsonLd({
       '@context': 'https://schema.org',
       '@type': 'Person',
       name: 'Emil Freijd',
@@ -86,7 +89,7 @@ const svURL     = new URL(svPath, Astro.site);
       sameAs: [LINKEDIN_URL],
     })} />
     {ogType === 'article' && publishedDate && (
-      <script type="application/ld+json" set:html={JSON.stringify({
+      <script is:inline type="application/ld+json" set:html={serializeJsonLd({
         '@context': 'https://schema.org',
         '@type': 'Article',
         headline: title,
@@ -109,8 +112,7 @@ const svURL     = new URL(svPath, Astro.site);
     <!-- Favicon -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#080810" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#f4f5fb" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#080810" />
 
     <!-- Theme: runs before paint to prevent flash. Also marks JS as available
          so CSS only hides reveal-animated content when it can be revealed.
@@ -118,9 +120,16 @@ const svURL     = new URL(svPath, Astro.site);
     <script is:inline>
       (function () {
         function applyTheme() {
-          const stored = localStorage.getItem('theme');
+          let stored = null;
+          try {
+            stored = localStorage.getItem('theme');
+          } catch {
+            // Storage can be unavailable in hardened browser contexts.
+          }
           const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          document.documentElement.setAttribute('data-theme', stored || (prefersDark ? 'dark' : 'light'));
+          const theme = stored === 'dark' || stored === 'light' ? stored : (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+          document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#080810' : '#f4f5fb');
           document.documentElement.classList.add('js');
         }
         applyTheme();
