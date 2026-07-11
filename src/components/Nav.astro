@@ -47,13 +47,13 @@ const isActive = (href: string) => (href === home ? path === href : path.startsW
       </button>
 
       <!-- Mobile burger -->
-      <button class="nav-burger" aria-label={t('a11y.menu')} aria-expanded="false">
+      <button class="nav-burger" aria-label={t('a11y.menu')} aria-expanded="false" aria-controls="mobile-navigation">
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
 
-  <div class="nav-mobile">
+  <div class="nav-mobile" id="mobile-navigation">
     {links.map(l => <a href={l.href} class:list={{ active: isActive(l.href) }} aria-current={isActive(l.href) ? 'page' : undefined}>{l.label}</a>)}
     <div class="nav-mobile-meta">
       <a href={otherLangHref} class="nav-lang">{otherLangLabel}</a>
@@ -211,16 +211,36 @@ const isActive = (href: string) => (href === home ? path === href : path.startsW
     const drawer = nav.querySelector('.nav-mobile') as HTMLElement | null;
     const toggle = document.getElementById('theme-toggle') as HTMLButtonElement | null;
 
+    const closeMenu = (returnFocus = false) => {
+      drawer?.classList.remove('open');
+      burger?.setAttribute('aria-expanded', 'false');
+      if (returnFocus) burger?.focus();
+    };
+
     burger?.addEventListener('click', () => {
-      const open = drawer!.classList.toggle('open');
+      const open = drawer?.classList.toggle('open') ?? false;
       burger.setAttribute('aria-expanded', String(open));
+      if (open) drawer?.querySelector<HTMLAnchorElement>('a')?.focus();
+    });
+
+    drawer?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => closeMenu()));
+
+    nav.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && drawer?.classList.contains('open')) {
+        closeMenu(true);
+      }
     });
 
     toggle?.addEventListener('click', () => {
       const current = document.documentElement.getAttribute('data-theme');
       const next    = current === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', next === 'dark' ? '#080810' : '#f4f5fb');
+      try {
+        localStorage.setItem('theme', next);
+      } catch {
+        // The selected theme still applies for the current page.
+      }
     });
   }
 
