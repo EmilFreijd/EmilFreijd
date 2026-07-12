@@ -1,8 +1,8 @@
 ---
 import { useTranslations, getPath, getOtherLangPath, type Lang } from '@/i18n/utils';
 
-interface Props { lang: Lang; }
-const { lang } = Astro.props;
+interface Props { lang: Lang; otherLangHref?: string; }
+const { lang, otherLangHref: otherLangHrefOverride } = Astro.props;
 const t    = useTranslations(lang);
 
 const links = [
@@ -11,7 +11,7 @@ const links = [
   { label: t('nav.contact'), href: getPath(lang, 'contact')},
 ];
 
-const otherLangHref  = getOtherLangPath(Astro.url);
+const otherLangHref  = otherLangHrefOverride ?? getOtherLangPath(Astro.url);
 const otherLangLabel = t('lang.label');
 
 const home = getPath(lang, '');
@@ -224,6 +224,14 @@ const isActive = (href: string) => (href === home ? path === href : path.startsW
     });
 
     drawer?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => closeMenu()));
+
+    const navState = window as any;
+    navState.__navMediaController?.abort();
+    const mediaController = new AbortController();
+    navState.__navMediaController = mediaController;
+    window.matchMedia('(min-width: 641px)').addEventListener('change', event => {
+      if (event.matches) closeMenu();
+    }, { signal: mediaController.signal });
 
     nav.addEventListener('keydown', event => {
       if (event.key === 'Escape' && drawer?.classList.contains('open')) {

@@ -20,6 +20,8 @@ interface Props {
   publishedDate?: Date;
   /** Point the canonical elsewhere (e.g. SV fallback pages → the EN original). */
   canonicalPath?: string;
+  /** Override the navigation language target for pages without a translated route. */
+  otherLangPath?: string;
 }
 
 const {
@@ -29,6 +31,7 @@ const {
   ogType      = 'website',
   publishedDate,
   canonicalPath,
+  otherLangPath,
 } = Astro.props;
 
 const t = useTranslations(lang);
@@ -139,7 +142,7 @@ const serializeJsonLd = (value: unknown) => JSON.stringify(value).replaceAll('<'
   </head>
   <body>
     <a href="#main-content" class="skip-link">{t('a11y.skip')}</a>
-    <Nav lang={lang} />
+    <Nav lang={lang} otherLangHref={otherLangPath} />
     <main id="main-content">
       <slot />
     </main>
