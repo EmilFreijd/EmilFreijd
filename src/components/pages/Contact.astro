@@ -159,12 +159,20 @@ const t = useTranslations(lang);
 <script>
   import { initForm } from '@formspree/ajax/dist/index.mjs';
 
+  let destroyForm: (() => void) | undefined;
+
   // Re-init on every (view-transition) navigation — the form element is
   // replaced on each swap, and module scripts only run once per session.
   // The form id lives in src/consts.ts and reaches the client via data-form-id.
   document.addEventListener('astro:page-load', () => {
+    destroyForm?.();
+    destroyForm = undefined;
     const form = document.getElementById('contact-form');
     if (!form?.dataset.formId) return;
-    initForm({ formElement: '#contact-form', formId: form.dataset.formId, useDefaultStyles: false });
+    destroyForm = initForm({
+      formElement: '#contact-form',
+      formId: form.dataset.formId,
+      useDefaultStyles: false,
+    }).destroy;
   });
 </script>

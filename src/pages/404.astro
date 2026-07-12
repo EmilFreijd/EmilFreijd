@@ -6,7 +6,7 @@ import { useTranslations, getPath } from '@/i18n/utils';
 // is English-first with a pointer to the Swedish home page.
 const t = useTranslations('en');
 ---
-<BaseLayout title={`${t('404.label')} — Emil Freijd`} description={t('404.body')}>
+<BaseLayout title={`${t('404.label')} — Emil Freijd`} description={t('404.body')} otherLangPath="/sv/">
   <section class="not-found">
     <div class="container">
       <p class="section-label">{t('404.label')}</p>
@@ -30,7 +30,7 @@ const t = useTranslations('en');
   -->
   <script is:inline>
     (function () {
-      if (!location.pathname.replace(/^\//, '').startsWith('sv')) return;
+      if (!/^\/sv(?:\/|$)/.test(location.pathname)) return;
       document.documentElement.lang = 'sv';
       var set = function (id, text) { var el = document.getElementById(id); if (el) el.textContent = text; };
       set('nf-heading', 'Sidan hittades inte.');
@@ -41,6 +41,11 @@ const t = useTranslations('en');
       if (contact) { contact.textContent = 'Kontakta mig'; contact.setAttribute('href', '/sv/contact/'); }
       var sw = document.getElementById('nf-switch');
       if (sw) sw.innerHTML = 'Looking for English? <a href="/">Go to the homepage →</a>';
+      document.querySelectorAll('#nav .nav-lang').forEach(function (link) {
+        link.setAttribute('href', '/');
+        link.setAttribute('title', 'English');
+        link.textContent = link.closest('.nav-mobile-meta') ? 'English' : 'EN';
+      });
     })();
   </script>
 </BaseLayout>
