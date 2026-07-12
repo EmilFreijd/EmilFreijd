@@ -1,12 +1,16 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { useTranslations, getPath, type Lang } from '@/i18n/utils';
+import { yearsInIT as getYearsInIT } from '@/consts';
+import { getCollection } from 'astro:content';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const sv = lang === 'sv';
+const yearsInIT = getYearsInIT();
+const allEntries = await getCollection('stream', e => !e.data.draft && e.data.lang !== 'sv');
 
 const traits = sv ? [
   { title: 'Systemtänkande',           desc: 'Ser helheter och beroenden snabbt. Förstår vad som faktiskt driver ett problem snarare än vad som syns på ytan.' },
@@ -59,7 +63,7 @@ const timeline = sv ? [
     org:     'Domstolsverket',
     period:  'Oktober 2025 – Juni 2026',
     sector:  'Offentlig sektor',
-    summary: 'Äger och prioriterar verksamhetskritiska digitala plattformar med långsiktig påverkan på organisationens stabilitet. Ansvarar för styrning, arkitekturval, riskhantering och färdplan i komplexa miljöer med höga krav på säkerhet och tillgänglighet.',
+    summary: 'Äger och prioriterar verksamhetskritiska digitala plattformar med långsiktig påverkan på organisationens stabilitet. Ansvarar för styrning, arkitekturval, riskhantering och roadmap i komplexa miljöer med höga krav på säkerhet och tillgänglighet.',
   },
   {
     role:    'Delägare',
@@ -164,21 +168,15 @@ const certifications = [
 const skills = [
   {
     group: sv ? 'Leverans & metodik'    : 'Delivery & Methods',
-    items: sv
-      ? ['Programledning', 'Agilt arbetssätt / SAFe', 'PRINCE2', 'Riskhantering', 'Förändringsledning']
-      : ['Program Management', 'Agile / SAFe', 'PRINCE2', 'Risk Management', 'Change Management'],
+    items: ['Program Management', 'Agile / SAFe', 'PRINCE2', 'Risk Management', 'Change Management'],
   },
   {
     group: sv ? 'Ledarskap & strategi'  : 'Leadership & Strategy',
-    items: sv
-      ? ['Tekniskt ledarskap', 'Intressenthantering', 'IT-strategi', 'Digital transformation', 'Teambyggande']
-      : ['Technical Leadership', 'Stakeholder Management', 'IT Strategy', 'Digital Transformation', 'Team Building'],
+    items: ['Technical Leadership', 'Stakeholder Management', 'IT Strategy', 'Digital Transformation', 'Team Building'],
   },
   {
     group: sv ? 'Teknik & plattformar' : 'Technology & Platforms',
-    items: sv
-      ? ['AI-/ML-lösningar', 'Enterprise-arkitektur', 'Moln och lokala miljöer', 'Plattformsdrift', 'Systemintegration']
-      : ['AI / ML Solutions', 'Enterprise Architecture', 'Cloud & On-Premises', 'Platform Operations', 'Systems Integration'],
+    items: ['AI / ML Solutions', 'Enterprise Architecture', 'Cloud & On-Premises', 'Platform Operations', 'Systems Integration'],
   },
   {
     group: sv ? 'Språk' : 'Languages',
@@ -208,8 +206,8 @@ const education = sv ? [
   lang={lang}
   title={`${t('about.page.label')} — Emil Freijd`}
   description={sv
-    ? 'Bakgrund, erfarenhet och arbetssätt. Emil Freijd — IT Object Leader inom styrning, arkitektur och leverans.'
-    : 'Background, experience, and approach. Emil Freijd — IT Object Leader across governance, architecture, and delivery.'}
+    ? 'Bakgrund, erfarenhet och tänkesätt. Emil Freijd — IT-ledare inom plattformar, team och AI.'
+    : 'Background, experience, and approach. Emil Freijd — IT leader across platforms, teams, and AI.'}
 >
 
   <div class="page-hero">
@@ -235,13 +233,17 @@ const education = sv ? [
           <a href={getPath(lang, 'contact')} class="btn btn-ghost" style="display:inline-flex;margin-top:2rem;">{t('about.cta')}</a>
         </div>
         <div class="bio-aside">
-          <div class="bio-current">
-            <p class="section-label">{sv ? 'Nuvarande uppdrag' : 'Current remit'}</p>
-            <h3>IT Object Leader</h3>
-            <p class="bio-current-org">Saab · {sv ? 'Försvar och flyg' : 'Defence and aerospace'}</p>
-            <p>{sv
-              ? 'Styrning, arkitektur och livscykelleverans för specialiserade IT-miljöer där robusthet och tydligt ägarskap är avgörande.'
-              : 'Governance, architecture, and lifecycle delivery for specialised IT environments where resilience and explicit ownership are essential.'}</p>
+          <div class="bio-stat">
+            <span class="bio-stat-value">{yearsInIT}+</span>
+            <span class="bio-stat-label">{t('about.stat.years')}</span>
+          </div>
+          <div class="bio-stat">
+            <span class="bio-stat-value">{allEntries.length}</span>
+            <span class="bio-stat-label">{t('about.stat.projects')}</span>
+          </div>
+          <div class="bio-stat">
+            <span class="bio-stat-value">3</span>
+            <span class="bio-stat-label">{t('about.stat.countries')}</span>
           </div>
           <div class="bio-cv">
             <p class="bio-cv-note">{t('about.cv.note')} <a href={getPath(lang, 'contact')}>{t('about.cv.link')}</a>.</p>
@@ -407,10 +409,10 @@ const education = sv ? [
   .bio-grid { display: grid; grid-template-columns: 1fr 300px; gap: var(--space-16); align-items: start; }
   .bio-text h2 { margin-bottom: var(--space-6); }
   .bio-text p  { color: var(--text-dim); line-height: 1.75; font-size: 1.025rem; margin-bottom: var(--space-5); }
-  .bio-aside   { display: flex; flex-direction: column; gap: var(--space-6); }
-  .bio-current { border-top:2px solid var(--accent);border-bottom:1px solid var(--border);padding:var(--space-6) 0; }
-  .bio-current h3 { font-family:var(--font-display);font-size:2rem;font-weight:600;margin-bottom:var(--space-1); }
-  .bio-current-org { color:var(--accent-2) !important;font-size:.8rem !important;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:var(--space-5) !important; }
+  .bio-aside   { display: flex; flex-direction: column; gap: var(--space-4); }
+  .bio-stat    { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-1); }
+  .bio-stat-value { font-size: 2rem; font-weight: 800; color: var(--accent-2); letter-spacing: -.03em; }
+  .bio-stat-label { font-size: .85rem; color: var(--text-muted); }
   .bio-cv-note { font-size: .85rem; color: var(--text-muted); }
   .bio-cv-note a { color: var(--accent-2); border-bottom: 1px solid rgba(167,139,250,.3); }
 
@@ -423,11 +425,10 @@ const education = sv ? [
     gap: var(--space-4);
   }
   .trait-card {
-    background: transparent;
-    border: none;
-    border-top: 1px solid var(--border);
-    border-radius: 0;
-    padding: var(--space-6) 0;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-6);
     transition: border-color var(--transition);
   }
   .trait-card:hover { border-color: rgba(124,106,247,.3); }

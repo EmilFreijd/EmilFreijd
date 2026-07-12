@@ -2,9 +2,12 @@
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
 import '@/styles/global.css';
-import '@fontsource-variable/inter/index.css';
-import '@fontsource-variable/newsreader/index.css';
-import '@fontsource-variable/newsreader/wght-italic.css';
+import '@fontsource/inter/300.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/inter/800.css';
 import { useTranslations, type Lang } from '@/i18n/utils';
 import { SITE_NAME, LINKEDIN_URL } from '@/consts';
 import { ClientRouter } from 'astro:transitions';
@@ -20,8 +23,8 @@ interface Props {
 }
 
 const {
-  title       = 'Emil Freijd — IT Object Leader',
-  description = 'IT Object Leader working across governance, architecture, and lifecycle delivery in high-assurance environments.',
+  title       = 'Emil Freijd — IT Leader',
+  description = 'IT leader delivering platforms, teams, and technology programs in high-trust environments.',
   lang        = 'en',
   ogType      = 'website',
   publishedDate,
@@ -65,7 +68,7 @@ const serializeJsonLd = (value: unknown) => JSON.stringify(value).replaceAll('<'
     <meta property="og:title"       content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image"       content={ogImage} />
-    <meta property="og:image:alt"   content="Emil Freijd — IT Object Leader" />
+    <meta property="og:image:alt"   content="Emil Freijd — IT Leader" />
     {ogType === 'article' && publishedDate && (
       <meta property="article:published_time" content={publishedDate.toISOString()} />
     )}
@@ -81,8 +84,7 @@ const serializeJsonLd = (value: unknown) => JSON.stringify(value).replaceAll('<'
       '@context': 'https://schema.org',
       '@type': 'Person',
       name: 'Emil Freijd',
-      jobTitle: 'IT Object Leader',
-      worksFor: { '@type': 'Organization', name: 'Saab' },
+      jobTitle: 'IT Leader',
       url: 'https://emilfreijd.se',
       sameAs: [LINKEDIN_URL],
     })} />

@@ -13,36 +13,27 @@ export const ui = {
     'a11y.menu':   'Toggle menu',
 
     // Page metadata
-    'meta.home.title':   'Emil Freijd — IT Object Leader',
-    'meta.home.desc':    'IT Object Leader working across governance, architecture, and lifecycle delivery in high-assurance environments.',
+    'meta.home.title':   'Emil Freijd — IT Leader',
+    'meta.home.desc':    'IT leader delivering platforms, teams, and technology programs in high-trust environments.',
     'meta.stream.title': 'Stream — Emil Freijd',
     'meta.stream.desc':  'Cases, projects, essays, and notes from Emil Freijd — a single timeline.',
 
     // Hero
-    'hero.badge':         'IT Object Leader at Saab',
-    'hero.heading.1':     'Systems that hold.',
-    'hero.heading.2':     'Teams that deliver.',
-    'hero.title':         'Governance · Architecture · Lifecycle delivery',
-    'hero.subtitle':      'I lead where technical environments, ownership, and delivery have to work as one — turning complexity into direction, durable capability, and dependable progress.',
-    'hero.cta.primary':   'Explore the work',
-    'hero.cta.secondary': 'Start a conversation',
+    'hero.badge':         'Open for the right conversation',
+    'hero.title':         'IT Leader · Platforms, Teams & AI',
+    'hero.subtitle':      'I work at the intersection of technical leadership and platform delivery. Managing teams, driving adoption of complex systems, building the organisational capability to operate them — in environments where the margin for vague ownership is zero.',
+    'hero.cta.primary':   'Connect on LinkedIn',
+    'hero.cta.secondary': 'View My Work',
 
     // About teaser (home)
     'about.label':             'About',
     'about.heading':           'Turning complexity into delivery.',
-    'about.body':              'I work across governance, architecture, and delivery in environments where ownership must be explicit and systems must keep working. My focus is the connective tissue: the decisions, teams, and operating structures that turn technical complexity into sustained capability.',
+    'about.body':              'Senior IT professional with a track record of leading cross-functional teams and managing large-scale programs across public sector and enterprise environments. I operate at the intersection of strategy and execution — where clear thinking, decisive leadership, and structured delivery matter most.',
     'about.link':              'Full background →',
     'about.stat.years':        'Years in IT',
     'about.stat.projects':     'Published pieces',
     'about.stat.stakeholders': 'Managed platforms',
     'about.stat.countries':    'Sectors',
-    'about.current.label':         'Current remit',
-    'about.current.title':         'IT Object Leader at Saab',
-    'about.current.desc':          'Leading the governance and development of specialised IT environments in a high-assurance context.',
-    'about.current.scope.label':   'Scope',
-    'about.current.scope.value':   'Governance, architecture, lifecycle, and delivery',
-    'about.current.context.label': 'Context',
-    'about.current.context.value': 'Defence and aerospace',
 
     // Expertise
     'expertise.label':          'Expertise',
@@ -138,12 +129,12 @@ export const ui = {
 
     // Contact page
     'contact.label':          'Contact',
-    'contact.heading':        'Let’s make the problem concrete.',
-    'contact.desc':           'If a technical or organisational problem needs structure, system understanding, and a path to action, start with where things stand today.',
-    'contact.fit.heading':    'A useful conversation starts here if:',
-    'contact.fit.1':          'The problem crosses technical and organisational boundaries.',
-    'contact.fit.2':          'You need direction, not another layer of meetings.',
-    'contact.fit.3':          'You value a direct view of what the work requires.',
+    'contact.heading':        'Got a problem that needs both systems understanding and the ability to execute? Then we should talk.',
+    'contact.desc':           "It might be a project that has stalled, a change that needs structure, or a technical decision that takes more than a technician. Write, tell me where you stand, and we'll take it from there.",
+    'contact.fit.heading':    'This is a fit if:',
+    'contact.fit.1':          "You have a technical or organisational problem that more meetings won't solve.",
+    'contact.fit.2':          'You need someone who can move between strategy and hands-on building.',
+    'contact.fit.3':          'You want a straight conversation about what it actually takes.',
     'contact.closing':        'No agendas. Just a conversation about things worth thinking about.',
     'contact.form.heading':   'Send a message',
     'contact.form.sub':       "I'll respond within a couple of days.",
@@ -195,36 +186,27 @@ export const ui = {
     'a11y.menu':   'Växla meny',
 
     // Page metadata
-    'meta.home.title':   'Emil Freijd — IT Object Leader',
-    'meta.home.desc':    'IT Object Leader inom styrning, arkitektur och livscykelleverans i miljöer med höga krav på robusthet och kontroll.',
+    'meta.home.title':   'Emil Freijd — IT-ledare',
+    'meta.home.desc':    'IT-ledare som levererar plattformar, team och teknikprogram i miljöer med höga förtroendekrav.',
     'meta.stream.title': 'Flöde — Emil Freijd',
     'meta.stream.desc':  'Case, projekt, texter och anteckningar från Emil Freijd — en enda tidslinje.',
 
     // Hero
-    'hero.badge':         'IT Object Leader på Saab',
-    'hero.heading.1':     'System som håller.',
-    'hero.heading.2':     'Team som levererar.',
-    'hero.title':         'Styrning · Arkitektur · Livscykelleverans',
-    'hero.subtitle':      'Jag leder där tekniska miljöer, ägarskap och leverans måste fungera som en helhet — och gör komplexitet till riktning, varaktig förmåga och pålitlig framdrift.',
-    'hero.cta.primary':   'Se arbetet',
-    'hero.cta.secondary': 'Inled ett samtal',
+    'hero.badge':         'Öppen för rätt samtal',
+    'hero.title':         'IT-ledare · Plattformar, Team & AI',
+    'hero.subtitle':      'Jag arbetar i skärningspunkten mellan tekniskt ledarskap och plattformsleverans. Leder team, driver adoption av komplexa system och bygger den organisatoriska förmågan att förvalta dem — i miljöer där utrymmet för otydligt ägarskap är noll.',
+    'hero.cta.primary':   'Connecta på LinkedIn',
+    'hero.cta.secondary': 'Se mina projekt',
 
     // About teaser (home)
     'about.label':             'Om mig',
     'about.heading':           'Förvandlar komplexitet till leverans.',
-    'about.body':              'Jag arbetar med styrning, arkitektur och leverans i miljöer där ägarskapet måste vara tydligt och systemen måste fortsätta fungera. Mitt fokus är bindväven: besluten, teamen och strukturerna som gör teknisk komplexitet till varaktig förmåga.',
+    'about.body':              'Senior IT-proffs med dokumenterad erfarenhet av att leda tvärfunktionella team och hantera storskaliga program inom offentlig sektor och näringsliv. Jag verkar i skärningspunkten mellan strategi och genomförande — där tydligt tänkande, beslutsamt ledarskap och strukturerad leverans spelar störst roll.',
     'about.link':              'Full bakgrund →',
     'about.stat.years':        'År inom IT',
     'about.stat.projects':     'Publicerade inlägg',
     'about.stat.stakeholders': 'Förvaltade plattformar',
     'about.stat.countries':    'Sektorer',
-    'about.current.label':         'Nuvarande uppdrag',
-    'about.current.title':         'IT Object Leader på Saab',
-    'about.current.desc':          'Leder styrning och vidareutveckling av specialiserade IT-miljöer i en verksamhet med höga krav på robusthet och kontroll.',
-    'about.current.scope.label':   'Omfattning',
-    'about.current.scope.value':   'Styrning, arkitektur, livscykel och leverans',
-    'about.current.context.label': 'Kontext',
-    'about.current.context.value': 'Försvar och flyg',
 
     // Expertise
     'expertise.label':    'Kompetens',
@@ -243,7 +225,7 @@ export const ui = {
     'expertise.s.desc':   'Jag bygger saker med AI, pratar inte bara om det. Att ta en idé från blankt papper till ett fungerande system i en riktig miljö är det jag tycker är genuint intressant. Om det körs i molnet eller bakom låsta dörrar förändrar inte tillvägagångssättet.',
     'expertise.s.1':      'Design och bygge av AI-lösningar',
     'expertise.s.2':      'Driftsättning i moln och on-premises',
-    'expertise.s.3':      'Från konceptverifiering till produktion',
+    'expertise.s.3':      'Från proof of concept till produktion',
     'expertise.a.title':  'Enterprise-plattformsarkitektur',
     'expertise.a.desc':   'Jag bygger tekniska miljöer som är stabila nog att utveckla i — inte bara överleva i. Jag tog en leveransverksamhet från daglig brandkårsutryckning till knappt tre supportärenden i veckan, med team som nu bygger helt självständigt. Det är vad god arkitektur faktiskt producerar.',
     'expertise.a.1':      'Systemdesign och integration över hela stacken',
@@ -275,14 +257,14 @@ export const ui = {
     'stream.fallback':       'Det här inlägget finns ännu inte på svenska — visar det engelska originalet.',
 
     // CTA strip (home)
-    'cta.heading': 'Låt oss ta ett samtal.',
+    'cta.heading': 'Låt oss connecta.',
     'cta.desc':    'Öppen för samtal — om teknik, ledarskap eller vad du håller på att bygga.',
     'cta.primary': 'LinkedIn',
     'cta.ghost':   'Kontakta mig',
 
     // About page
     'about.page.label':    'Om mig',
-    'about.page.heading':  'Bakgrund och arbetssätt.',
+    'about.page.heading':  'Bakgrund & approach.',
     'about.page.intro':    'IT-ledare som arbetar där teknik, organisation och leverans måste hänga ihop. Här är hela berättelsen.',
     'about.story.label':   'Den fullständiga berättelsen',
     'about.story.heading': 'Bygger för att förstå. Förstår för att förändra.',
@@ -310,7 +292,7 @@ export const ui = {
     'about.teaser.tag2':      'IT-ledarskap',
     'about.teaser.tag3':      'Digital omvandling',
     'about.teaser.tag4':      'Intressenthantering',
-    'about.teaser.tag5':      'Agilt arbetssätt / SAFe',
+    'about.teaser.tag5':      'Agile / SAFe',
     'about.teaser.tag6':      'Förändringsledning',
 
     // Case study
@@ -320,12 +302,12 @@ export const ui = {
 
     // Contact page
     'contact.label':          'Kontakt',
-    'contact.heading':        'Låt oss göra problemet konkret.',
-    'contact.desc':           'Om ett tekniskt eller organisatoriskt problem behöver struktur, systemförståelse och en väg till handling börjar vi med nuläget.',
-    'contact.fit.heading':    'Ett meningsfullt samtal börjar här om:',
-    'contact.fit.1':          'Problemet korsar tekniska och organisatoriska gränser.',
-    'contact.fit.2':          'Du behöver riktning, inte ytterligare ett lager av möten.',
-    'contact.fit.3':          'Du uppskattar en rak bild av vad arbetet kräver.',
+    'contact.heading':        'Har du ett problem som kräver både systemförståelse och genomförandekraft? Då borde vi prata.',
+    'contact.desc':           'Det kan vara ett projekt som kört fast, en förändring som behöver struktur eller ett tekniskt beslut som kräver mer än en tekniker. Skriv, berätta var du står, så tar vi det därifrån.',
+    'contact.fit.heading':    'Det här passar för dig om:',
+    'contact.fit.1':          'Du har ett tekniskt eller organisatoriskt problem som inte löser sig med fler möten.',
+    'contact.fit.2':          'Du behöver någon som kan röra sig mellan strategi och konkret byggande.',
+    'contact.fit.3':          'Du vill ha ett rakt samtal om vad som faktiskt krävs.',
     'contact.closing':        'Inga agendor. Bara ett samtal om saker som är värda att tänka på.',
     'contact.form.heading':   'Skicka ett meddelande',
     'contact.form.sub':       'Jag svarar inom ett par dagar.',
@@ -342,7 +324,7 @@ export const ui = {
     'contact.form.privacy':   'Ditt meddelande behandlas av Formspree och levereras till mig. Skicka inte säkerhetsskyddsklassificerade, hemliga eller mycket känsliga uppgifter; etablera vid behov kontakt via LinkedIn först.',
     'contact.li.heading':     'LinkedIn',
     'contact.li.desc':        'Bäst för professionella presentationer och nätverkande.',
-    'contact.li.link':        'Kontakta mig på LinkedIn →',
+    'contact.li.link':        'Connecta på LinkedIn →',
     'contact.cal.heading':    'Boka ett samtal',
     'contact.cal.desc':       'Om du föredrar att prata, boka en 30-minuters intro direkt.',
     'contact.cal.link':       'Boka via Cal.com →',
