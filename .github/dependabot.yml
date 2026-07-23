@@ -8,6 +8,13 @@ updates:
     open-pull-requests-limit: 5
     labels:
       - "dependencies"
+    ignore:
+      # @astrojs/check 0.9.9 supports TypeScript 5 and 6, but not 7 yet.
+      # Keep minor/patch and security updates; retry the next major when its
+      # peer dependency range has caught up.
+      - dependency-name: "typescript"
+        update-types:
+          - "version-update:semver-major"
 
   - package-ecosystem: "github-actions"
     directory: "/"
