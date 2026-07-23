@@ -7,10 +7,13 @@ export async function getStaticPaths() {
   const enEntries = all.filter(e => e.data.lang !== 'sv');
   return enEntries.map(entry => {
     const svEntry = all.find(e => e.id === `${entry.id}-sv`);
-    return { params: { slug: entry.id }, props: { entry: svEntry ?? entry } };
+    return {
+      params: { slug: entry.id },
+      props: { entry: svEntry ?? entry, hasTranslation: Boolean(svEntry) },
+    };
   });
 }
 
-const { entry } = Astro.props;
+const { entry, hasTranslation } = Astro.props;
 ---
-<StreamDetail lang="sv" entry={entry} />
+<StreamDetail lang="sv" entry={entry} hasTranslation={hasTranslation} />

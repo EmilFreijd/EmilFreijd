@@ -1,6 +1,14 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import { fileURLToPath } from 'node:url';
+import {
+  createStreamSitemapSerializer,
+  loadStreamSitemapMetadata,
+} from './scripts/sitemap-content.mjs';
+
+const streamContentDirectory = fileURLToPath(new URL('./src/content/stream/', import.meta.url));
+const streamSitemapMetadata = loadStreamSitemapMetadata(streamContentDirectory);
 
 export default defineConfig({
   site: 'https://emilfreijd.se',
@@ -18,6 +26,7 @@ export default defineConfig({
         defaultLocale: 'en',
         locales: { en: 'en', sv: 'sv' },
       },
+      serialize: createStreamSitemapSerializer(streamSitemapMetadata),
     }),
   ],
 });

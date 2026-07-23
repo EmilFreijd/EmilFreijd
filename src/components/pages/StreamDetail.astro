@@ -6,10 +6,11 @@ import type { CollectionEntry } from 'astro:content';
 import { render } from 'astro:content';
 
 interface Props {
-  lang:  Lang;
+  lang: Lang;
   entry: CollectionEntry<'stream'>;
+  hasTranslation: boolean;
 }
-const { lang, entry } = Astro.props;
+const { lang, entry, hasTranslation } = Astro.props;
 const t = useTranslations(lang);
 const { Content } = await render(entry);
 const { title, description, sector, date, kind, tags, metrics } = entry.data;
@@ -61,6 +62,7 @@ const edges = [[0,1],[1,2],[2,3],[3,4],[0,3],[1,4],[2,5],[4,6],[5,7],[1,6]];
   ogType="article"
   publishedDate={date}
   canonicalPath={canonicalPath}
+  hasTranslation={hasTranslation}
 >
 
   <div class="case-hero page-hero">
