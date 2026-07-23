@@ -3,10 +3,17 @@ import StreamDetail from '@/components/pages/StreamDetail.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('stream', e => !e.data.draft && e.data.lang !== 'sv');
-  return entries.map(entry => ({ params: { slug: entry.id }, props: { entry } }));
+  const all = await getCollection('stream', e => !e.data.draft);
+  const entries = all.filter(e => e.data.lang !== 'sv');
+  return entries.map(entry => ({
+    params: { slug: entry.id },
+    props: {
+      entry,
+      hasTranslation: all.some(candidate => candidate.id === `${entry.id}-sv`),
+    },
+  }));
 }
 
-const { entry } = Astro.props;
+const { entry, hasTranslation } = Astro.props;
 ---
-<StreamDetail lang="en" entry={entry} />
+<StreamDetail lang="en" entry={entry} hasTranslation={hasTranslation} />
