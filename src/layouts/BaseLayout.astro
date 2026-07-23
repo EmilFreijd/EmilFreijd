@@ -22,6 +22,8 @@ interface Props {
   canonicalPath?: string;
   /** Override the navigation language target for pages without a translated route. */
   otherLangPath?: string;
+  /** Whether this page has a genuine translated counterpart for hreflang metadata. */
+  hasTranslation?: boolean;
 }
 
 const {
@@ -32,6 +34,7 @@ const {
   publishedDate,
   canonicalPath,
   otherLangPath,
+  hasTranslation = true,
 } = Astro.props;
 
 const t = useTranslations(lang);
@@ -59,7 +62,7 @@ const serializeJsonLd = (value: unknown) => JSON.stringify(value).replaceAll('<'
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     <link rel="alternate" hreflang="en"      href={enURL} />
-    <link rel="alternate" hreflang="sv"      href={svURL} />
+    {hasTranslation && <link rel="alternate" hreflang="sv" href={svURL} />}
     <link rel="alternate" hreflang="x-default" href={enURL} />
 
     <!-- Open Graph -->
