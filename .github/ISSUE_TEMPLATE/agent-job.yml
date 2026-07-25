@@ -1,0 +1,63 @@
+name: Agentjobb
+description: Ett avgränsat jobb som kan delegeras till Codex eller Claude
+title: "[Agentjobb] "
+body:
+  - type: textarea
+    id: objective
+    attributes:
+      label: Mål
+      description: Beskriv det observerbara resultat som ska finnas.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Kontext
+      description: Länka relevant innehåll, filer, beslut eller tidigare försök.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope och icke-mål
+      description: Vad får ändras, och vad ska lämnas orört?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptanskriterier
+      value: |
+        - [ ]
+        - [ ]
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verifiering
+      value: |
+        - [ ] `scripts/verify.sh`
+        - [ ] Relevant manuell kontroll
+    validations:
+      required: true
+  - type: dropdown
+    id: execution
+    attributes:
+      label: Föredragen körmiljö
+      options:
+        - Auto
+        - Moln — Macen behövs inte
+        - Lokal — kräver lokal miljö eller dialog
+    validations:
+      required: true
+  - type: dropdown
+    id: risk
+    attributes:
+      label: Risk
+      options:
+        - Låg
+        - Medel
+        - Hög — data, IAM, secrets eller produktion
+    validations:
+      required: true
