@@ -1,0 +1,22 @@
+name: Auto Intake Label
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  label-intake:
+    runs-on: ubuntu-latest
+    if: github.event.issue.labels == null || toJson(github.event.issue.labels) == '[]'
+    steps:
+      - name: Apply status:intake
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue edit ${{ github.event.issue.number }} \
+            --add-label "status:intake" \
+            -R ${{ github.repository }}
+          echo "Tagged issue #${{ github.event.issue.number }} with status:intake"
