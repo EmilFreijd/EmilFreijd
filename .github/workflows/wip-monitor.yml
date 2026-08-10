@@ -1,0 +1,54 @@
+name: WIP Monitor
+
+on:
+  issues:
+    types: [labeled]
+  schedule:
+    - cron: '0 8 * * 1'  # Måndag 08:00 — veckovis påminnelse
+
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  check-wip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check WIP limit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          # WIP-gränser per repo
+          case "$REPO" in
+            */Kriterion)    WIP_LIMIT=5 ;;
+            */Herkules)     WIP_LIMIT=2 ;;
+            */Hephaestus)   WIP_LIMIT=3 ;;
+            *)              WIP_LIMIT=3 ;;  # domänrepos default
+          esac
+
+          ACTIVE_COUNT=$(gh issue list -R "$REPO" \
+            --label "status:active" \
+            --state open \
+            --json number \
+            --jq 'length')
+
+          echo "Active issues: $ACTIVE_COUNT / $WIP_LIMIT"
+
+          if [ "$ACTIVE_COUNT" -gt "$WIP_LIMIT" ]; then
+            # Hitta det nyast lablade issue:t (trigger-issue vid labeled-event)
+            if [ "${{ github.event_name }}" = "issues" ]; then
+              ISSUE_NUM=${{ github.event.issue.number }}
+              gh issue comment $ISSUE_NUM -R "$REPO" --body "$(cat <<COMMENT
+          ⚠️ **WIP-gräns nådd**
+
+          Det finns nu **${ACTIVE_COUNT} aktiva issues** i detta repo — gränsen är **${WIP_LIMIT}**.
+
+          Innan du startar nytt arbete: flytta ett aktivt issue till \`status:icebox\` eller slutför det.
+
+          > Varför WIP-gränser? Obegränsad WIP bromsar flödet — se FLOW.md.
+          COMMENT
+          )"
+            fi
+          fi
