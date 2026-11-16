@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { useTranslations, getPath, localizeStream, type Lang } from '@/i18n/utils';
-import { LINKEDIN_URL, yearsInIT } from '@/consts';
+import { LINKEDIN_URL } from '@/consts';
 import { getCollection } from 'astro:content';
 
 interface Props { lang: Lang; }
@@ -10,13 +10,10 @@ const t    = useTranslations(lang);
 
 const allStream = await getCollection('stream', e => !e.data.draft);
 
-const featured = localizeStream(allStream, lang)
-  .filter(e => e.data.featured)
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+const work = localizeStream(allStream, lang)
+  .sort((a, b) => Number(b.data.featured) - Number(a.data.featured)
+    || b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
-
-const publishedCount = allStream.filter(e => e.data.lang !== 'sv').length;
-const years = yearsInIT();
 
 const kindLabel: Record<string, string> = {
   case:    t('stream.kind.case'),
@@ -35,23 +32,54 @@ const kindLabel: Record<string, string> = {
       <div class="hero-glow glow-2"></div>
     </div>
     <div class="hero-content">
-      <div class="hero-badge">
-        <span class="badge-dot"></span>
-        {t('hero.badge')}
-      </div>
       <h1><span class="hero-name">Emil Freijd</span></h1>
       <p class="hero-title">{t('hero.title')}</p>
       <p class="hero-sub">{t('hero.subtitle')}</p>
       <div class="hero-cta">
-        <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-          {t('hero.cta.primary')}
-        </a>
-        <a href={getPath(lang, 'stream')} class="btn btn-ghost">{t('hero.cta.secondary')}</a>
+        <a href={getPath(lang, 'stream')} class="btn btn-primary">{t('hero.cta.primary')}</a>
+        <a href={getPath(lang, 'contact')} class="btn btn-ghost">{t('hero.cta.secondary')}</a>
       </div>
     </div>
-    <div class="hero-scroll">
-      <span>{t('hero.scroll')}</span>
-      <div class="scroll-line"></div>
+  </section>
+
+  <!-- WORK TEASERS -->
+  <section id="work" class="work-section">
+    <div class="container">
+      <p class="section-label center">{t('work.label')}</p>
+      <h2 class="center">{t('work.heading')}</h2>
+      <p class="section-sub center">{t('work.desc')}</p>
+
+      {work.length > 0 ? (
+        <div class="work-grid">
+          {work.map(e => (
+            <a href={getPath(lang, `stream/${e.id}`)} class="work-card" data-reveal>
+              <div class="work-card-header">
+                <span class="work-tag">{kindLabel[e.data.kind]}</span>
+                <span class="work-year">{e.data.date.getFullYear()}</span>
+              </div>
+              <h3 lang={e.data.lang}>{e.data.title}</h3>
+              <p lang={e.data.lang}>{e.data.description}</p>
+              {e.data.metrics && e.data.metrics.length > 0 && (
+                <div class="work-metrics">
+                  {e.data.metrics.slice(0, 2).map(m => (
+                    <span class="metric"><strong>{m.value}</strong> {m.label}</span>
+                  ))}
+                </div>
+              )}
+              <span class="work-cta">{t('work.read')}</span>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="work-empty">
+          <p>{t('work.empty')}</p>
+          <p class="work-empty-sub">{t('work.empty.sub')}</p>
+        </div>
+      )}
+
+      <div class="work-footer">
+        <a href={getPath(lang, 'stream')} class="btn btn-ghost">{t('work.viewAll')}</a>
+      </div>
     </div>
   </section>
 
@@ -73,23 +101,9 @@ const kindLabel: Record<string, string> = {
           </div>
           <a href={getPath(lang, 'about')} class="about-link">{t('about.link')}</a>
         </div>
-        <div class="about-stats">
-          <div class="stat-card">
-            <span class="stat-number">{years}<span class="stat-plus">+</span></span>
-            <span class="stat-label">{t('about.stat.years')}</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-number">{publishedCount}</span>
-            <span class="stat-label">{t('about.stat.projects')}</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-number">10<span class="stat-plus">+</span></span>
-            <span class="stat-label">{t('about.stat.stakeholders')}</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-number">3</span>
-            <span class="stat-label">{t('about.stat.countries')}</span>
-          </div>
+        <div class="about-focus">
+          <h3>{t('about.focus.heading')}</h3>
+          <p>{t('about.focus.body')}</p>
         </div>
       </div>
     </div>
@@ -158,47 +172,6 @@ const kindLabel: Record<string, string> = {
     </div>
   </section>
 
-  <!-- WORK TEASERS -->
-  <section id="work" class="work-section">
-    <div class="container">
-      <p class="section-label center">{t('work.label')}</p>
-      <h2 class="center">{t('work.heading')}</h2>
-      <p class="section-sub center">{t('work.desc')}</p>
-
-      {featured.length > 0 ? (
-        <div class="work-grid">
-          {featured.map(e => (
-            <a href={getPath(lang, `stream/${e.id}`)} class="work-card" data-reveal>
-              <div class="work-card-header">
-                <span class="work-tag">{e.data.sector ? e.data.sector.replaceAll('-', ' ') : kindLabel[e.data.kind]}</span>
-                <span class="work-year">{e.data.date.getFullYear()}</span>
-              </div>
-              <h3>{e.data.title}</h3>
-              <p>{e.data.description}</p>
-              {e.data.metrics && e.data.metrics.length > 0 && (
-                <div class="work-metrics">
-                  {e.data.metrics.slice(0, 2).map(m => (
-                    <span class="metric"><strong>{m.value}</strong> {m.label}</span>
-                  ))}
-                </div>
-              )}
-              <span class="work-cta">{t('work.read')}</span>
-            </a>
-          ))}
-        </div>
-      ) : (
-        <div class="work-empty">
-          <p>{t('work.empty')}</p>
-          <p class="work-empty-sub">{t('work.empty.sub')}</p>
-        </div>
-      )}
-
-      <div class="work-footer">
-        <a href={getPath(lang, 'stream')} class="btn btn-ghost">{t('work.viewAll')}</a>
-      </div>
-    </div>
-  </section>
-
   <!-- CTA STRIP -->
   <section id="contact" class="cta-strip">
     <div class="container">
@@ -220,9 +193,9 @@ const kindLabel: Record<string, string> = {
 <style>
   /* Hero */
   #hero {
-    position: relative; min-height: 100vh;
+    position: relative; min-height: min(90vh, 50rem); min-height: min(90svh, 50rem);
     display: flex; align-items: center; justify-content: center;
-    padding: 0 var(--space-8); overflow: hidden;
+    padding: 7rem var(--space-8) var(--space-16); overflow: hidden;
   }
   .hero-bg { position: absolute; inset: 0; pointer-events: none; }
   .hero-grid {
@@ -237,18 +210,6 @@ const kindLabel: Record<string, string> = {
   .glow-1 { width:600px;height:600px;background:radial-gradient(circle,var(--accent) 0%,transparent 70%);top:-150px;left:-100px;opacity:.35; }
   .glow-2 { width:500px;height:500px;background:radial-gradient(circle,#a78bfa 0%,transparent 70%);bottom:-100px;right:-80px;opacity:.2; }
   .hero-content { position: relative; z-index: 1; max-width: 800px; text-align: center; }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: var(--space-2);
-    font-size: .8rem; font-weight: 500; letter-spacing: .05em;
-    color: var(--accent-2);
-    background: rgba(124,106,247,.12); border: 1px solid rgba(124,106,247,.25);
-    padding: .35rem 1rem; border-radius: 99px; margin-bottom: var(--space-8);
-  }
-  .badge-dot {
-    width:7px;height:7px;background:var(--accent-2);border-radius:50%;
-    box-shadow:0 0 8px var(--accent-2);animation:pulse 2s ease-in-out infinite;
-  }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.85)} }
   .hero-name {
     display:block;font-size:clamp(3rem,8vw,6rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;
     background: var(--gradient-text);
@@ -258,27 +219,25 @@ const kindLabel: Record<string, string> = {
   .hero-title { font-size:clamp(1.1rem,2.5vw,1.4rem);font-weight:500;color:var(--text-dim);margin-bottom:var(--space-6);letter-spacing:.02em; }
   .hero-sub   { font-size:clamp(1rem,1.8vw,1.15rem);color:var(--text-muted);line-height:1.7;max-width:580px;margin:0 auto var(--space-10); }
   .hero-cta   { display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap; }
-  .hero-scroll { position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:var(--space-2);color:var(--text-muted);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase; }
-  .scroll-line { width:1px;height:40px;background:linear-gradient(to bottom,var(--text-muted),transparent);animation:scrollDrop 2s ease-in-out infinite; }
-  @keyframes scrollDrop { 0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom} }
-
   /* About teaser */
-  .about-section { background: var(--surface); }
+  .about-section { background: var(--bg); }
   .about-grid { display:grid;grid-template-columns:1fr 1fr;gap:var(--space-20);align-items:center; }
   .about-text h2 { margin-bottom: var(--space-6); }
   .about-body { color:var(--text-dim);line-height:1.75;margin-bottom:var(--space-5);font-size:1.025rem; }
   .about-tags { display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-6); }
   .about-link { display:inline-block;margin-top:var(--space-6);font-size:.9rem;font-weight:600;color:var(--accent-2); }
   .about-link:hover { text-decoration:underline; }
-  .about-stats { display:grid;grid-template-columns:1fr 1fr;gap:var(--space-5); }
-  .stat-card { background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem 1.5rem;display:flex;flex-direction:column;gap:var(--space-1);transition:border-color var(--transition),transform var(--transition); }
-  .stat-card:hover { border-color:rgba(124,106,247,.3);transform:translateY(-3px); }
-  .stat-number { font-size:2.4rem;font-weight:800;color:var(--text);line-height:1;letter-spacing:-.03em; }
-  .stat-plus   { font-size:1.5rem;color:var(--accent-2); }
-  .stat-label  { font-size:.82rem;color:var(--text-muted);font-weight:500; }
+  .about-focus {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-8);
+  }
+  .about-focus h3 { margin-bottom: var(--space-3); }
+  .about-focus p { color: var(--text-dim); line-height: 1.65; margin: 0; }
 
   /* Expertise */
-  .expertise-section { background: var(--bg); }
+  .expertise-section { background: var(--surface); }
   .expertise-section h2 { margin-bottom: var(--space-2); }
   .expertise-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-6);margin-top:var(--space-12); }
   .expertise-card { background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-8);position:relative;overflow:hidden;transition:all var(--transition); }
@@ -296,7 +255,7 @@ const kindLabel: Record<string, string> = {
   /* Work */
   .work-section { background: var(--surface); }
   .work-section h2 { margin-bottom: var(--space-2); }
-  .work-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:var(--space-6); }
+  .work-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%, 320px), 1fr));gap:var(--space-6); }
   .work-card { display:flex;flex-direction:column;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-8);transition:all var(--transition); }
   .work-card:hover { border-color:rgba(124,106,247,.25);transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.3); }
   .work-card-header { display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-4); }
@@ -327,7 +286,6 @@ const kindLabel: Record<string, string> = {
     .cta-actions    { justify-content:center; }
   }
   @media (max-width: 600px) {
-    .about-stats { grid-template-columns:1fr 1fr; }
-    .hero-cta    { flex-direction:column;align-items:center; }
+    .hero-cta { flex-direction: column; align-items: center; }
   }
 </style>

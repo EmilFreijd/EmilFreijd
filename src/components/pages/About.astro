@@ -1,16 +1,12 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { useTranslations, getPath, type Lang } from '@/i18n/utils';
-import { yearsInIT as getYearsInIT } from '@/consts';
-import { getCollection } from 'astro:content';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const sv = lang === 'sv';
-const yearsInIT = getYearsInIT();
-const allEntries = await getCollection('stream', e => !e.data.draft && e.data.lang !== 'sv');
 
 const traits = sv ? [
   { title: 'Systemtänkande',           desc: 'Ser helheter och beroenden snabbt. Förstår vad som faktiskt driver ett problem snarare än vad som syns på ytan.' },
@@ -233,18 +229,8 @@ const education = sv ? [
           <a href={getPath(lang, 'contact')} class="btn btn-ghost" style="display:inline-flex;margin-top:2rem;">{t('about.cta')}</a>
         </div>
         <div class="bio-aside">
-          <div class="bio-stat">
-            <span class="bio-stat-value">{yearsInIT}+</span>
-            <span class="bio-stat-label">{t('about.stat.years')}</span>
-          </div>
-          <div class="bio-stat">
-            <span class="bio-stat-value">{allEntries.length}</span>
-            <span class="bio-stat-label">{t('about.stat.projects')}</span>
-          </div>
-          <div class="bio-stat">
-            <span class="bio-stat-value">3</span>
-            <span class="bio-stat-label">{t('about.stat.countries')}</span>
-          </div>
+          <h3>{t('about.focus.heading')}</h3>
+          <p>{t('about.focus.body')}</p>
           <div class="bio-cv">
             <p class="bio-cv-note">{t('about.cv.note')} <a href={getPath(lang, 'contact')}>{t('about.cv.link')}</a>.</p>
           </div>
@@ -409,10 +395,16 @@ const education = sv ? [
   .bio-grid { display: grid; grid-template-columns: 1fr 300px; gap: var(--space-16); align-items: start; }
   .bio-text h2 { margin-bottom: var(--space-6); }
   .bio-text p  { color: var(--text-dim); line-height: 1.75; font-size: 1.025rem; margin-bottom: var(--space-5); }
-  .bio-aside   { display: flex; flex-direction: column; gap: var(--space-4); }
-  .bio-stat    { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-1); }
-  .bio-stat-value { font-size: 2rem; font-weight: 800; color: var(--accent-2); letter-spacing: -.03em; }
-  .bio-stat-label { font-size: .85rem; color: var(--text-muted); }
+  .bio-aside {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-6);
+  }
+  .bio-aside p { color: var(--text-dim); line-height: 1.65; margin: 0; }
   .bio-cv-note { font-size: .85rem; color: var(--text-muted); }
   .bio-cv-note a { color: var(--accent-2); border-bottom: 1px solid rgba(167,139,250,.3); }
 

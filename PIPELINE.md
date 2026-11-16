@@ -5,7 +5,7 @@ GitHub Issues are the mobile drafting interface for the site's four stream conte
 ## Mobile publishing flow
 
 1. In GitHub mobile, create an issue using the relevant content template.
-2. Save and edit the issue as often as needed. It remains labeled `content-draft` and is not published.
+2. Save and edit the issue as often as needed. The issue remains visible on GitHub with the `content-draft` label. The website receives the content after the generated pull request is merged.
 3. Complete the English title, description, and body. Swedish is optional, but all three Swedish fields must be completed together.
 4. Verify the security-review checkbox. Public issues must not contain classified, confidential, personal, credential, or employer-restricted information.
 5. Add the `publish-content` label when the draft is ready.
@@ -13,6 +13,12 @@ GitHub Issues are the mobile drafting interface for the site's four stream conte
 7. Review and merge the pull request. Merging deploys the site and closes the source issue.
 
 To revise a failed or existing draft, edit the issue, remove `publish-content`, and add it again. The same publishing branch and pull request are updated.
+
+## Working sources and public history
+
+Keep raw conversations, working screenshots, certificates, original CV files and unpublished source notes in private storage. Bring verified project decisions, approved copy and cleared assets into this repository as separate files. Review those files before uploading a branch or opening an issue.
+
+A later deletion from the current tree leaves the earlier version in Git history. Review the branch diff and any new commits before sharing. Test the rendered EN and SV routes where the change affects links, navigation or page metadata.
 
 ## Automatic normalization
 
