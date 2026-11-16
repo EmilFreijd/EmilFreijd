@@ -14,6 +14,12 @@ export default defineConfig({
   site: 'https://emilfreijd.se',
   base: '/',
   trailingSlash: 'always',
+  vite: {
+    build: {
+      // Inline modules make Astro's router load a data: script on navigation.
+      assetsInlineLimit: filePath => filePath.endsWith('.js') ? false : undefined,
+    },
+  },
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'sv'],

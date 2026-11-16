@@ -6,6 +6,8 @@ Issues: https://github.com/EmilFreijd/EmilFreijd/issues
 
 ---
 
+The [project history](docs/website-project-history.md) records the Posthaven work and the decisions carried into Astro.
+
 ## Architecture decisions
 
 | Decision | Choice | Rationale |
@@ -81,3 +83,4 @@ Issues: https://github.com/EmilFreijd/EmilFreijd/issues
 | 2026-06-10 | Refactor #57: shared `src/consts.ts` (LinkedIn/Cal/Formspree IDs, years-in-IT base) + `localizeStream()` helper replacing triplicated SV-counterpart lookup |
 | 2026-06-10 | #12 sharper contact copy applied: problem-first heading, "right fit" bullets, body text and closing note from the issue (SV) + drafted EN equivalents — EN wording pending Emil's review |
 | 2026-07-10 | Upgraded to Astro 7; added SAAB IT Object Leader role; introduced secure issue-form content publishing through validated pull requests; strengthened keyboard accessibility, contact privacy, CSP, CI, and repository documentation |
+| 2026-11-16 | Carried the Posthaven work forward in Astro: bilingual current-role positioning, earlier access to published work, mobile navigation, a shorter contact page, same-origin scripts for client-side navigation, and editorial guidance for private working sources. |

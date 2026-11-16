@@ -9,7 +9,7 @@ import '@fontsource/inter/600.css';
 import '@fontsource/inter/700.css';
 import '@fontsource/inter/800.css';
 import { useTranslations, type Lang } from '@/i18n/utils';
-import { SITE_NAME, LINKEDIN_URL } from '@/consts';
+import { SITE_NAME, SITE_JOB_TITLE, SITE_EMPLOYER, LINKEDIN_URL } from '@/consts';
 import { ClientRouter } from 'astro:transitions';
 
 interface Props {
@@ -27,7 +27,7 @@ interface Props {
 }
 
 const {
-  title       = 'Emil Freijd — IT Leader',
+  title       = `${SITE_NAME} — ${SITE_JOB_TITLE}`,
   description = 'IT leader delivering platforms, teams, and technology programs in high-trust environments.',
   lang        = 'en',
   ogType      = 'website',
@@ -69,12 +69,12 @@ const serializeJsonLd = (value: unknown) => JSON.stringify(value).replaceAll('<'
     <meta property="og:type"        content={ogType} />
     <meta property="og:site_name"   content={SITE_NAME} />
     <meta property="og:locale"      content={ogLocale} />
-    <meta property="og:locale:alternate" content={ogLocaleAlt} />
+    {hasTranslation && <meta property="og:locale:alternate" content={ogLocaleAlt} />}
     <meta property="og:url"         content={canonicalURL} />
     <meta property="og:title"       content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image"       content={ogImage} />
-    <meta property="og:image:alt"   content="Emil Freijd — IT Leader" />
+    <meta property="og:image:alt"   content={`${SITE_NAME} — ${SITE_JOB_TITLE}`} />
     {ogType === 'article' && publishedDate && (
       <meta property="article:published_time" content={publishedDate.toISOString()} />
     )}
@@ -89,8 +89,9 @@ const serializeJsonLd = (value: unknown) => JSON.stringify(value).replaceAll('<'
     <script is:inline type="application/ld+json" set:html={serializeJsonLd({
       '@context': 'https://schema.org',
       '@type': 'Person',
-      name: 'Emil Freijd',
-      jobTitle: 'IT Leader',
+      name: SITE_NAME,
+      jobTitle: SITE_JOB_TITLE,
+      worksFor: { '@type': 'Organization', name: SITE_EMPLOYER },
       url: 'https://emilfreijd.se',
       sameAs: [LINKEDIN_URL],
     })} />

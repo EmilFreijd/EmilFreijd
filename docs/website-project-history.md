@@ -16,7 +16,13 @@ Arbetet med Posthaven-temat konkretiserade hur en besökare skulle hitta rätt. 
 | Kontakt | Kontaktformulär och länkar till LinkedIn och mötesbokning. |
 | Språk | Engelska som huvudspråk och svenska under `/sv/`. |
 
-Astro-migreringen i maj 2026 flyttade layout, innehåll och publicering till Git-repot. GitHub Pages bygger den statiska sajten och publicerar den på den egna domänen.
+Astro-migreringen i maj 2026 flyttade layout, innehåll och publicering till Git-repot. GitHub Actions bygger den statiska sajten. GitHub Pages publicerar den på den egna domänen.
+
+## Så används historiken i den uppdaterade versionen
+
+Startsidan leder till publicerade arbeten och till kontakt på samma språk. De senaste arbetena fyller kortlistan när det finns plats efter redaktionellt utvalda inlägg. Om-sidan beskriver aktuellt ansvar och länkar vidare till kontakt. På mobil fungerar menyn med både tangentbord och pekskärm.
+
+Arbetskällorna förvaras privat. Projektbeslut och kontrollerat innehåll hör hemma i det publika repot. Publiceringsflödet beskriver vilka underlag som kan följa med en ändring.
 
 ## Lärdomar från temaarbetet
 

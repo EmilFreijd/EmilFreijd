@@ -47,18 +47,27 @@ const isActive = (href: string) => (href === home ? path === href : path.startsW
       </button>
 
       <!-- Mobile burger -->
-      <button class="nav-burger" aria-label={t('a11y.menu')} aria-expanded="false" aria-controls="mobile-navigation">
+      <button class="nav-burger" aria-label={t('a11y.menu')} aria-expanded="false" aria-haspopup="dialog" aria-controls="mobile-navigation">
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
 
-  <div class="nav-mobile" id="mobile-navigation">
-    {links.map(l => <a href={l.href} class:list={{ active: isActive(l.href) }} aria-current={isActive(l.href) ? 'page' : undefined}>{l.label}</a>)}
-    <div class="nav-mobile-meta">
+  <dialog class="nav-mobile" id="mobile-navigation" aria-label={t('a11y.menu.title')}>
+    <div class="nav-panel">
+      <button class="nav-close" type="button" autofocus>{t('a11y.menu.close')}</button>
+      <ul class="nav-mobile-links">
+        {links.map(l => (
+          <li>
+            <a href={l.href} class:list={{ active: isActive(l.href) }} aria-current={isActive(l.href) ? 'page' : undefined}>
+              {l.label}
+            </a>
+          </li>
+        ))}
+      </ul>
       <a href={otherLangHref} class="nav-lang">{otherLangLabel}</a>
     </div>
-  </div>
+  </dialog>
 </nav>
 
 <style>
@@ -155,6 +164,10 @@ const isActive = (href: string) => (href === home ? path === href : path.startsW
   .nav-burger {
     display: none;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
     gap: 5px;
     background: none;
     border: none;
@@ -170,74 +183,86 @@ const isActive = (href: string) => (href === home ? path === href : path.startsW
   }
 
   .nav-mobile {
-    display: none;
-    flex-direction: column;
-    padding: var(--space-4) var(--space-8) var(--space-6);
-    gap: var(--space-4);
-    background: var(--nav-scrolled);
-    backdrop-filter: blur(14px);
-    border-top: 1px solid var(--border);
+    inset: 0 0 auto;
+    width: 100%;
+    max-width: none;
+    max-height: 100vh;
+    max-height: 100dvh;
+    margin: 0;
+    padding: 0;
+    color: var(--text);
+    background: var(--surface);
+    border: 0;
+    border-bottom: 1px solid var(--border);
   }
-  .nav-mobile.open { display: flex; }
-  .nav-mobile a {
-    font-size: 1.05rem;
-    font-weight: 500;
+  .nav-mobile::backdrop { background: rgba(0, 0, 0, 0.6); }
+  :global(html:has(#mobile-navigation[open])) { overflow: hidden; }
+  .nav-panel { max-width: 36rem; margin: 0 auto; padding: var(--space-4) var(--space-8) var(--space-8); }
+  .nav-close {
+    display: block;
+    min-height: 44px;
+    margin-left: auto;
+    padding: 0 var(--space-4);
+    font: inherit;
+    color: var(--text);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .nav-mobile-links { list-style: none; margin: var(--space-4) 0; }
+  .nav-panel a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: var(--space-2);
     color: var(--text-dim);
-    padding: var(--space-2) 0;
-    transition: color var(--transition);
   }
-  .nav-mobile a:hover { color: var(--text); }
-  .nav-mobile a.active { color: var(--accent-2); }
-  .nav-mobile-meta {
-    padding-top: var(--space-3);
-    border-top: 1px solid var(--border);
-  }
-  .nav-mobile-meta .nav-lang { font-size: 0.85rem; }
+  .nav-panel a:hover, .nav-panel a.active { color: var(--accent-2); }
+  .nav-panel .nav-lang { width: fit-content; }
 
   @media (max-width: 640px) {
-    .nav-links  { display: none; }
-    .nav-burger { display: flex; }
+    #nav:not(.nav-ready) { position: relative; }
+    .nav-inner { flex-wrap: wrap; gap: var(--space-3); }
+    .nav-links { flex: 0 0 100%; order: 1; justify-content: flex-start; gap: var(--space-5); }
+    .nav-ready .nav-links { display: none; }
+    .nav-ready .nav-burger { display: flex; }
   }
 </style>
 
 <script>
-  // Per-page elements are swapped on view-transition navigation, so (re)bind
-  // their listeners on every astro:page-load. The window-level scroll listener
-  // is bound once and survives navigations.
+  let navEvents: AbortController | undefined;
+
   function initNav() {
-    const nav    = document.getElementById('nav');
-    if (!nav) return;
-    const burger = nav.querySelector('.nav-burger') as HTMLButtonElement | null;
-    const drawer = nav.querySelector('.nav-mobile') as HTMLElement | null;
-    const toggle = document.getElementById('theme-toggle') as HTMLButtonElement | null;
+    navEvents?.abort();
+    navEvents = new AbortController();
+    const { signal } = navEvents;
+    const nav = document.getElementById('nav');
+    const burger = nav?.querySelector<HTMLButtonElement>('.nav-burger');
+    const drawer = nav?.querySelector<HTMLDialogElement>('.nav-mobile');
+    const toggle = nav?.querySelector<HTMLButtonElement>('#theme-toggle');
+    if (!nav || !burger || !drawer) return;
 
-    const closeMenu = (returnFocus = false) => {
-      drawer?.classList.remove('open');
-      burger?.setAttribute('aria-expanded', 'false');
-      if (returnFocus) burger?.focus();
-    };
-
-    burger?.addEventListener('click', () => {
-      const open = drawer?.classList.toggle('open') ?? false;
-      burger.setAttribute('aria-expanded', String(open));
-      if (open) drawer?.querySelector<HTMLAnchorElement>('a')?.focus();
-    });
-
-    drawer?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => closeMenu()));
-
-    const navState = window as any;
-    navState.__navMediaController?.abort();
-    const mediaController = new AbortController();
-    navState.__navMediaController = mediaController;
-    window.matchMedia('(min-width: 641px)').addEventListener('change', event => {
-      if (event.matches) closeMenu();
-    }, { signal: mediaController.signal });
-
-    nav.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && drawer?.classList.contains('open')) {
-        closeMenu(true);
+    burger.addEventListener('click', () => {
+      drawer.showModal();
+      burger.setAttribute('aria-expanded', 'true');
+    }, { signal });
+    drawer.addEventListener('close', () => {
+      burger.setAttribute('aria-expanded', 'false');
+    }, { signal });
+    drawer.addEventListener('click', event => {
+      const target = event.target;
+      if (target === drawer || (target instanceof Element && target.closest('.nav-close, a'))) {
+        drawer.close();
       }
-    });
+    }, { signal });
+    window.matchMedia('(min-width: 641px)').addEventListener('change', event => {
+      if (event.matches && drawer.open) drawer.close();
+    }, { signal });
+    document.addEventListener('astro:before-swap', () => {
+      if (drawer.open) drawer.close();
+    }, { signal });
+    nav.classList.add('nav-ready');
 
     toggle?.addEventListener('click', () => {
       const current = document.documentElement.getAttribute('data-theme');
@@ -249,7 +274,7 @@ const isActive = (href: string) => (href === home ? path === href : path.startsW
       } catch {
         // The selected theme still applies for the current page.
       }
-    });
+    }, { signal });
   }
 
   function updateNavScroll() {
@@ -262,8 +287,5 @@ const isActive = (href: string) => (href === home ? path === href : path.startsW
     updateNavScroll();
   });
 
-  if (!(window as any).__navScrollBound) {
-    window.addEventListener('scroll', updateNavScroll, { passive: true });
-    (window as any).__navScrollBound = true;
-  }
+  window.addEventListener('scroll', updateNavScroll, { passive: true });
 </script>
