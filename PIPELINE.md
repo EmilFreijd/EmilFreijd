@@ -20,6 +20,12 @@ Keep raw conversations, working screenshots, certificates, original CV files and
 
 A later deletion from the current tree leaves the earlier version in Git history. Review the branch diff and any new commits before sharing. Test the rendered EN and SV routes where the change affects links, navigation or page metadata.
 
+## Editorial purpose
+
+Use the Stream for experiences, ideas and projects that give a reader something useful to take away. A short update can document an experiment or a lesson while a longer piece is still developing. Work experience and personal projects both fit.
+
+Keep the website article at a stable address and link to it when sharing a shorter introduction on LinkedIn. Choose a publishing rhythm that leaves time for the work and experiences being described. Define any commercial offer in Norumi before linking it from the personal site.
+
 ## Automatic normalization
 
 The generator in `scripts/publish-content-issue.mjs`:

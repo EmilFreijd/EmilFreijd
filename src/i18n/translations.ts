@@ -27,6 +27,7 @@ export const ui = {
     'hero.cta.secondary': 'Get in touch',
 
     // About teaser (home)
+    'about.site.purpose': 'This site is where I share what I build and learn, including ideas and experiments from everyday life. Writing helps me reflect on how I spend my time. I hope you find something useful here, or a reason to start a conversation.',
     'about.label':             'About',
     'about.heading':           'How I work',
     'about.body':              'I bring technical teams, decision-makers and operations together around the same problem. That means clarifying who owns what, making the technical choices explicit and planning for what happens after delivery.',
@@ -196,6 +197,7 @@ export const ui = {
     'hero.cta.secondary': 'Kontakta mig',
 
     // About teaser (home)
+    'about.site.purpose': 'Här delar jag det jag bygger och lär mig, även idéer och experiment från vardagen. Att skriva hjälper mig att reflektera över vad jag lägger min tid på. Jag hoppas att du hittar något användbart här eller en anledning att ta kontakt.',
     'about.label':             'Om mig',
     'about.heading':           'Så arbetar jag',
     'about.body':              'Jag samlar tekniska team, beslutsfattare och verksamhet kring samma problem. Det innebär att tydliggöra vem som ansvarar för vad, göra teknikvalen begripliga och planera för vad som händer efter leverans.',

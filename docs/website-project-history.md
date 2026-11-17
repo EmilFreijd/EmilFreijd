@@ -6,6 +6,12 @@ Den första versionen utgick från en svensk blogg på Posthaven. Tanken var att
 
 Arbetet med Posthaven-temat konkretiserade hur en besökare skulle hitta rätt. Startsidan skulle snabbt visa vem sajten tillhör och vad läsaren kan hitta där. En om-sida skulle ge sammanhang och en kontaktsida skulle ge besökaren en tydlig väg vidare. Tidiga förslag innehöll också en separat tjänstesida, ett resursbibliotek och ett nyhetsbrev. De var idéer för framtida innehåll.
 
+## Den personliga hemvisten
+
+Ett senare koncept utvecklade ambitionen att dela egna lärdomar, idéer och byggen som kan inspirera andra och leda till kontakt med likasinnade. Det ger plats åt både yrkeserfarenhet och egna experiment. Om-sidan beskriver detta syfte och flödet kan bära projekt, essäer och korta uppdateringar.
+
+Publiceringsrutinen ska gå att hålla över tid. Den egna sajten är platsen för den beständiga texten och LinkedIn kan leda läsare dit. Personliga projekt och erfarenheter kan också bidra till Norumis nätverk. Företagets erbjudanden har sitt eget sammanhang.
+
 ## Hur idéerna syns i Astro-sajten
 
 | Del | Nuvarande upplägg |
