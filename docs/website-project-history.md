@@ -12,7 +12,7 @@ Arbetet med Posthaven-temat konkretiserade hur en besökare skulle hitta rätt. 
 | --- | --- |
 | Startsida | En kort introduktion, kompetensområden, länkar till arbeten och en tydlig kontaktväg. |
 | Om-sida | Yrkesbakgrund, arbetssätt, utbildning och meriter i ett läsbart format på webben. |
-| Stream | En gemensam ingång till case, projekt, essäer och uppdateringar. Innehållet ligger i MDX. |
+| Stream | En daterad ingång till fallstudier, projekt, essäer och uppdateringar. Innehållet ligger i MDX och går att följa via RSS på båda språken. |
 | Kontakt | Kontaktformulär och länkar till LinkedIn och mötesbokning. |
 | Språk | Engelska som huvudspråk och svenska under `/sv/`. |
 
@@ -21,6 +21,8 @@ Astro-migreringen i maj 2026 flyttade layout, innehåll och publicering till Git
 ## Så används historiken i den uppdaterade versionen
 
 Startsidan leder till publicerade arbeten och till kontakt på samma språk. De senaste arbetena fyller kortlistan när det finns plats efter redaktionellt utvalda inlägg. Om-sidan beskriver aktuellt ansvar och länkar vidare till kontakt. På mobil fungerar menyn med både tangentbord och pekskärm.
+
+Den äldre ambitionen om ett beständigt publiceringsarkiv lever vidare i MDX, den egna domänen och RSS. Flödet visar publiceringsdatum och erbjuder filter när materialet räcker för att ge olika urval. En tjänstesida och ett nyhetsbrev förutsätter ett aktuellt erbjudande respektive en publiceringsrutin.
 
 Arbetskällorna förvaras privat. Projektbeslut och kontrollerat innehåll hör hemma i det publika repot. Publiceringsflödet beskriver vilka underlag som kan följa med en ändring.
 

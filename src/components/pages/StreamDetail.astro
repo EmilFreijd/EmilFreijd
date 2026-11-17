@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { useTranslations, getPath, type Lang } from '@/i18n/utils';
+import { useTranslations, getPath, formatDate, type Lang } from '@/i18n/utils';
 import { LINKEDIN_URL } from '@/consts';
 import type { CollectionEntry } from 'astro:content';
 import { render } from 'astro:content';
@@ -71,8 +71,8 @@ const edges = [[0,1],[1,2],[2,3],[3,4],[0,3],[1,4],[2,5],[4,6],[5,7],[1,6]];
       {isFallback && <p class="fallback-note">{t('stream.fallback')}</p>}
       <div class="case-meta">
         <span class="kind-tag" data-kind={kind}>{kindLabel[kind]}</span>
-        {sector && <span class="case-sector">{sector.replaceAll('-', ' ')}</span>}
-        <span class="case-year">{date.getFullYear()}</span>
+        {sector && <span class="case-sector">{t(`stream.sector.${sector}`)}</span>}
+        <time class="case-date" datetime={date.toISOString().slice(0, 10)}>{formatDate(date, lang)}</time>
       </div>
       <h1 lang={contentLang}>{title}</h1>
       <p class="case-desc" lang={contentLang}>{description}</p>
@@ -183,7 +183,7 @@ const edges = [[0,1],[1,2],[2,3],[3,4],[0,3],[1,4],[2,5],[4,6],[5,7],[1,6]];
   .kind-tag[data-kind="update"]  { color: var(--text-muted); background: var(--surface); border-color: var(--border); }
 
   .case-sector { font-size: .82rem; color: var(--text-muted); text-transform: capitalize; font-weight: 500; }
-  .case-year   { font-size: .82rem; color: var(--text-muted); font-weight: 500; }
+  .case-date   { font-size: .82rem; color: var(--text-muted); font-weight: 500; }
 
   .case-hero h1 { font-size: clamp(2rem,4vw,3.5rem); background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: var(--space-5); }
   .case-desc    { font-size: 1.1rem; color: var(--text-dim); max-width: 680px; line-height: 1.7; margin-bottom: var(--space-5); }
