@@ -222,11 +222,11 @@ const isActive = (href: string) => (href === home ? path === href : path.startsW
   .nav-panel .nav-lang { width: fit-content; }
 
   @media (max-width: 640px) {
-    #nav:not(.nav-ready) { position: relative; }
+    :global(html:not(.js)) #nav { position: relative; }
     .nav-inner { flex-wrap: wrap; gap: var(--space-3); }
     .nav-links { flex: 0 0 100%; order: 1; justify-content: flex-start; gap: var(--space-5); }
-    .nav-ready .nav-links { display: none; }
-    .nav-ready .nav-burger { display: flex; }
+    :global(html.js) .nav-links { display: none; }
+    :global(html.js) .nav-burger { display: flex; }
   }
 </style>
 
@@ -262,7 +262,6 @@ const isActive = (href: string) => (href === home ? path === href : path.startsW
     document.addEventListener('astro:before-swap', () => {
       if (drawer.open) drawer.close();
     }, { signal });
-    nav.classList.add('nav-ready');
 
     toggle?.addEventListener('click', () => {
       const current = document.documentElement.getAttribute('data-theme');
