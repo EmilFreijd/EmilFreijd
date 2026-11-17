@@ -163,6 +163,8 @@ export const ui = {
     'footer.work':    'Stream',
     'footer.contact': 'Contact',
     'footer.rss':     'RSS',
+    'footer.navigation': 'Footer navigation',
+    'footer.profiles': 'Emil’s profiles',
 
     // 404
     '404.label':   '404',
@@ -333,6 +335,8 @@ export const ui = {
     'footer.work':    'Flöde',
     'footer.contact': 'Kontakt',
     'footer.rss':     'RSS',
+    'footer.navigation': 'Sidfotsnavigation',
+    'footer.profiles': 'Emils profiler',
 
     // 404
     '404.label':   '404',
