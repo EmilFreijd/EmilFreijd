@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { useTranslations, getPath, localizeStream, type Lang } from '@/i18n/utils';
+import { useTranslations, getPath, localizeStream, formatDate, type Lang } from '@/i18n/utils';
 import { getCollection } from 'astro:content';
 
 interface Props { lang: Lang; }
@@ -10,6 +10,7 @@ const t = useTranslations(lang);
 const allStream = await getCollection('stream', e => !e.data.draft);
 const items = localizeStream(allStream, lang)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const showFilters = items.some(item => item.data.timeless) && items.some(item => !item.data.timeless);
 
 const kindLabel: Record<string, string> = {
   case:    t('stream.kind.case'),
@@ -22,40 +23,33 @@ const kindLabel: Record<string, string> = {
 
   <section class="stream-hero page-hero">
     <div class="container">
-      <p class="section-label">{t('stream.label')}</p>
       <h1>{t('stream.heading')}</h1>
       <p class="stream-intro">{t('stream.desc')}</p>
-      <div class="filter-bar">
-        <button class="filter-btn active" data-filter="all" aria-pressed="true">{t('stream.filter.all')}</button>
-        <button class="filter-btn" data-filter="timeless" aria-pressed="false">{t('stream.filter.timeless')}</button>
-      </div>
+      <a href={`${getPath(lang, '')}rss.xml`} class="stream-rss" data-astro-reload>{t('stream.rss')}</a>
     </div>
   </section>
 
   <section class="stream-section">
     <div class="container">
+      {showFilters && (
+        <div class="filter-bar" role="group" aria-label={t('stream.filter.label')} hidden>
+          <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">{t('stream.filter.all')}</button>
+          <button type="button" class="filter-btn" data-filter="timeless" aria-pressed="false">{t('stream.filter.timeless')}</button>
+        </div>
+      )}
       {items.length > 0 ? (
         <ul class="stream-list" id="stream-list">
           {items.map(item => (
             <li class="stream-item" data-timeless={String(item.data.timeless)}>
-              <span class="item-year">{item.data.date.getFullYear()}</span>
-              <div class="item-body">
-                <div class="item-meta">
-                  <span class="kind-tag" data-kind={item.data.kind}>
-                    {kindLabel[item.data.kind]}
-                  </span>
-                  {item.data.sector && (
-                    <span class="item-sector">{item.data.sector.replaceAll('-', ' ')}</span>
-                  )}
-                </div>
-                <a href={getPath(lang, `stream/${item.id}`)} class="item-title">
-                  {item.data.title}
-                </a>
-                <p class="item-desc">{item.data.description}</p>
-                <a href={getPath(lang, `stream/${item.id}`)} class="item-cta">
-                  {t('stream.read')}
-                </a>
+              <div class="item-meta">
+                <span class="kind-tag" data-kind={item.data.kind}>{kindLabel[item.data.kind]}</span>
+                {item.data.sector && <span class="item-sector">{t(`stream.sector.${item.data.sector}`)}</span>}
+                <time datetime={item.data.date.toISOString().slice(0, 10)}>{formatDate(item.data.date, lang)}</time>
               </div>
+              <a href={getPath(lang, `stream/${item.id}`)} class="item-title" lang={item.data.lang}>
+                {item.data.title}
+              </a>
+              <p class="item-desc" lang={item.data.lang}>{item.data.description}</p>
             </li>
           ))}
         </ul>
@@ -71,7 +65,11 @@ const kindLabel: Record<string, string> = {
   // Re-bind on every (view-transition) navigation — module scripts only run
   // once per session, so listeners must be re-attached to the swapped DOM.
   function initStreamFilter() {
-    const btns  = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+    const filters = document.querySelector<HTMLElement>('.filter-bar');
+    if (!filters || !filters.hidden) return;
+    filters.hidden = false;
+
+    const btns = filters.querySelectorAll<HTMLButtonElement>('.filter-btn');
     const items = document.querySelectorAll<HTMLLIElement>('.stream-item');
 
     btns.forEach(btn => {
@@ -94,9 +92,11 @@ const kindLabel: Record<string, string> = {
 
 <style>
   .stream-hero { background: var(--surface); border-bottom: 1px solid var(--border); }
-  .stream-intro { color: var(--text-muted); font-size: 1.025rem; max-width: 540px; margin-bottom: var(--space-8); line-height: 1.65; }
+  .stream-intro { color: var(--text-muted); font-size: 1.025rem; max-width: 540px; margin-bottom: var(--space-5); line-height: 1.65; }
+  .stream-rss { color: var(--accent-2); text-decoration: underline; text-underline-offset: .2em; }
 
-  .filter-bar { display: flex; gap: var(--space-2); }
+  .filter-bar { display: flex; gap: var(--space-2); margin-bottom: var(--space-4); }
+  .filter-bar[hidden], .stream-item[hidden] { display: none; }
   .filter-btn {
     font-size: .82rem; font-weight: 600;
     padding: .4rem 1.1rem; border-radius: 99px;
@@ -110,21 +110,13 @@ const kindLabel: Record<string, string> = {
   .stream-list { list-style: none; }
 
   .stream-item {
-    display: grid;
-    grid-template-columns: 52px 1fr;
-    gap: var(--space-10);
-    padding: var(--space-10) 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-8) 0;
     border-bottom: 1px solid var(--border);
-    align-items: start;
   }
   .stream-item:last-child { border-bottom: none; }
-
-  .item-year {
-    font-size: .78rem; font-weight: 700; color: var(--text-muted);
-    padding-top: .3rem; letter-spacing: .04em;
-  }
-
-  .item-body { display: flex; flex-direction: column; gap: var(--space-3); }
 
   .item-meta { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
 
@@ -137,7 +129,7 @@ const kindLabel: Record<string, string> = {
   .kind-tag[data-kind="essay"]   { color: #fb923c; background: rgba(251,146,60,.08); border-color: rgba(251,146,60,.2); }
   .kind-tag[data-kind="update"]  { color: var(--text-muted); background: var(--surface); border-color: var(--border); }
 
-  .item-sector { font-size: .75rem; color: var(--text-muted); text-transform: capitalize; }
+  .item-sector, .item-meta time { font-size: .8rem; color: var(--text-muted); }
 
   .item-title {
     font-size: 1.15rem; font-weight: 700; color: var(--text);
@@ -147,13 +139,6 @@ const kindLabel: Record<string, string> = {
 
   .item-desc { font-size: .9rem; color: var(--text-muted); line-height: 1.65; max-width: 640px; margin: 0; }
 
-  .item-cta { font-size: .85rem; font-weight: 600; color: var(--accent-2); }
-  .item-cta:hover { text-decoration: underline; }
-
   .stream-empty { color: var(--text-muted); padding: var(--space-20) 0; text-align: center; }
 
-  @media (max-width: 600px) {
-    .stream-item { grid-template-columns: 1fr; gap: var(--space-3); }
-    .item-year { display: none; }
-  }
 </style>

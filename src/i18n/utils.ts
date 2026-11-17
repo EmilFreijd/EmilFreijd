@@ -42,3 +42,10 @@ export function getOtherLangPath(url: URL): string {
   }
   return after ? `${base}sv/${after}/` : `${base}sv/`;
 }
+
+export function formatDate(date: Date, lang: Lang): string {
+  return new Intl.DateTimeFormat(lang === 'sv' ? 'sv-SE' : 'en-GB', {
+    dateStyle: 'medium',
+    timeZone: 'UTC',
+  }).format(date);
+}
