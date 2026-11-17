@@ -19,8 +19,8 @@ The [project history](docs/website-project-history.md) records the Posthaven wor
 | Secondary CTA | Cal.com (contact page) | Available but not prominent |
 | Contact form | Formspree | No backend, delivers to inbox |
 | Content | Unified stream (cases, essays, updates, projects) | Quality over quantity; one timeline, one filter |
-| Audience | Clients/partners + professional peers | Not job-seeking — "know me", not "hire me" |
-| Positioning | IT leader — capacity/potential site | The carpenter advertises buildings, not tools |
+| Audience | Professional peers, collaborators and curious readers | Share useful experiences and make relevant conversations possible |
+| Positioning | Personal home for an IT leader's experience, ideas and projects | Current role provides context; real work and lessons provide substance |
 | Industries | Public sector · Defence · Enterprise IT | High-trust, high-stakes environments |
 | Tone | Personal but professional | Honest, sharp, human — not a polished facade |
 
@@ -85,3 +85,4 @@ The [project history](docs/website-project-history.md) records the Posthaven wor
 | 2026-07-10 | Upgraded to Astro 7; added SAAB IT Object Leader role; introduced secure issue-form content publishing through validated pull requests; strengthened keyboard accessibility, contact privacy, CSP, CI, and repository documentation |
 | 2026-11-16 | Carried the Posthaven work forward in Astro: bilingual current-role positioning, earlier access to published work, mobile navigation, a shorter contact page, same-origin scripts for client-side navigation, and editorial guidance for private working sources. |
 | 2026-11-17 | Recovered the personal-home concept and carried its purpose into the bilingual About page and editorial guidance. Reviewed remaining website mentions in mixed conversations. |
+| 2026-11-17 | Processed the preserved 35-conversation source archive into `docs/source-material-review.md` with per-source dispositions and existing-issue follow-ups. Restored four editorial interview guides for the current Stream schema, clarified the bilingual merge gate, added LinkedIn/GitHub footer links with localized navigation labels and mobile wrapping, and made article links identifiable with underlines. Raw sources remain private; proposed case studies still require verified author input. |

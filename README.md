@@ -53,6 +53,8 @@ Cases, projects, essays, and updates can be drafted from GitHub mobile using the
 
 See [PIPELINE.md](PIPELINE.md) for the content schema, editorial conventions, and publication workflow.
 
+Use the [editorial interview guides](docs/editorial/README.md) to turn experiences into projects, essays, or updates. The [project history](docs/website-project-history.md) explains the site's purpose, and the [source-material review](docs/source-material-review.md) records how the preserved source archive has been processed and what still needs author input.
+
 </details>
 
 <details>

@@ -1,5 +1,6 @@
 ---
 import { useTranslations, getPath, type Lang } from '@/i18n/utils';
+import { GITHUB_URL, LINKEDIN_URL } from '@/consts';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
@@ -10,11 +11,15 @@ const year = new Date().getFullYear();
   <div class="container">
     <div class="footer-inner">
       <span class="footer-logo">Emil Freijd</span>
-      <nav class="footer-nav">
+      <nav class="footer-nav" aria-label={t('footer.navigation')}>
         <a href={getPath(lang, 'about')}>{t('footer.about')}</a>
         <a href={getPath(lang, 'stream')}>{t('footer.work')}</a>
         <a href={getPath(lang, 'contact')}>{t('footer.contact')}</a>
         <a href={lang === 'sv' ? '/sv/rss.xml' : '/rss.xml'}>{t('footer.rss')}</a>
+      </nav>
+      <nav class="footer-nav" aria-label={t('footer.profiles')}>
+        <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">GitHub</a>
       </nav>
       <p class="footer-copy">© {year} Emil Freijd</p>
     </div>
@@ -35,7 +40,7 @@ const year = new Date().getFullYear();
     gap: var(--space-4);
   }
   .footer-logo { font-weight: 700; font-size: 0.95rem; color: var(--accent-2); }
-  .footer-nav  { display: flex; gap: var(--space-6); }
+  .footer-nav  { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-6); }
   .footer-nav a {
     font-size: 0.85rem;
     color: var(--text-muted);
