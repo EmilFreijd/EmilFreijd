@@ -53,3 +53,11 @@ Första användningar finns i [källgenomgångens arbetsordning](../source-mater
 De äldre planeringssamtalen innehåller ett förslag om att testa ett återkommande LinkedIn-format i tolv veckor. Det kan användas när det finns ett ämne och utrymme att skriva. Det är inget pågående åtagande eller löfte på sajten.
 
 Välj ett format, en rimlig frekvens och ett startdatum. Publicera den beständiga texten på sajten och dela en kort introduktion med länken på LinkedIn. Följ upp läsarfrågor, relevanta samtal och vad arbetet tog i tid. Notera gärna räckvidd som kontext, men skilj den från faktiska kontakter och återkoppling. Använd privata anteckningar för uppföljningen; samla inte kontaktpersoner i det publika repot. Utvärdera om rutinen ger användbara samtal och går att hålla innan du utökar den.
+
+## Bilder och illustrationer
+
+Välj först vad bilden ska hjälpa läsaren att förstå. Utgå från fakta som redan får publiceras. En metodillustration kan visa ett arbetsflöde utan att påstå att den är ett verkligt resultatdiagram. Arbetsgivares skärmbilder och originaldokument behöver särskild granskning innan någon bearbetning blir publik.
+
+Lägg den färdiga, optimerade filen i `public/images/` på en separat gren. Använd ett beskrivande filnamn, ta bort onödig metadata och kontrollera att bilden fungerar i mörkt och ljust tema. Granska SVG som kod innan den läggs in. Skriv alternativtext på båda språken och en bildtext när sammanhanget behövs.
+
+När asset-PR:n är mergad kan innehållsissuet använda `![Beskrivning av det bilden förklarar](/images/beskrivande-filnamn.svg)`. Lägg en eventuell bildtext som ett vanligt stycke efter bilden. Externa bildadresser och GitHub-bilagor fungerar inte som ersättning för lokala assets. Kontrollera mobilbredd och läsbarhet i den färdiga artikeln.

@@ -17,6 +17,7 @@ const issueFields = [
   'Swedish body',
   'Tags',
   'Metrics',
+  'Swedish metrics',
   'Timeless',
   'Feature on homepage',
   'Security review',
@@ -52,6 +53,17 @@ function optional(fields, name, maxLength) {
   return value;
 }
 
+export function markdownImages(value) {
+  const references = new Map([...value.matchAll(/^\s{0,3}\[([^\]]+)\]:\s*<?([^\s>]+)/gm)]
+    .map(match => [match[1].trim().toLowerCase(), match[2]]));
+  const paths = [...value.matchAll(/!\[[^\]]*\]\(<?([^\s)>]+)/g)].map(match => match[1]);
+  for (const match of value.matchAll(/!\[([^\]]+)\](?:\[([^\]]*)\])?(?![\[(])/g)) {
+    const destination = references.get((match[2] || match[1]).trim().toLowerCase());
+    if (destination) paths.push(destination);
+  }
+  return paths;
+}
+
 function validateMarkdown(value, fieldName) {
   if (/[{}]/.test(value)) {
     throw new Error(`${fieldName} cannot contain braces because MDX treats them as executable expressions`);
@@ -68,6 +80,16 @@ function validateMarkdown(value, fieldName) {
     if (!/^(?:https?:\/\/|\/|#|mailto:)/.test(destination)) {
       throw new Error(`${fieldName} contains a link with an unsupported or unsafe destination`);
     }
+  }
+
+  for (const match of value.matchAll(/^\s{0,3}\[[^\]]+\]:\s*<?([^\s>]+)/gm)) {
+    if (!/^(?:https?:\/\/|\/(?!\/)|#|mailto:)/i.test(match[1])) {
+      throw new Error(`${fieldName} contains a reference link with an unsupported or unsafe destination`);
+    }
+  }
+
+  if (markdownImages(value).some(destination => !/^\/(?!\/)/.test(destination))) {
+    throw new Error(`${fieldName} images must use local /images/ paths; add cleared assets to public/images in a pull request first`);
   }
 }
 
@@ -102,7 +124,7 @@ function yamlString(value) {
   return JSON.stringify(value);
 }
 
-function renderEntry({ title, description, date, kind, lang, timeless, featured, sector, tags, metrics, body }) {
+function renderEntry({ title, description, date, kind, lang, timeless, featured, sector, tags, metrics, body, sourceIssue }) {
   const lines = [
     '---',
     `title: ${yamlString(title)}`,
@@ -110,6 +132,7 @@ function renderEntry({ title, description, date, kind, lang, timeless, featured,
     `date: ${date}`,
     `kind: ${kind}`,
     `lang: ${lang}`,
+    `sourceIssue: ${sourceIssue}`,
     `timeless: ${timeless}`,
     `featured: ${featured}`,
     'draft: false',
@@ -129,6 +152,8 @@ function renderEntry({ title, description, date, kind, lang, timeless, featured,
 }
 
 export function buildEntries({ body, labels, issueNumber }) {
+  const sourceIssue = Number(issueNumber);
+  if (!Number.isSafeInteger(sourceIssue) || sourceIssue < 1) throw new Error('A positive source issue number is required');
   const fields = parseIssueBody(body);
   if (!checked(fields.get('Security review') ?? '')) {
     throw new Error('Security review confirmation must be checked');
@@ -142,6 +167,7 @@ export function buildEntries({ body, labels, issueNumber }) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
     throw new Error('Slug must contain lowercase letters, numbers, and single hyphens only');
   }
+  if (slug.endsWith('-sv')) throw new Error('Slug cannot end with -sv; that suffix is reserved for Swedish translations');
 
   const date = required(fields, 'Publication date', 10);
   const parsedDate = new Date(`${date}T00:00:00Z`);
@@ -158,17 +184,19 @@ export function buildEntries({ body, labels, issueNumber }) {
     body: required(fields, 'English body', 50000),
   };
   const sv = {
-    title: optional(fields, 'Swedish title', 120),
-    description: optional(fields, 'Swedish description', 240),
-    body: optional(fields, 'Swedish body', 50000),
+    title: required(fields, 'Swedish title', 120),
+    description: required(fields, 'Swedish description', 240),
+    body: required(fields, 'Swedish body', 50000),
   };
-  const hasSwedish = Object.values(sv).some(Boolean);
-  if (hasSwedish && !Object.values(sv).every(Boolean)) {
-    throw new Error('Swedish title, description, and body must either all be filled or all be empty');
-  }
 
   validateMarkdown(en.body, 'English body');
-  if (hasSwedish) validateMarkdown(sv.body, 'Swedish body');
+  validateMarkdown(sv.body, 'Swedish body');
+
+  const enMetrics = parseMetrics(optional(fields, 'Metrics', 1000));
+  const svMetrics = parseMetrics(optional(fields, 'Swedish metrics', 1000));
+  if (enMetrics.length !== svMetrics.length) {
+    throw new Error('Metrics and Swedish metrics must have the same number of rows; translate both values and labels');
+  }
 
   const shared = {
     date,
@@ -177,26 +205,35 @@ export function buildEntries({ body, labels, issueNumber }) {
     featured: checked(fields.get('Feature on homepage') ?? ''),
     sector,
     tags: parseTags(optional(fields, 'Tags', 600)),
-    metrics: parseMetrics(optional(fields, 'Metrics', 1000)),
+    sourceIssue,
   };
 
   const entries = [{
     filename: `${slug}.mdx`,
-    content: renderEntry({ ...shared, ...en, lang: 'en' }),
-  }];
-  if (hasSwedish) {
-    entries.push({
+    content: renderEntry({ ...shared, ...en, metrics: enMetrics, lang: 'en' }),
+  }, {
       filename: `${slug}-sv.mdx`,
-      content: renderEntry({ ...shared, ...sv, lang: 'sv' }),
-    });
-  }
+      content: renderEntry({ ...shared, ...sv, metrics: svMetrics, lang: 'sv' }),
+  }];
 
-  return { issueNumber, kind, slug, title: en.title, entries };
+  return { issueNumber: sourceIssue, kind, slug, title: en.title, entries };
 }
 
 export function publishIssue({ body, labels, issueNumber, root = process.cwd() }) {
   const result = buildEntries({ body, labels, issueNumber });
   const contentDir = path.join(root, 'src/content/stream');
+  const filenames = new Set(result.entries.map(entry => entry.filename));
+  const getOwner = source => source.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/)?.[1]
+    .match(/^sourceIssue:\s*(\d+)\s*$/m)?.[1];
+  for (const filename of fs.existsSync(contentDir) ? fs.readdirSync(contentDir).filter(name => name.endsWith('.mdx')) : []) {
+    const owner = getOwner(fs.readFileSync(path.join(contentDir, filename), 'utf8'));
+    if (filenames.has(filename) && owner !== String(result.issueNumber)) {
+      throw new Error(`${filename} already exists and is not owned by issue #${result.issueNumber}; choose another slug or edit the existing entry in a pull request`);
+    }
+    if (!filenames.has(filename) && owner === String(result.issueNumber)) {
+      throw new Error(`Issue #${result.issueNumber} already owns ${filename}; keep its published slug or rename both translations in a reviewed pull request`);
+    }
+  }
   fs.mkdirSync(contentDir, { recursive: true });
 
   for (const entry of result.entries) {

@@ -11,13 +11,13 @@ const year = new Date().getFullYear();
   <div class="container">
     <div class="footer-inner">
       <span class="footer-logo">Emil Freijd</span>
-      <nav class="footer-nav" aria-label={t('footer.navigation')}>
-        <a href={getPath(lang, 'about')}>{t('footer.about')}</a>
-        <a href={getPath(lang, 'stream')}>{t('footer.work')}</a>
-        <a href={getPath(lang, 'contact')}>{t('footer.contact')}</a>
-        <a href={lang === 'sv' ? '/sv/rss.xml' : '/rss.xml'}>{t('footer.rss')}</a>
+      <nav class="footer-nav" aria-label={t('footer.navigation')} data-i18n-label="footer.navigation">
+        <a href={getPath(lang, 'about')} data-local-path="about" data-i18n="footer.about">{t('footer.about')}</a>
+        <a href={getPath(lang, 'stream')} data-local-path="stream" data-i18n="footer.work">{t('footer.work')}</a>
+        <a href={getPath(lang, 'contact')} data-local-path="contact" data-i18n="footer.contact">{t('footer.contact')}</a>
+        <a href={lang === 'sv' ? '/sv/rss.xml' : '/rss.xml'} data-local-path="rss.xml" data-i18n="footer.rss">{t('footer.rss')}</a>
       </nav>
-      <nav class="footer-nav" aria-label={t('footer.profiles')}>
+      <nav class="footer-nav" aria-label={t('footer.profiles')} data-i18n-label="footer.profiles">
         <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">GitHub</a>
       </nav>

@@ -6,15 +6,15 @@ import { useTranslations, getPath } from '@/i18n/utils';
 // is English-first with a pointer to the Swedish home page.
 const t = useTranslations('en');
 ---
-<BaseLayout title={`${t('404.label')} — Emil Freijd`} description={t('404.body')} otherLangPath="/sv/">
-  <section class="not-found">
+<BaseLayout title={`${t('404.label')} — Emil Freijd`} description={t('404.body')} otherLangPath="/sv/" hasTranslation={false} noindex>
+  <section class="not-found" id="not-found">
     <div class="container">
       <p class="section-label">{t('404.label')}</p>
-      <h1 id="nf-heading">{t('404.heading')}</h1>
-      <p class="not-found-body" id="nf-body">{t('404.body')}</p>
+      <h1 data-i18n="404.heading">{t('404.heading')}</h1>
+      <p class="not-found-body" data-i18n="404.body">{t('404.body')}</p>
       <div class="not-found-actions">
-        <a href={getPath('en', '')} class="btn btn-primary" id="nf-home">{t('404.home')}</a>
-        <a href={getPath('en', 'contact')} class="btn btn-ghost" id="nf-contact">{t('404.contact')}</a>
+        <a href={getPath('en', '')} class="btn btn-primary" data-local-path="" data-i18n="404.home">{t('404.home')}</a>
+        <a href={getPath('en', 'contact')} class="btn btn-ghost" data-local-path="contact" data-i18n="404.contact">{t('404.contact')}</a>
       </div>
       <p class="not-found-sv" id="nf-switch">
         Letar du på svenska? <a href={getPath('sv', '')}>Gå till startsidan →</a>
@@ -28,25 +28,46 @@ const t = useTranslations('en');
     Swedish on the client (best effort — true per-language 404 isn't possible
     with a single static 404 document).
   -->
-  <script is:inline>
-    (function () {
-      if (!/^\/sv(?:\/|$)/.test(location.pathname)) return;
-      document.documentElement.lang = 'sv';
-      var set = function (id, text) { var el = document.getElementById(id); if (el) el.textContent = text; };
-      set('nf-heading', 'Sidan hittades inte.');
-      set('nf-body', 'Sidan du letar efter finns inte eller har flyttats.');
-      var home = document.getElementById('nf-home');
-      if (home) { home.textContent = 'Till startsidan'; home.setAttribute('href', '/sv/'); }
-      var contact = document.getElementById('nf-contact');
-      if (contact) { contact.textContent = 'Kontakta mig'; contact.setAttribute('href', '/sv/contact/'); }
-      var sw = document.getElementById('nf-switch');
-      if (sw) sw.innerHTML = 'Looking for English? <a href="/">Go to the homepage →</a>';
-      document.querySelectorAll('#nav .nav-lang').forEach(function (link) {
-        link.setAttribute('href', '/');
-        link.setAttribute('title', 'English');
-        link.textContent = link.closest('.nav-mobile-meta') ? 'English' : 'EN';
+  <script>
+    import { ui, type UiKey } from '@/i18n/translations';
+
+    function localizeNotFound() {
+      if (!document.getElementById('not-found')) return;
+      const lang = /^\/sv(?:\/|$)/.test(location.pathname) ? 'sv' : 'en';
+      const copy = ui[lang];
+      const home = lang === 'sv' ? '/sv/' : '/';
+      document.documentElement.lang = lang;
+      document.title = `${copy['404.heading']} — Emil Freijd`;
+      for (const name of ['description', 'og:description', 'twitter:description']) {
+        document.querySelector(`meta[name="${name}"], meta[property="${name}"]`)?.setAttribute('content', copy['404.body']);
+      }
+      for (const name of ['og:title', 'twitter:title']) {
+        document.querySelector(`meta[name="${name}"], meta[property="${name}"]`)?.setAttribute('content', document.title);
+      }
+      document.querySelector('meta[property="og:locale"]')?.setAttribute('content', lang === 'sv' ? 'sv_SE' : 'en_GB');
+      document.querySelectorAll<HTMLElement>('[data-i18n]').forEach(element => {
+        element.textContent = copy[element.dataset.i18n as UiKey];
       });
-    })();
+      document.querySelectorAll<HTMLElement>('[data-i18n-label]').forEach(element => {
+        element.setAttribute('aria-label', copy[element.dataset.i18nLabel as UiKey]);
+      });
+      document.querySelectorAll<HTMLAnchorElement>('[data-local-path]').forEach(link => {
+        const path = link.dataset.localPath ?? '';
+        link.href = `${home}${path}${path && !path.endsWith('.xml') ? '/' : ''}`;
+      });
+      document.querySelectorAll<HTMLAnchorElement>('#nav .nav-lang').forEach(link => {
+        link.href = lang === 'sv' ? '/' : '/sv/';
+        link.title = copy['lang.label'];
+        link.textContent = link.closest('.nav-mobile') ? copy['lang.label'] : (lang === 'sv' ? 'EN' : 'SV');
+      });
+      const switchNote = document.getElementById('nf-switch');
+      const switchLink = document.createElement('a');
+      switchLink.href = lang === 'sv' ? '/' : '/sv/';
+      switchLink.textContent = lang === 'sv' ? 'Go to the homepage →' : 'Gå till startsidan →';
+      switchNote?.replaceChildren(lang === 'sv' ? 'Looking for English? ' : 'Letar du på svenska? ', switchLink);
+    }
+    localizeNotFound();
+    document.addEventListener('astro:page-load', localizeNotFound);
   </script>
 </BaseLayout>
 

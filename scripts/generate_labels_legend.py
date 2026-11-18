@@ -243,7 +243,7 @@ def main():
 
     summary_md = generate_readme_summary(args.repo, domain)
     summary_path = docs_dir / "labels-summary.md"
-    summary_path.write_text(summary_md, encoding='utf-8')
+    summary_path.write_text(summary_md.replace('](docs/labels.md)', '](labels.md)'), encoding='utf-8')
     print(f"Generated {summary_path}")
 
     upsert_readme_section(repo_root / "README.md", summary_md)
