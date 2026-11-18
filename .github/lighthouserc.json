@@ -10,16 +10,38 @@
         "http://localhost/stream/design-thinking-lab/",
         "http://localhost/sv/",
         "http://localhost/sv/contact/",
-        "http://localhost/sv/stream/"
+        "http://localhost/sv/stream/",
+        "http://localhost/sv/about/",
+        "http://localhost/sv/stream/design-thinking-lab/"
       ],
       "numberOfRuns": 2
     },
     "assert": {
       "assertions": {
-        "categories:performance": ["error", { "minScore": 0.9 }],
-        "categories:accessibility": ["error", { "minScore": 0.9 }],
-        "categories:best-practices": ["error", { "minScore": 0.9 }],
-        "categories:seo": ["error", { "minScore": 0.9 }]
+        "categories:performance": [
+          "error",
+          {
+            "minScore": 0.9
+          }
+        ],
+        "categories:accessibility": [
+          "error",
+          {
+            "minScore": 0.9
+          }
+        ],
+        "categories:best-practices": [
+          "error",
+          {
+            "minScore": 0.9
+          }
+        ],
+        "categories:seo": [
+          "error",
+          {
+            "minScore": 0.9
+          }
+        ]
       }
     }
   }

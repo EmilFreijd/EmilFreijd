@@ -103,7 +103,6 @@ export const ui = {
     'about.cta':           'Get in touch →',
     'about.cv.note':       'CV available on request —',
     'about.cv.link':       'get in touch',
-    'about.cv.download':   '↓ Download CV',
     'about.career.label':  'Career',
     'about.career.heading':'Work history.',
     'about.skills.label':  'Skills',
@@ -261,21 +260,20 @@ export const ui = {
     'stream.fallback':       'Det här inlägget finns ännu inte på svenska — visar det engelska originalet.',
 
     // CTA strip (home)
-    'cta.heading': 'Låt oss connecta.',
+    'cta.heading': 'Låt oss höras.',
     'cta.desc':    'Öppen för samtal — om teknik, ledarskap eller vad du håller på att bygga.',
     'cta.primary': 'LinkedIn',
     'cta.ghost':   'Kontakta mig',
 
     // About page
     'about.page.label':    'Om mig',
-    'about.page.heading':  'Bakgrund & approach.',
+    'about.page.heading':  'Bakgrund och arbetssätt.',
     'about.page.intro':    'IT-ledare som arbetar där teknik, organisation och leverans måste hänga ihop. Här är hela berättelsen.',
     'about.story.label':   'Den fullständiga berättelsen',
     'about.story.heading': 'Bygger för att förstå. Förstår för att förändra.',
     'about.cta':           'Kontakta mig →',
     'about.cv.note':       'CV tillgängligt på förfrågan —',
     'about.cv.link':       'kontakta mig',
-    'about.cv.download':   '↓ Ladda ner CV',
     'about.career.label':  'Karriär',
     'about.career.heading':'Arbetshistorik.',
     'about.skills.label':  'Färdigheter',

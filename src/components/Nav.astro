@@ -6,10 +6,10 @@ const { lang, otherLangHref: otherLangHrefOverride } = Astro.props;
 const t    = useTranslations(lang);
 
 const links = [
-  { label: t('nav.about'),   href: getPath(lang, 'about')  },
-  { label: t('nav.stream'),  href: getPath(lang, 'stream') },
-  { label: t('nav.contact'), href: getPath(lang, 'contact')},
-];
+  { key: 'nav.about', path: 'about' },
+  { key: 'nav.stream', path: 'stream' },
+  { key: 'nav.contact', path: 'contact' },
+] as const;
 
 const otherLangHref  = otherLangHrefOverride ?? getOtherLangPath(Astro.url);
 const otherLangLabel = t('lang.label');
@@ -20,13 +20,13 @@ const isActive = (href: string) => (href === home ? path === href : path.startsW
 ---
 <nav id="nav">
   <div class="nav-inner">
-    <a href={getPath(lang, '')} class="nav-logo">EF</a>
+    <a href={getPath(lang, '')} class="nav-logo" data-local-path="">EF</a>
 
     <ul class="nav-links">
       {links.map(l => (
         <li>
-          <a href={l.href} class:list={{ active: isActive(l.href) }} aria-current={isActive(l.href) ? 'page' : undefined}>
-            {l.label}
+          <a href={getPath(lang, l.path)} data-local-path={l.path} data-i18n={l.key} class:list={{ active: isActive(getPath(lang, l.path)) }} aria-current={isActive(getPath(lang, l.path)) ? 'page' : undefined}>
+            {t(l.key)}
           </a>
         </li>
       ))}
@@ -39,7 +39,7 @@ const isActive = (href: string) => (href === home ? path === href : path.startsW
       </a>
 
       <!-- Theme toggle -->
-      <button class="nav-theme" id="theme-toggle" aria-label={t('a11y.theme')}>
+      <button class="nav-theme" id="theme-toggle" aria-label={t('a11y.theme')} data-i18n-label="a11y.theme">
         <!-- Sun (shown in dark mode) -->
         <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
         <!-- Moon (shown in light mode) -->
@@ -47,20 +47,20 @@ const isActive = (href: string) => (href === home ? path === href : path.startsW
       </button>
 
       <!-- Mobile burger -->
-      <button class="nav-burger" aria-label={t('a11y.menu')} aria-expanded="false" aria-haspopup="dialog" aria-controls="mobile-navigation">
+      <button class="nav-burger" aria-label={t('a11y.menu')} data-i18n-label="a11y.menu" aria-expanded="false" aria-haspopup="dialog" aria-controls="mobile-navigation">
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
 
-  <dialog class="nav-mobile" id="mobile-navigation" aria-label={t('a11y.menu.title')}>
+  <dialog class="nav-mobile" id="mobile-navigation" aria-label={t('a11y.menu.title')} data-i18n-label="a11y.menu.title">
     <div class="nav-panel">
-      <button class="nav-close" type="button" autofocus>{t('a11y.menu.close')}</button>
+      <button class="nav-close" type="button" autofocus data-i18n="a11y.menu.close">{t('a11y.menu.close')}</button>
       <ul class="nav-mobile-links">
         {links.map(l => (
           <li>
-            <a href={l.href} class:list={{ active: isActive(l.href) }} aria-current={isActive(l.href) ? 'page' : undefined}>
-              {l.label}
+            <a href={getPath(lang, l.path)} data-local-path={l.path} data-i18n={l.key} class:list={{ active: isActive(getPath(lang, l.path)) }} aria-current={isActive(getPath(lang, l.path)) ? 'page' : undefined}>
+              {t(l.key)}
             </a>
           </li>
         ))}

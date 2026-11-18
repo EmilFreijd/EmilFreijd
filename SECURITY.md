@@ -28,6 +28,8 @@ This is a static personal portfolio site with no backend, no authentication, and
 
 ## Known limitations
 
+- Dependency review on 2026-11-18 updated Astro/MDX/check and their lockfile dependencies within supported major versions. npm audit still reports GHSA-fc5q-39xc-vjpf in picomatch through 4.0.7; the upstream advisory has no patched version at this review date. The affected glob matching is used by trusted repository/build configuration; the deployed site has no Node server accepting visitor-supplied glob patterns. [Issue #165](https://github.com/EmilFreijd/EmilFreijd/issues/165) tracks the upstream fix. Do not use `npm audit fix --force` to downgrade the site to obsolete framework versions merely to suppress propagated audit findings.
+
 - GitHub Pages does not support custom HTTP security headers. The site uses a CSP and referrer `<meta>` policy, but header-only protections such as HSTS, X-Content-Type-Options, and CSP `frame-ancestors` require a security-header-capable proxy.
 - Inter is self-hosted via `@fontsource/inter`; no third-party font CDN requests are made by the site
 - Contact messages are processed by Formspree; the form warns visitors not to submit restricted or highly sensitive information

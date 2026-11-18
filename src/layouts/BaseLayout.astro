@@ -24,6 +24,7 @@ interface Props {
   otherLangPath?: string;
   /** Whether this page has a genuine translated counterpart for hreflang metadata. */
   hasTranslation?: boolean;
+  noindex?: boolean;
 }
 
 const {
@@ -35,6 +36,7 @@ const {
   canonicalPath,
   otherLangPath,
   hasTranslation = true,
+  noindex = false,
 } = Astro.props;
 
 const t = useTranslations(lang);
@@ -60,10 +62,12 @@ const serializeJsonLd = (value: unknown) => JSON.stringify(value).replaceAll('<'
     <meta name="referrer" content="no-referrer" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalURL} />
-    <link rel="alternate" hreflang="en"      href={enURL} />
-    {hasTranslation && <link rel="alternate" hreflang="sv" href={svURL} />}
-    <link rel="alternate" hreflang="x-default" href={enURL} />
+    {noindex ? <meta name="robots" content="noindex, follow" /> : <>
+      <link rel="canonical" href={canonicalURL} />
+      <link rel="alternate" hreflang="en" href={enURL} />
+      {hasTranslation && <link rel="alternate" hreflang="sv" href={svURL} />}
+      <link rel="alternate" hreflang="x-default" href={enURL} />
+    </>}
 
     <!-- Open Graph -->
     <meta property="og:type"        content={ogType} />
@@ -145,7 +149,7 @@ const serializeJsonLd = (value: unknown) => JSON.stringify(value).replaceAll('<'
     </script>
   </head>
   <body>
-    <a href="#main-content" class="skip-link">{t('a11y.skip')}</a>
+    <a href="#main-content" class="skip-link" data-i18n="a11y.skip">{t('a11y.skip')}</a>
     <Nav lang={lang} otherLangHref={otherLangPath} />
     <main id="main-content">
       <slot />

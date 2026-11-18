@@ -6,12 +6,12 @@ body:
   - type: markdown
     attributes:
       value: |
-        Draft here for as long as needed. When the content is ready, add the `publish-content` label. Automation will validate it and open a publishing pull request.
+        Draft here for as long as needed. Both English and Swedish are required for publication. Store private working notes outside this public repository. When the content is ready, add the `publish-content` label. Automation will validate it and open a publishing pull request.
   - type: input
     id: slug
     attributes:
       label: Slug
-      description: Lowercase URL name using letters, numbers, and hyphens.
+      description: Unique URL name using lowercase letters, numbers, and hyphens. The -sv suffix is reserved. Keep the slug stable when editing.
       placeholder: governance-is-a-design-problem
     validations:
       required: true
@@ -55,17 +55,23 @@ body:
     id: sv-title
     attributes:
       label: Swedish title
-      description: Optional. If used, complete all three Swedish fields.
+      description: Required before publishing. Complete all three Swedish fields.
+    validations:
+      required: true
   - type: textarea
     id: sv-description
     attributes:
       label: Swedish description
-      description: Optional. One sentence, maximum 240 characters.
+      description: Required before publishing. One sentence, maximum 240 characters.
+    validations:
+      required: true
   - type: textarea
     id: sv-body
     attributes:
       label: Swedish body
-      description: Optional. If used, complete all three Swedish fields.
+      description: Required before publishing. Complete all three Swedish fields.
+    validations:
+      required: true
   - type: input
     id: tags
     attributes:
@@ -77,6 +83,12 @@ body:
     attributes:
       label: Metrics
       description: "Optional. One per line using: value | label"
+  - type: textarea
+    id: sv-metrics
+    attributes:
+      label: Swedish metrics
+      description: "If Metrics is used, supply the same number of rows with Swedish values and labels: värde | etikett"
+      placeholder: "3 team | Leveransomfattning"
   - type: checkboxes
     id: timeless
     attributes:
