@@ -49,11 +49,11 @@ npm run build
 <details>
 <summary><strong>Publishing content from GitHub</strong></summary>
 
-Prepare and review content in private Daedalus. Submit only approved English and Swedish versions via the public publishing forms or a reviewed pull request. CI checks language parity and rejects draft entries.
+Prepare and review content in private Daedalus. Track publication in private Daedalus issues and transfer approved English and Swedish versions via a reviewed pull request. CI checks language parity and rejects draft entries.
 
 See [PIPELINE.md](PIPELINE.md) for the content schema, editorial conventions, and publication workflow.
 
-Use the [editorial interview guides](docs/editorial/README.md) to turn experiences into projects, essays, or updates. The [project history](docs/website-project-history.md) explains the site's purpose, and the [source-material review](docs/source-material-review.md) records how the preserved source archive has been processed and what still needs author input.
+The [project history](docs/website-project-history.md) explains the site's purpose, and the [source-material review](docs/source-material-review.md) records how the preserved source archive has been processed and what still needs author input.
 
 </details>
 

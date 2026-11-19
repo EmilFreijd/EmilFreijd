@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'yaml';
-import { markdownImages } from './publish-content-issue.mjs';
+import { markdownImages } from './markdown-images.mjs';
 
 export function checkContentPairs(root = process.cwd()) {
   const directory = path.join(root, 'src/content/stream');

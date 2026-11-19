@@ -23,8 +23,8 @@ Därutöver har de tidigare extraherade webbrelaterade avsnitten från **24 blan
 | Resultat | Plats |
 | --- | --- |
 | Spårbar hantering av varje bevarat samtal och kvarvarande innehåll | Detta dokument |
-| Fyra återanvändbara intervjuguider och koppling till dagens MDX-schema | [docs/editorial](editorial/README.md) |
-| Tydligt tvåspråkigt publiceringskrav och ingång till skrivstödet | [PIPELINE.md](../PIPELINE.md) |
+| Fyra återanvändbara intervjuguider och koppling till dagens MDX-schema | Privata Daedalus |
+| Tvåspråkigt publiceringskrav och teknisk överlämning | [PIPELINE.md](../PIPELINE.md) |
 | LinkedIn/GitHub som textlänkar och radbrytande sidfotsnavigation | `src/components/Footer.astro`, `src/consts.ts`, `src/i18n/translations.ts` |
 | Synliga länkar i artikeltext | `src/components/pages/StreamDetail.astro` |
 | Sammanhang och orientering i materialet | [Projekthistorik](website-project-history.md), [README](../README.md), [PROGRESS](../PROGRESS.md) |
@@ -69,7 +69,7 @@ Därutöver har de tidigare extraherade webbrelaterade avsnitten från **24 blan
 | Uppdatera README för projekt (Codex, 2026-02-20) | Dokumentera verklig teknik och skilj befintligt från planerat. | README beskriver nu Astro och GitHub Pages. Prototypens eller temats kommandon skrivs inte in som om de gällde dagens repo. |
 | Inspect repo structure (Codex, 2026-05-22) | Orientera sig i repot. | Strukturen täcks av AGENTS och PROGRESS; ingen separat ny produktfunktion följer av denna källa. |
 | Platform comparison for content (ChatGPT, 2025-11-20) | Håll isär personlig hemvist och företag, prioritera skrivande och enkelhet. | Förts in i projektets syfte och publiceringsråd. Plattformarnas gamla pris- och funktionsjämförelser används inte som aktuellt beslutsunderlag. |
-| Skapa personlig inspirationssida (Codex, 2026-03-06) | Egna erfarenheter, experiment, läsarvärde, skrivprompter och ett lättskött innehållsflöde. | Syftet finns på Om; fyra skrivguider har nu återförts under docs/editorial och anpassats till Stream. Prototypens separata samlingar, domän, driftsinstruktioner och exempelprojekt migreras inte som verifierat innehåll. |
+| Skapa personlig inspirationssida (Codex, 2026-03-06) | Egna erfarenheter, experiment, läsarvärde, skrivprompter och ett lättskött innehållsflöde. | Syftet finns på Om; fyra skrivguider har nu återförts i Daedalus och anpassats till Stream. Prototypens separata samlingar, domän, driftsinstruktioner och exempelprojekt migreras inte som verifierat innehåll. |
 
 ## Webbavsnitt i blandade samtal
 
@@ -88,16 +88,16 @@ De 24 kompletterande samtalen återkommer främst till samma initiativ i olika p
 
 ## Arbetsordning för kvarvarande innehåll
 
-De här posterna bevarar innehållsidéerna utan att göra om förslag till färdiga meriter. GitHub Issues fortsätter vara arbetskön. Hänvisningarna är en lägesbild från genomgången; de ersätter inte issuebeskrivningarna.
+De här posterna bevarar innehållsidéerna utan att göra om förslag till färdiga meriter. Redaktionella ärenden följs i privata Daedalus. Publika issues gäller sajtteknik och drift. Hänvisningarna är en lägesbild från genomgången; de ersätter inte issuebeskrivningarna.
 
 | Nästa arbete | Befintlig plats | Vad som behövs innan publicering |
 | --- | --- | --- |
 | Bearbeta essän om automation som kapacitet | Privata Daedalus (tidigare [PR #137](https://github.com/EmilFreijd/EmilFreijd/pull/137)) | Behåll den allmänna tesen, bearbeta den engelska rösten som Emil redan flaggat och skapa en svensk version. Använd essäguiden och Emils egna formuleringar. Utkastet räknas inte som publicerat. |
-| Skriva karriärfallstudier: plattformsmodernisering, mindre operativt brus och vägen till tekniskt ledarskap | [#11](https://github.com/EmilFreijd/EmilFreijd/issues/11) | Intervjua om faktisk roll, beslut, tid, belagda utfall och vad som får beskrivas offentligt. Samtalens rubriker räcker inte som belägg för resultat. Använd projektguiden. |
+| Skriva karriärfallstudier: plattformsmodernisering, mindre operativt brus och vägen till tekniskt ledarskap | Privata Daedalus | Intervjua om faktisk roll, beslut, tid, belagda utfall och vad som får beskrivas offentligt. Samtalens rubriker räcker inte som belägg för resultat. Använd projektguiden. |
 | Fördjupa ett redan publicerat arbete | `src/content/stream/design-thinking-lab.mdx` och dess svenska motsvarighet | Fråga efter egna erfarenheter, en användbar lärdom och eventuellt godkänt bildmaterial. Ändra inte befintliga siffror utan nya belägg. |
 | Visa konkreta arbeten med bilder eller förenklade diagram | [#85](https://github.com/EmilFreijd/EmilFreijd/issues/85) | Riktiga assets och rätt att publicera dem. Gamla inspirationsbilder, testinlägg, porträttfragment och arbetsgivarmaterial är inget färdigt bildbibliotek. |
-| Beskriva aktuellt fokus och därefter en kort uppdatering | [#7](https://github.com/EmilFreijd/EmilFreijd/issues/7), sedan [#16](https://github.com/EmilFreijd/EmilFreijd/issues/16) | Ett aktuellt nuläge från Emil. Äldre formuleringar om att börja en ny roll behöver omprövas. Undvik en ny sida som kräver uppdateringar utan en rutin för det. |
-| Prova hela skrivflödet på mobil med riktigt, granskat material | [#84](https://github.com/EmilFreijd/EmilFreijd/issues/84) | Genomföra issue → genererad PR → förhandsgranskning → publicering och kontrollera båda språk. Automatiserade tester är redan befintlig teknisk verifiering, inte detta användartest. |
+| Beskriva aktuellt fokus och därefter en kort uppdatering | [Sajtfunktionen #7](https://github.com/EmilFreijd/EmilFreijd/issues/7), textarbetet i privata Daedalus | Ett aktuellt nuläge från Emil. Äldre formuleringar om att börja en ny roll behöver omprövas. Undvik en ny sida som kräver uppdateringar utan en rutin för det. |
+| Prova hela skrivflödet på mobil med riktigt, granskat material | Privata Daedalus | Genomföra privat ärende → PR med färdig text → förhandsgranskning → publicering och kontrollera båda språk. Automatiserade tester är redan befintlig teknisk verifiering, inte detta användartest. |
 | Bygga vidare på sök, taggar och relaterad läsning | [#82](https://github.com/EmilFreijd/EmilFreijd/issues/82) | Mer publicerat innehåll enligt issuets förutsättning. Datum och villkorade filter finns redan. Prototypens större upptäcktsfunktioner är bevarade som idéer, inte färdiga funktioner. |
 | Följa upp kontakt, sök och eventuell analys | [#39](https://github.com/EmilFreijd/EmilFreijd/issues/39), [#70](https://github.com/EmilFreijd/EmilFreijd/issues/70), [#6](https://github.com/EmilFreijd/EmilFreijd/issues/6) | Verifierad verklig formulärleverans, Search Console-konfiguration respektive ett motiverat analysbehov. Genomgången påstår inte att externa kontoinställningar är klara. |
 
