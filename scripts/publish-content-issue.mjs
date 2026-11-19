@@ -155,8 +155,8 @@ export function buildEntries({ body, labels, issueNumber }) {
   const sourceIssue = Number(issueNumber);
   if (!Number.isSafeInteger(sourceIssue) || sourceIssue < 1) throw new Error('A positive source issue number is required');
   const fields = parseIssueBody(body);
-  if (!checked(fields.get('Security review') ?? '')) {
-    throw new Error('Security review confirmation must be checked');
+  if (!/^- \[x\] Both language versions are final and cleared for public release\.$/im.test(fields.get('Security review') ?? '')) {
+    throw new Error('Confirm both language versions are final and cleared for public release');
   }
   const kindLabels = labels.filter(label => label.startsWith('content:'));
   if (kindLabels.length !== 1) throw new Error('Issue must have exactly one content type label');

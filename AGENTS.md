@@ -24,7 +24,8 @@ statiskt till GitHub Pages på `emilfreijd.se`.
 
 - Engelska: `slug.mdx` med `lang: en`.
 - Svenska: `slug-sv.mdx` med `lang: sv`.
-- Båda språkversionerna krävs före publicering.
+- Arbetsutkast och textbearbetning hör hemma i privata Daedalus.
+- För över enbart färdiga, granskade språkpar till publika issues, grenar och innehålls-PR:er.
 - Giltiga `kind`: `case`, `project`, `essay`, `update`.
 - Följ frontmatter-schemat i `PIPELINE.md`.
 

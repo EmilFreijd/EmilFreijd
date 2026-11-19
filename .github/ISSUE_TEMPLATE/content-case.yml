@@ -1,12 +1,12 @@
-name: Draft a case study
-description: Draft a results-focused case study from GitHub mobile.
+name: Publish a case study
+description: Submit a results-focused case study from GitHub mobile.
 title: "[Case] "
-labels: ["content-draft", "content:case"]
+labels: ["content:case"]
 body:
   - type: markdown
     attributes:
       value: |
-        Draft here for as long as needed. Both English and Swedish are required for publication. Store private working notes outside this public repository. When the content is ready, add the `publish-content` label. Automation will validate it and open a publishing pull request.
+        This issue is public. Submit only final, approved English and Swedish copy prepared in private Daedalus. After submitting both versions, add the `publish-content` label to generate a pull request for technical review.
   - type: input
     id: slug
     attributes:
@@ -107,5 +107,5 @@ body:
     attributes:
       label: Security review
       options:
-        - label: This draft contains no classified, confidential, personal, credential, or employer-restricted information.
+        - label: Both language versions are final and cleared for public release.
           required: true

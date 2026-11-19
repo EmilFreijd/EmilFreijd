@@ -71,7 +71,7 @@ Governance, Leadership, Governance
 
 ### Security review
 
-- [x] This draft contains no restricted information.
+- [x] Both language versions are final and cleared for public release.
 `;
 
 test('parses issue-form headings', () => {
@@ -163,4 +163,9 @@ test('rejects calendar dates that JavaScript would otherwise normalize', () => {
     () => buildEntries({ body: invalidDate, labels: ['content:essay'], issueNumber: 45 }),
     /valid YYYY-MM-DD date/,
   );
+});
+
+test('requires a checked final publication confirmation', () => {
+  const unfinished = issueBody.replace('- [x] Both language versions', '- [ ] Both language versions');
+  assert.throws(() => buildEntries({ body: unfinished, labels: ['content:case'], issueNumber: 42 }), /final and cleared/);
 });

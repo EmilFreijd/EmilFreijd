@@ -1,18 +1,15 @@
 # Content Pipeline
 
-GitHub Issues are the mobile drafting interface for the site's four stream content types: case studies, projects, essays, and updates.
+Write and review cases, projects, essays and updates in private Daedalus. The public website repository holds cleared content, code and implementation issues.
 
 ## Mobile publishing flow
 
-1. In GitHub mobile, create an issue using the relevant content template.
-2. Save and edit the issue as often as needed. The issue remains visible on GitHub with the `content-draft` label. The website receives the content after the generated pull request is merged.
-3. Complete the English and Swedish title, description, and body. Both language versions are required by the generator and the check/build gate. Unfinished issue drafts may remain saved without the `publish-content` label.
-4. Verify the security-review checkbox. Public issues must not contain classified, confidential, personal, credential, or employer-restricted information.
-5. Add the `publish-content` label when the draft is ready.
-6. `.github/workflows/publish-content.yml` validates the issue, generates MDX, runs tests/check/build, and opens or updates `content/issue-N` as a pull request.
-7. Review both language versions, mark the draft pull request ready, and merge after CI (including Lighthouse) passes. Merging deploys the site and closes the source issue.
+1. Finish and approve both language versions in Daedalus, including title, description, body and any images or metrics.
+2. In GitHub Mobile, open the relevant publishing issue form and paste the approved EN/SV copy. The issue is public from submission. Confirm both versions are final and cleared for public release.
+3. The repository owner adds `publish-content`. GitHub Actions validates the handoff, generates the bilingual MDX, runs tests and builds, and opens or updates a pull request.
+4. Check both rendered versions and merge when CI (including Lighthouse) passes. Verify the deployment and both RSS feeds.
 
-To revise a failed or existing draft, edit the issue, remove `publish-content`, and add it again. The same publishing branch and pull request are updated.
+If the text needs editorial changes, resolve them in Daedalus. When the corrected versions are approved, update the public handoff, then remove and re-add `publish-content` to regenerate its pull request.
 
 ## Working sources and public history
 
@@ -41,11 +38,11 @@ The generator in `scripts/publish-content-issue.mjs`:
 - refuses slug collisions with manually maintained content or content from another issue;
 - never pushes directly to `main`.
 
-The workflow only accepts publish requests from issues authored by the repository owner.
+The workflow accepts issues authored and labeled by the repository owner. Check and build reject entries marked as drafts.
 
 ## Editing and stable URLs
 
-Each generated pair belongs to its source issue through `sourceIssue`. Re-running an unmerged issue rebuilds its branch from `main` and replaces that issue's generated draft. Keep edits in the issue; manual changes made only to a generated branch will be replaced on regeneration.
+Each generated pair belongs to its source issue through `sourceIssue`. Re-running an unmerged issue rebuilds its branch from `main` and replaces that issue's generated files. Carry editorial revisions forward from Daedalus before regenerating. Manual changes made only to a generated branch will be replaced.
 
 A different issue cannot overwrite that pair. Existing manually authored entries must be edited through a normal pull request. The `-sv` suffix is reserved for translations. Once a source issue's content has reached `main`, keep its slug stable; rename both language files and review redirects in an explicit pull request if a URL change is necessary.
 
