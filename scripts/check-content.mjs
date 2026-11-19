@@ -7,25 +7,26 @@ import { markdownImages } from './publish-content-issue.mjs';
 export function checkContentPairs(root = process.cwd()) {
   const directory = path.join(root, 'src/content/stream');
   const entries = new Map();
-  for (const filename of fs.readdirSync(directory).filter(name => name.endsWith('.mdx'))) {
+  for (const filename of fs.readdirSync(directory, { recursive: true }).filter(name => name.endsWith('.mdx'))) {
+    if (path.dirname(filename) !== '.') throw new Error(`Stream MDX must be in the root of src/content/stream: ${filename}`);
     const source = fs.readFileSync(path.join(directory, filename), 'utf8');
     const match = source.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
     if (!match) throw new Error(`Missing frontmatter in ${filename}`);
     const data = parse(match[1]);
     if (!data || typeof data !== 'object') throw new Error(`Invalid frontmatter in ${filename}`);
+    if (data.draft === true) throw new Error(`${filename} is a draft. Keep unfinished content in private Daedalus.`);
     entries.set(filename, { data, body: source.slice(match[0].length) });
   }
 
   const owners = new Map();
   for (const [filename, { data, body }] of entries) {
-    if (data.draft === true) continue;
     if (!['en', 'sv'].includes(data.lang)) throw new Error(`${filename} must declare lang: en or sv`);
     const swedish = data.lang === 'sv';
     if (filename.endsWith('-sv.mdx') !== swedish) throw new Error(`${filename} has a language/suffix mismatch`);
     const slug = filename.replace(swedish ? /-sv\.mdx$/ : /\.mdx$/, '');
     const counterpartName = swedish ? `${slug}.mdx` : `${slug}-sv.mdx`;
     const counterpart = entries.get(counterpartName)?.data;
-    if (!counterpart || counterpart.draft === true || counterpart.lang !== (swedish ? 'en' : 'sv')) {
+    if (!counterpart || counterpart.lang !== (swedish ? 'en' : 'sv')) {
       throw new Error(`${filename} needs a published ${counterpartName} before merge`);
     }
     for (const field of ['date', 'kind', 'timeless', 'featured', 'sourceIssue']) {

@@ -19,7 +19,8 @@ jobs:
     if: >-
       github.event.label.name == 'publish-content' &&
       github.event.issue.state == 'open' &&
-      github.event.issue.author_association == 'OWNER'
+      github.event.issue.author_association == 'OWNER' &&
+      github.event.sender.login == github.event.repository.owner.login
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -76,9 +77,8 @@ jobs:
           PR_URL=$(gh pr list --head "$BRANCH" --state open --json url --jq '.[0].url // ""')
           if [ -z "$PR_URL" ]; then
             PR_BODY=$(mktemp)
-            printf 'Generated from #%s. Review both languages, mark ready, and merge after CI passes.\n\nCloses #%s\n' "$ISSUE_NUMBER" "$ISSUE_NUMBER" > "$PR_BODY"
+            printf 'Generated from #%s. Verify both rendered languages and merge after CI passes.\n\nCloses #%s\n' "$ISSUE_NUMBER" "$ISSUE_NUMBER" > "$PR_BODY"
             PR_URL=$(gh pr create \
-              --draft \
               --base main \
               --head "$BRANCH" \
               --title "Publish: ${CONTENT_TITLE}" \

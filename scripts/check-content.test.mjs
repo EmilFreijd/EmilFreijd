@@ -20,7 +20,7 @@ test('requires a real published language counterpart, including direct MDX chang
   put('test.mdx', 'en');
   assert.throws(() => checkContentPairs(root), /needs a published test-sv.mdx/);
   put('test-sv.mdx', 'sv', 'draft: true');
-  assert.throws(() => checkContentPairs(root), /needs a published test-sv.mdx/);
+  assert.throws(() => checkContentPairs(root), /is a draft.*Daedalus/);
   put('test-sv.mdx', 'sv');
   assert.equal(checkContentPairs(root), 2);
   put('orphan-sv.mdx', 'sv');

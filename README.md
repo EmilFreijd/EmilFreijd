@@ -49,7 +49,7 @@ npm run build
 <details>
 <summary><strong>Publishing content from GitHub</strong></summary>
 
-Cases, projects, essays, and updates can be drafted from GitHub mobile using the repository issue forms. Adding the `publish-content` label validates both languages, protects existing slugs, creates bilingual MDX, and opens a draft pull request for review.
+Prepare and review content in private Daedalus. Submit only approved English and Swedish versions via the public publishing forms or a reviewed pull request. CI checks language parity and rejects draft entries.
 
 See [PIPELINE.md](PIPELINE.md) for the content schema, editorial conventions, and publication workflow.
 

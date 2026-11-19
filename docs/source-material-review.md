@@ -92,7 +92,7 @@ De här posterna bevarar innehållsidéerna utan att göra om förslag till fär
 
 | Nästa arbete | Befintlig plats | Vad som behövs innan publicering |
 | --- | --- | --- |
-| Bearbeta essän om automation som kapacitet | [Utkast PR #137](https://github.com/EmilFreijd/EmilFreijd/pull/137) | Behåll den allmänna tesen, bearbeta den engelska rösten som Emil redan flaggat och skapa en svensk version. Använd essäguiden och Emils egna formuleringar. Utkastet räknas inte som publicerat. |
+| Bearbeta essän om automation som kapacitet | Privata Daedalus (tidigare [PR #137](https://github.com/EmilFreijd/EmilFreijd/pull/137)) | Behåll den allmänna tesen, bearbeta den engelska rösten som Emil redan flaggat och skapa en svensk version. Använd essäguiden och Emils egna formuleringar. Utkastet räknas inte som publicerat. |
 | Skriva karriärfallstudier: plattformsmodernisering, mindre operativt brus och vägen till tekniskt ledarskap | [#11](https://github.com/EmilFreijd/EmilFreijd/issues/11) | Intervjua om faktisk roll, beslut, tid, belagda utfall och vad som får beskrivas offentligt. Samtalens rubriker räcker inte som belägg för resultat. Använd projektguiden. |
 | Fördjupa ett redan publicerat arbete | `src/content/stream/design-thinking-lab.mdx` och dess svenska motsvarighet | Fråga efter egna erfarenheter, en användbar lärdom och eventuellt godkänt bildmaterial. Ändra inte befintliga siffror utan nya belägg. |
 | Visa konkreta arbeten med bilder eller förenklade diagram | [#85](https://github.com/EmilFreijd/EmilFreijd/issues/85) | Riktiga assets och rätt att publicera dem. Gamla inspirationsbilder, testinlägg, porträttfragment och arbetsgivarmaterial är inget färdigt bildbibliotek. |
