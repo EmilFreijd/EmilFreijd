@@ -25,7 +25,7 @@ statiskt till GitHub Pages på `emilfreijd.se`.
 - Engelska: `slug.mdx` med `lang: en`.
 - Svenska: `slug-sv.mdx` med `lang: sv`.
 - Arbetsutkast och textbearbetning hör hemma i privata Daedalus.
-- För över enbart färdiga, granskade språkpar till publika issues, grenar och innehålls-PR:er.
+- För över enbart färdiga, granskade språkpar via en innehålls-PR. Innehålls- och publiceringsärenden ligger i privata Daedalus.
 - Giltiga `kind`: `case`, `project`, `essay`, `update`.
 - Följ frontmatter-schemat i `PIPELINE.md`.
 
@@ -50,7 +50,7 @@ Node 22 krävs. Verifieringen kör test, Astro check och produktionsbuild.
 
 ## Arbetsregler
 
-- GitHub Issues är arbetskön.
+- Publika GitHub Issues är arbetskön för sajtteknik och drift.
 - Arkitekturbeslut och historik hör hemma i `PROGRESS.md`.
 - Gör minsta ändring som uppfyller issuets acceptanskriterier.
 - Arbeta på separat branch och lämna resultatet som draft-PR.

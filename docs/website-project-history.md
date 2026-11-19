@@ -43,6 +43,6 @@ Repots `PROGRESS.md` beskriver arkitekturbesluten och `PIPELINE.md` beskriver pu
 
 ## Bearbetat källmaterial
 
-[Källgenomgången](source-material-review.md) visar vad vart och ett av de 35 bevarade samtalen har bidragit med, vilka lösningar som ersatts och vilket innehåll som behöver mer underlag. [Skrivguiderna](editorial/README.md) för vidare önskemålet om att fånga erfarenheter och utveckla dem till projekt, essäer och korta uppdateringar. De använder dagens gemensamma Stream och publiceringsflöde.
+[Källgenomgången](source-material-review.md) visar vad vart och ett av de 35 bevarade samtalen har bidragit med, vilka lösningar som ersatts och vilket innehåll som behöver mer underlag. Skrivguiderna i privata Daedalus för vidare önskemålet om att fånga erfarenheter och utveckla dem till projekt, essäer och korta uppdateringar. De använder dagens gemensamma Stream och publiceringsflöde.
 
 Nästa innehållsarbete är att bearbeta det befintliga automationsutkastet och samla konkreta erfarenheter till fallstudier. Ett nytt teknikbyte följer inte av genomgången. Föreslagna tjänster, nyhetsbrev och fler medieformat har dokumenterade förutsättningar i källgenomgången.
