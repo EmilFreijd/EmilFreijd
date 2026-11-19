@@ -16,7 +16,7 @@ The [project history](docs/website-project-history.md) records the Posthaven wor
 | Structure | Hybrid — home + sub-pages | Scrollable home, dedicated /about /stream /contact |
 | Languages | EN (default) + SV at /sv/ | Astro i18n routing, prefixDefaultLocale: false |
 | Primary CTA | LinkedIn | Audience is clients/peers, not recruiters |
-| Secondary CTA | Cal.com (contact page) | Available but not prominent |
+| Secondary CTA | Contact form | Direct first contact through Formspree |
 | Contact form | Formspree | No backend, delivers to inbox |
 | Content | Unified stream (cases, essays, updates, projects) | Quality over quantity; one timeline, one filter |
 | Audience | Professional peers, collaborators and curious readers | Share useful experiences and make relevant conversations possible |
@@ -33,7 +33,7 @@ The [project history](docs/website-project-history.md) records the Posthaven wor
 /about              Full bio, how I work, approach, career timeline, skills, certs
 /stream             Unified timeline (cases, projects, essays, updates) with Timeless filter
 /stream/[slug]      Individual entry (MDX, optional metrics sidebar)
-/contact            Formspree form + Cal.com + LinkedIn
+/contact            Formspree form + LinkedIn
 
 /sv/                Swedish equivalents of all above
 ```
@@ -87,3 +87,4 @@ The [project history](docs/website-project-history.md) records the Posthaven wor
 | 2026-11-17 | Recovered the personal-home concept and carried its purpose into the bilingual About page and editorial guidance. Reviewed remaining website mentions in mixed conversations. |
 | 2026-11-17 | Processed the preserved 35-conversation source archive into `docs/source-material-review.md` with per-source dispositions and existing-issue follow-ups. Restored four editorial interview guides for the current Stream schema, clarified the bilingual merge gate, added LinkedIn/GitHub footer links with localized navigation labels and mobile wrapping, and made article links identifiable with underlines. Raw sources remain private; proposed case studies still require verified author input. |
 | 2026-11-18 | Fixed content issue ownership/slug collisions, required bilingual publication in forms/generator/check/build, localized metrics, and documented/validated local image assets. Added regression coverage, moved Lighthouse into PR CI as well as deployment, covered the remaining Swedish core routes, updated dependencies and pinned setup-node, completed client-side Swedish 404 navigation/labels/metadata, repaired the generated label-summary link, and removed stale CV-download copy. The unpatched upstream picomatch advisory remains documented in SECURITY.md. |
+| 2026-11-19 | Simplified both contact pages to Formspree and LinkedIn. Removed public booking and the 30-minute introduction copy. |

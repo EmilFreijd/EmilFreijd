@@ -151,9 +151,6 @@ export const ui = {
     'contact.li.heading':     'LinkedIn',
     'contact.li.desc':        'Best for professional introductions and networking.',
     'contact.li.link':        'Connect on LinkedIn →',
-    'contact.cal.heading':    'Book a call',
-    'contact.cal.desc':       "If you'd prefer to talk, book a 30-minute intro slot directly.",
-    'contact.cal.link':       'Book via Cal.com →',
     'contact.note.label':     'A note on confidentiality:',
     'contact.note.body':      'Given the industries I operate in, I treat all conversations with discretion. If your enquiry is sensitive, feel free to keep initial details brief.',
 
@@ -322,9 +319,6 @@ export const ui = {
     'contact.li.heading':     'LinkedIn',
     'contact.li.desc':        'Bäst för professionella presentationer och nätverkande.',
     'contact.li.link':        'Ta kontakt via LinkedIn →',
-    'contact.cal.heading':    'Boka ett samtal',
-    'contact.cal.desc':       'Boka ett första samtal på 30 minuter.',
-    'contact.cal.link':       'Boka via Cal.com →',
     'contact.note.label':     'En not om konfidentialitet:',
     'contact.note.body':      'Givet de branscher jag verkar i behandlar jag alla samtal med diskretion. Om din förfrågan är känslig, känns det bra att hålla de initiala uppgifterna kortfattade.',
 

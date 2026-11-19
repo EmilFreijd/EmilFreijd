@@ -19,7 +19,7 @@ Publiceringsrutinen ska gå att hålla över tid. Den egna sajten är platsen f�
 | Startsida | En kort introduktion, kompetensområden, länkar till arbeten och en tydlig kontaktväg. |
 | Om-sida | Yrkesbakgrund, arbetssätt, utbildning och meriter i ett läsbart format på webben. |
 | Stream | En daterad ingång till fallstudier, projekt, essäer och uppdateringar. Innehållet ligger i MDX och går att följa via RSS på båda språken. |
-| Kontakt | Kontaktformulär och länkar till LinkedIn och mötesbokning. |
+| Kontakt | Kontaktformulär och länk till LinkedIn. |
 | Språk | Engelska som huvudspråk och svenska under `/sv/`. |
 
 Astro-migreringen i maj 2026 flyttade layout, innehåll och publicering till Git-repot. GitHub Actions bygger den statiska sajten. GitHub Pages publicerar den på den egna domänen.
@@ -37,7 +37,7 @@ Arbetskällorna förvaras privat. Projektbeslut och kontrollerat innehåll hör 
 - Kontrollera mobilnavigation, sidfot och favicon på den byggda sajten. De är lätta att förbise när granskningen fokuserar på startsidan.
 - Låt datum och innehållsdata styra listor med senaste inlägg. Det minskar behovet av handplockade poster och gör sorteringen möjlig att verifiera.
 - Kontrollera titel, metabeskrivning och canonical-URL i sidans renderade HTML. En korrekt mall behöver också ge rätt värde på varje publicerad sida.
-- Håll bokning som ett val på kontaktsidan. Den tidiga frågan om att lägga kalendern på särskilda sidor ledde till en tydlig plats för bokning, och den nuvarande sajten använder en direktlänk.
+- Låt kontaktsidan göra första kontakten enkel. Bokning fanns tidigare som direktlänk. Nu kommer första kontakten via formuläret eller LinkedIn.
 
 Repots `PROGRESS.md` beskriver arkitekturbesluten och `PIPELINE.md` beskriver publiceringsflödet.
 
