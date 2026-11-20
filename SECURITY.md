@@ -26,9 +26,11 @@ If you find a security issue in this site, please report it privately:
 
 This is a static personal portfolio site with no backend, no authentication, and no user data storage. The primary risk surface is the contact form (handled by Formspree) and the build/deploy pipeline (GitHub Actions).
 
-## Known limitations
+## Dependency review
 
-- Dependency review on 2026-11-18 updated Astro/MDX/check and their lockfile dependencies within supported major versions. npm audit still reports GHSA-fc5q-39xc-vjpf in picomatch through 4.0.7; the upstream advisory has no patched version at this review date. The affected glob matching is used by trusted repository/build configuration; the deployed site has no Node server accepting visitor-supplied glob patterns. [Issue #165](https://github.com/EmilFreijd/EmilFreijd/issues/165) tracks the upstream fix. Do not use `npm audit fix --force` to downgrade the site to obsolete framework versions merely to suppress propagated audit findings.
+- GitHub withdrew [GHSA-fc5q-39xc-vjpf](https://github.com/advisories/GHSA-fc5q-39xc-vjpf) on 2026-11-18. The 2026-11-20 review found no open Dependabot alerts for this repository. [Issue #165](https://github.com/EmilFreijd/EmilFreijd/issues/165) records the outcome.
+
+## Known limitations
 
 - GitHub Pages does not support custom HTTP security headers. The site uses a CSP and referrer `<meta>` policy, but header-only protections such as HSTS, X-Content-Type-Options, and CSP `frame-ancestors` require a security-header-capable proxy.
 - Inter is self-hosted via `@fontsource/inter`; no third-party font CDN requests are made by the site
