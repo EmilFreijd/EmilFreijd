@@ -50,7 +50,7 @@ Node 22 krävs. Verifieringen kör test, Astro check och produktionsbuild.
 
 ## Arbetsregler
 
-- Publika GitHub Issues är arbetskön för sajtteknik och drift.
+- Öppna publika GitHub Issues för konkreta ändringar och fel i sajtteknik eller drift. GitHubs lista över öppna ärenden är arbetskön.
 - Arkitekturbeslut och historik hör hemma i `PROGRESS.md`.
 - Gör minsta ändring som uppfyller issuets acceptanskriterier.
 - Arbeta på separat branch och lämna resultatet som draft-PR.
