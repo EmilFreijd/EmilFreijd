@@ -1,0 +1,50 @@
+---
+title: "Who owns the decision? RACI and HUKI in practice"
+description: "How I use a responsibility matrix when several teams share a delivery. Build and test your own RACI or HUKI matrix."
+date: 2026-11-21
+kind: essay
+lang: en
+timeless: true
+draft: false
+tags: ["Governance", "Delivery", "RACI"]
+---
+
+import RaciMatrix from '@/components/RaciMatrix.astro';
+
+A responsibility matrix is one of my core working tools. When several teams share a delivery, I want us to answer two questions. Who can make the decision? Who does the work that follows?
+
+[Build your matrix](#matrix)
+
+## Four ways to be involved
+
+RACI stands for Responsible, Accountable, Consulted and Informed. The corresponding Swedish convention is HUKI. H is *huvudansvarig* (A), U is *utförare* (R), K is *konsulteras* (C), and I is *informeras* (I).
+
+- **A / H.** Has the authority to make the decision or answers for the delivery within their mandate.
+- **R / U.** Does the work. Several roles can contribute, and the accountable role can do the work too.
+- **C / K.** Provides input before the decision. Agree on what you need to know and when.
+- **I / I.** Gets an update when there is something they need to know or act on.
+
+## Start where the work gets stuck
+
+The matrix earns its keep at handovers, between phases and across team boundaries. Pick a decision that tends to stall and give it a row. Add a separate row for the work that follows. In a fictional IT change, the service owner can approve the release, the operations team can carry it out, and information security can give its assessment before approval. If rolling back requires its own decision, give that decision a separate row.
+
+1. **Pick a few decisions or deliverables.** Start where people are waiting or doing the same work twice. Use roles as columns.
+1. **Assign one A per row.** Check that the accountable role has the authority in practice. Then add at least one R.
+1. **Agree on the input and the update.** For each C, specify what you need to know and by when. For each I, agree where and when to share the outcome.
+1. **Try it on the next real decision.** If a decision still stalls, find out what authority, capacity or information is missing. Revise the matrix when the work or ownership changes.
+
+## Getting IAM releases back on track
+
+I worked with a consultancy supplier on identity and access management in the public sector. Ownership was unclear on both sides at the start. We spent time on messy release attempts that ended with nothing going live.
+
+I used the responsibility matrix to work through who owned what, both in our organisation and at the supplier. We went from stalled release attempts to an orderly delivery where people on both sides knew their roles and responsibilities. That is when a matrix earns its upkeep. The shared picture is there the next time something needs to go live.
+
+## Where the matrix can go wrong
+
+A complete table can hide a lack of authority or capacity. In a regulated process, different roles may own risk approval and the decision to go live. Give each decision its own row and follow the formal approvals that apply. Keep consultations selective. Every consultation takes time, and anyone receiving an update should know why it matters to them.
+
+On a small team with short decision paths, a named owner and a clear handover often suffice. When the friction is between teams, the matrix gives people a way to talk about where it occurs.
+
+Sources <a rel="noopener noreferrer" href="https://www.abf.se/wp-content/uploads/sites/38/2026/03/Att-styra-en-ideburen-organisation.pdf">ABF's handbook on non-profit governance, p. 108</a> and <a rel="noopener noreferrer" href="https://learn.nes.nhs.scot/39904/quality-improvement-zone/qi-tools/raci-matrix">NHS Education for Scotland</a>.
+
+<RaciMatrix lang="en" />

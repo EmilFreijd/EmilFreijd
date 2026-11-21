@@ -340,3 +340,48 @@ export const ui = {
 } as const;
 
 export type UiKey = keyof typeof ui.en;
+
+export const raciText = {
+  sv: {
+    'tool-title': 'Bygg din ansvarsmatris',
+    'tool-intro': 'Sätt rollerna i kolumnerna och besluten eller arbetet på raderna. Gör en liten matris som går att använda i nästa möte.',
+    'example': 'Ladda fiktivt exempel',
+    'blank': 'Börja tomt',
+    'add-row': 'Lägg till rad',
+    'add-role': 'Lägg till roll',
+    'export': 'Ladda ned CSV',
+    'privacy': 'Det du fyller i stannar i den här fliken. Ladda ned en CSV om du vill behålla matrisen.',
+    fallback: 'Aktivera JavaScript för att redigera och ladda ned matrisen.',
+    system: 'Välj notation', row: 'Beslut eller arbete',
+    check: 'Kontroll', role: 'Roll', remove: 'Ta bort',
+    noOwner: 'Ange en huvudansvarig.', manyOwners: 'Välj en huvudansvarig.',
+    noWorker: 'Ange en utförare.', noName: 'Namnge raden.',
+    incomplete: (count: number) => count === 1 ? '1 rad behöver ses över.' : count + ' rader behöver ses över.',
+    ready: 'Alla rader har en huvudansvarig och minst en utförare.',
+    confirm: 'Ersätta matrisen du arbetar med?',
+    labels: { A: 'Huvudansvarig', R: 'Utförare', C: 'Konsulteras', I: 'Informeras', AR: 'Huvudansvarig och utförare' },
+    exampleRoles: ['Tjänsteägare', 'Driftteam', 'Informationssäkerhet', 'Support'],
+    exampleRows: ['Besluta om driftsättning', 'Genomföra driftsättningen', 'Avgöra om vi ska återställa'],
+  },
+  en: {
+    'tool-title': 'Build your responsibility matrix',
+    'tool-intro': 'Put roles in the columns and decisions or work in the rows. Keep it small enough to use in your next meeting.',
+    'example': 'Load fictional example',
+    'blank': 'Start blank',
+    'add-row': 'Add row',
+    'add-role': 'Add role',
+    'export': 'Download CSV',
+    'privacy': 'Your entries stay in this tab. Download a CSV to keep the matrix.',
+    fallback: 'Enable JavaScript to edit and download the matrix.',
+    system: 'Choose notation', row: 'Decision or work',
+    check: 'Check', role: 'Role', remove: 'Remove',
+    noOwner: 'Assign one accountable role.', manyOwners: 'Choose one accountable role.',
+    noWorker: 'Assign a responsible role.', noName: 'Name the row.',
+    incomplete: (count: number) => count === 1 ? '1 row needs review.' : count + ' rows need review.',
+    ready: 'Every row has one accountable role and at least one responsible role.',
+    confirm: 'Replace the matrix you are working on?',
+    labels: { A: 'Accountable', R: 'Responsible', C: 'Consulted', I: 'Informed', AR: 'Accountable and responsible' },
+    exampleRoles: ['Service owner', 'Operations team', 'Information security', 'Support'],
+    exampleRows: ['Approve the release', 'Carry out the release', 'Decide whether to roll back'],
+  },
+};
