@@ -15,7 +15,7 @@ Branches and PRs in this repository are public. Review all files, assets and com
 title: "Title"
 description: "One-sentence summary used in cards and metadata."
 date: 2026-07-10
-kind: case # case | project | essay | update
+kind: case # case | project | essay | tool | update
 lang: en # en | sv
 sourceIssue: 123 # optional; private publication issue number, stable for the same article
 timeless: false

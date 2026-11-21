@@ -15,12 +15,6 @@ const work = localizeStream(allStream, lang)
     || b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
-const kindLabel: Record<string, string> = {
-  case:    t('stream.kind.case'),
-  project: t('stream.kind.project'),
-  essay:   t('stream.kind.essay'),
-  update:  t('stream.kind.update'),
-};
 ---
 <BaseLayout lang={lang} title={t('meta.home.title')} description={t('meta.home.desc')}>
 
@@ -54,7 +48,7 @@ const kindLabel: Record<string, string> = {
           {work.map(e => (
             <a href={getPath(lang, `stream/${e.id}`)} class="work-card" data-reveal>
               <div class="work-card-header">
-                <span class="work-tag">{kindLabel[e.data.kind]}</span>
+                <span class="work-tag">{t(`stream.kind.${e.data.kind}`)}</span>
                 <span class="work-year">{e.data.date.getFullYear()}</span>
               </div>
               <h3 lang={e.data.lang}>{e.data.title}</h3>

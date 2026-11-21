@@ -26,7 +26,7 @@ statiskt till GitHub Pages på `emilfreijd.se`.
 - Svenska: `slug-sv.mdx` med `lang: sv`.
 - Arbetsutkast och textbearbetning hör hemma i privata Daedalus.
 - För över enbart färdiga, granskade språkpar via en innehålls-PR. Innehålls- och publiceringsärenden ligger i privata Daedalus.
-- Giltiga `kind`: `case`, `project`, `essay`, `update`.
+- Giltiga `kind`: `case`, `project`, `essay`, `tool`, `update`.
 - Följ frontmatter-schemat i `PIPELINE.md`.
 
 ## Säkerhetsgrind

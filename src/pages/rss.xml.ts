@@ -6,7 +6,7 @@ export async function GET(context: APIContext) {
   const items = await getCollection('stream', e => !e.data.draft && e.data.lang !== 'sv');
   return rss({
     title: 'Emil Freijd — Stream',
-    description: 'Cases, projects, and essays from Emil Freijd.',
+    description: 'Cases, projects, essays and tools from Emil Freijd.',
     site: context.site!,
     items: items
       .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())

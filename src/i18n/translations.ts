@@ -18,7 +18,7 @@ export const ui = {
     'meta.home.title':   'Emil Freijd — IT Object Leader at Saab',
     'meta.home.desc':    'Emil Freijd works across IT governance, architecture and lifecycle delivery at Saab. Read about his work on technology, teams and organisational change.',
     'meta.stream.title': 'Stream — Emil Freijd',
-    'meta.stream.desc':  'Cases, projects, essays, and notes from Emil Freijd — a single timeline.',
+    'meta.stream.desc':  'Cases, projects, essays, tools and notes from Emil Freijd — a single timeline.',
 
     // Hero
     'hero.title':         'IT Object Leader at Saab',
@@ -62,7 +62,7 @@ export const ui = {
     // Work teaser (home)
     'work.label':     'Stream',
     'work.heading':   'Work and writing',
-    'work.desc':      'Case studies, projects and essays on technical leadership and organisational change.',
+    'work.desc':      'Case studies, projects, essays and tools on technical leadership and organisational change.',
     'work.read':      'Read →',
     'work.viewAll':   'Browse the stream →',
     'work.empty':     'Nothing published yet.',
@@ -70,7 +70,7 @@ export const ui = {
 
     // Stream page
     'stream.heading':        'Writing and projects',
-    'stream.desc':           'Case studies, projects and essays on technical leadership, systems thinking and organisational change.',
+    'stream.desc':           'Case studies, projects, essays and tools on technical leadership, systems thinking and organisational change.',
     'stream.rss':            'Follow via RSS',
     'stream.filter.label':   'Filter posts',
     'stream.filter.all':     'All',
@@ -78,6 +78,7 @@ export const ui = {
     'stream.kind.case':      'Case',
     'stream.kind.project':   'Project',
     'stream.kind.essay':     'Essay',
+    'stream.kind.tool':      'Tool',
     'stream.kind.update':    'Update',
     'stream.sector.public-sector': 'Public sector',
     'stream.sector.defence': 'Defence',
@@ -186,7 +187,7 @@ export const ui = {
     'meta.home.title':   'Emil Freijd — IT Object Leader på Saab',
     'meta.home.desc':    'Emil Freijd arbetar med IT-styrning, arkitektur och leverans genom hela livscykeln på Saab. Läs om hans arbete med teknik, team och förändring.',
     'meta.stream.title': 'Flöde — Emil Freijd',
-    'meta.stream.desc':  'Case, projekt, texter och anteckningar från Emil Freijd — en enda tidslinje.',
+    'meta.stream.desc':  'Fallstudier, projekt, texter, verktyg och anteckningar från Emil Freijd — en enda tidslinje.',
 
     // Hero
     'hero.title':         'IT Object Leader på Saab',
@@ -230,7 +231,7 @@ export const ui = {
     // Work teaser (home)
     'work.label':     'Flöde',
     'work.heading':   'Arbeten och texter',
-    'work.desc':      'Fallstudier, projekt och essäer om tekniskt ledarskap och förändring i organisationer.',
+    'work.desc':      'Fallstudier, projekt, texter och verktyg om tekniskt ledarskap och förändring i organisationer.',
     'work.read':      'Läs →',
     'work.viewAll':   'Se hela flödet →',
     'work.empty':     'Inget publicerat ännu.',
@@ -238,7 +239,7 @@ export const ui = {
 
     // Stream page
     'stream.heading':        'Texter och projekt',
-    'stream.desc':           'Fallstudier, projekt och essäer om tekniskt ledarskap, systemtänkande och förändring i organisationer.',
+    'stream.desc':           'Fallstudier, projekt, texter och verktyg om tekniskt ledarskap, systemtänkande och förändring i organisationer.',
     'stream.rss':            'Följ via RSS',
     'stream.filter.label':   'Filtrera inlägg',
     'stream.filter.all':     'Allt',
@@ -246,6 +247,7 @@ export const ui = {
     'stream.kind.case':      'Case',
     'stream.kind.project':   'Projekt',
     'stream.kind.essay':     'Text',
+    'stream.kind.tool':      'Verktyg',
     'stream.kind.update':    'Uppdatering',
     'stream.sector.public-sector': 'Offentlig sektor',
     'stream.sector.defence': 'Försvar',

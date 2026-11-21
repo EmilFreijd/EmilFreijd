@@ -8,7 +8,7 @@ const stream = defineCollection({
     title:       z.string(),
     description: z.string(),
     date:        z.coerce.date(),
-    kind:        z.enum(['case', 'project', 'essay', 'update']),
+    kind:        z.enum(['case', 'project', 'essay', 'tool', 'update']),
     timeless:    z.boolean().default(false),
     featured:    z.boolean().default(false),
     draft:       z.boolean().default(false),

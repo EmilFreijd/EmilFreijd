@@ -83,11 +83,11 @@ function mountMatrix(root) {
     return input;
   }
 
-  function removeButton(label, onRemove, focusId) {
+  function removeButton(label, onRemove, focusId, showLabel = false) {
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = 'remove';
-    button.textContent = '×';
+    button.className = showLabel ? 'remove remove-row' : 'remove';
+    button.textContent = showLabel ? words.remove : '×';
     button.title = words.remove + ' ' + label;
     button.setAttribute('aria-label', button.title);
     button.addEventListener('click', () => {
@@ -121,8 +121,14 @@ function mountMatrix(root) {
   function render() {
     const legend = Object.entries(marks())
       .filter(([mark]) => mark !== 'AR')
-      .map(([mark, symbol]) => symbol + ' = ' + words.labels[mark]);
-    byId('matrix-legend').textContent = legend.join(' · ');
+      .map(([mark, symbol]) => {
+        const item = document.createElement('li');
+        const code = document.createElement('strong');
+        code.textContent = symbol;
+        item.append(code, ' ' + words.labels[mark]);
+        return item;
+      });
+    byId('matrix-legend').replaceChildren(...legend);
     const grid = byId('grid');
     const header = grid.tHead;
     const body = grid.tBodies[0];
@@ -151,7 +157,6 @@ function mountMatrix(root) {
       const input = editable(row.name, label, (value) => { row.name = value; });
       input.addEventListener('input', updateCellLabels);
       nameCell.append(input);
-      if (rows.length > 1) nameCell.append(removeButton(label, () => { rows.splice(index, 1); }, 'add-row'));
       row.cells.forEach((mark, column) => {
         const select = document.createElement('select');
         select.setAttribute('aria-describedby', 'check-' + index);
@@ -175,6 +180,7 @@ function mountMatrix(root) {
       message.className = 'row-check';
       message.id = 'check-' + index;
       check.append(message);
+      if (rows.length > 1) check.append(removeButton(label, () => { rows.splice(index, 1); }, 'add-row', true));
     });
     updateCellLabels();
     updateStatus();
