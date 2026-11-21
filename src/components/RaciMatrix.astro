@@ -20,7 +20,9 @@ const text = raciText[lang];
         <button type="button" id="example">{text.example}</button>
         <button type="button" id="blank">{text.blank}</button>
       </div>
-      <div class="matrix-scroll" tabindex="0" role="region" aria-labelledby="matrix-title">
+      <p id="matrix-legend" class="legend"></p>
+      <p id="matrix-scroll-hint" class="scroll-hint" hidden>{text.scrollHint}</p>
+      <div class="matrix-scroll" tabindex="0" role="region" aria-labelledby="matrix-title" id="matrix-scroll">
         <table id="grid">
           <thead></thead>
           <tbody></tbody>
@@ -32,7 +34,7 @@ const text = raciText[lang];
         <button type="button" id="export">{text.export}</button>
       </div>
       <p id="status" role="status"></p>
-      <p class="privacy">{text.privacy}</p>
+      <p id="matrix-privacy" class="privacy">{text.privacy}</p>
     </div>
   </section>
 </raci-matrix>
@@ -52,20 +54,30 @@ const text = raciText[lang];
     background: var(--surface-2);
     scroll-margin-top: 6rem;
   }
+  raci-matrix > section { padding: 0; }
   raci-matrix h2 { margin-top: 0; }
   .controls, .notation { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; }
   .controls { margin-block: 1rem; }
   .notation { margin-inline-end: .3rem; }
-  .matrix-scroll { overflow: auto; padding: .25rem; }
-  raci-matrix table { width: 100%; border-collapse: collapse; text-align: start; }
+  .matrix-scroll { overflow: auto; padding: .25rem; scroll-padding-inline: 10.5rem .5rem; }
+  .matrix-scroll:focus-visible { outline: 3px solid var(--accent-text); outline-offset: 2px; }
+  raci-matrix table { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0; text-align: start; }
   raci-matrix :global(th), raci-matrix :global(td) {
-    min-width: 8rem;
+    width: 7.4rem;
     padding: .5rem .35rem;
     border-bottom: 1px solid var(--border);
     vertical-align: top;
   }
-  raci-matrix :global(th:first-child) { min-width: 12rem; }
-  raci-matrix :global(button), raci-matrix :global(input), raci-matrix :global(select) {
+  raci-matrix :global(th:first-child) {
+    width: clamp(7.75rem, 25vw, 10.5rem);
+    position: sticky;
+    inset-inline-start: 0;
+    z-index: 1;
+    background: var(--surface-2);
+    box-shadow: 1px 0 var(--border);
+    text-align: start;
+  }
+  raci-matrix :global(button), raci-matrix :global(textarea), raci-matrix :global(select) {
     min-height: 2.5rem;
     padding: .25rem .5rem;
     border: 1px solid var(--text-muted);
@@ -74,14 +86,31 @@ const text = raciText[lang];
     color: var(--text);
     font: inherit;
   }
-  raci-matrix :global(input), raci-matrix :global(select) { width: 100%; }
+  raci-matrix :global(textarea), raci-matrix :global(select) { width: 100%; }
+  raci-matrix :global(textarea) {
+    display: block;
+    field-sizing: content;
+    min-height: 3.5rem;
+    max-height: 8rem;
+    resize: vertical;
+    hyphens: auto;
+    overflow-wrap: anywhere;
+  }
+  raci-matrix :global(select) { max-width: 4.5rem; }
   raci-matrix :global(button) { cursor: pointer; }
+  @media (max-width: 560px) {
+    .matrix-scroll { scroll-padding-inline-start: 8rem; }
+    raci-matrix :global(th), raci-matrix :global(td) { width: 7.15rem; }
+    raci-matrix :global(th:first-child) { width: 8rem; }
+    raci-matrix :global(textarea) { padding-inline: .35rem; font-size: .9rem; }
+  }
   raci-matrix button[aria-pressed="true"], #export {
     border-color: var(--accent);
     background: var(--accent-glow);
     font-weight: 700;
   }
-  raci-matrix :global(.remove) { margin-top: .25rem; font-size: .84rem; }
+  raci-matrix :global(.remove) { min-width: 2rem; min-height: 2rem; margin-top: .25rem; font-size: 1.15rem; line-height: 1; }
+  raci-matrix .legend, raci-matrix .scroll-hint { margin-bottom: .5rem; color: var(--text-dim); font-size: .875rem; }
   raci-matrix :global(.row-check) { display: block; font-size: .88rem; }
   #status { margin-bottom: .5rem; font-weight: 600; }
   .privacy { margin-bottom: 0; color: var(--text-dim); font-size: .88rem; }
