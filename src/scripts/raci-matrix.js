@@ -1,4 +1,7 @@
 import { raciText } from '@/i18n/translations';
+import { decodeMatrix, matrixCsv } from './raci-matrix-state.mjs';
+
+const draftKey = 'emilfreijd:raci-matrix:v1';
 
 function mountMatrix(root) {
   if (root.dataset.mounted) return;
@@ -12,6 +15,33 @@ function mountMatrix(root) {
   let roles = [];
   let rows = [];
   let hasEdits = false;
+
+  function saveDraft() {
+    try {
+      if (hasEdits) window.sessionStorage.setItem(draftKey, JSON.stringify({ roles, rows }));
+      else window.sessionStorage.removeItem(draftKey);
+    } catch {
+      byId('matrix-privacy').textContent = words.storageUnavailable;
+    }
+  }
+
+  function restoreDraft() {
+    try {
+      return decodeMatrix(window.sessionStorage.getItem(draftKey));
+    } catch {
+      byId('matrix-privacy').textContent = words.storageUnavailable;
+      return null;
+    }
+  }
+
+  function updateOverflow() {
+    const scroller = byId('matrix-scroll');
+    const overflow = scroller.scrollWidth > scroller.clientWidth;
+    byId('matrix-scroll-hint').hidden = !overflow;
+    scroller.tabIndex = overflow ? 0 : -1;
+    if (overflow) scroller.setAttribute('aria-describedby', 'matrix-scroll-hint');
+    else scroller.removeAttribute('aria-describedby');
+  }
 
   function marks() {
     return system === 'huki' ? huki : raci;
@@ -39,13 +69,15 @@ function mountMatrix(root) {
   }
 
   function editable(value, label, onChange) {
-    const input = document.createElement('input');
-    input.type = 'text';
+    const input = document.createElement('textarea');
+    input.rows = 2;
+    input.spellcheck = false;
     input.value = value;
     input.setAttribute('aria-label', label);
     input.addEventListener('input', () => {
       onChange(input.value);
       hasEdits = true;
+      saveDraft();
       updateStatus();
     });
     return input;
@@ -55,11 +87,13 @@ function mountMatrix(root) {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'remove';
-    button.textContent = words.remove;
-    button.setAttribute('aria-label', words.remove + ' ' + label);
+    button.textContent = '×';
+    button.title = words.remove + ' ' + label;
+    button.setAttribute('aria-label', button.title);
     button.addEventListener('click', () => {
       onRemove();
       hasEdits = true;
+      saveDraft();
       render();
       byId(focusId).focus();
     });
@@ -85,6 +119,10 @@ function mountMatrix(root) {
   }
 
   function render() {
+    const legend = Object.entries(marks())
+      .filter(([mark]) => mark !== 'AR')
+      .map(([mark, symbol]) => symbol + ' = ' + words.labels[mark]);
+    byId('matrix-legend').textContent = legend.join(' · ');
     const grid = byId('grid');
     const header = grid.tHead;
     const body = grid.tBodies[0];
@@ -119,12 +157,15 @@ function mountMatrix(root) {
         select.setAttribute('aria-describedby', 'check-' + index);
         select.add(new Option('—', ''));
         for (const [key, symbol] of Object.entries(marks())) {
-          select.add(new Option(symbol + ' — ' + words.labels[key], key));
+          const option = new Option(symbol, key);
+          option.setAttribute('aria-label', symbol + ' — ' + words.labels[key]);
+          select.add(option);
         }
         select.value = mark;
         select.addEventListener('change', () => {
           row.cells[column] = select.value;
           hasEdits = true;
+          saveDraft();
           updateStatus();
         });
         line.insertCell().append(select);
@@ -137,6 +178,7 @@ function mountMatrix(root) {
     });
     updateCellLabels();
     updateStatus();
+    updateOverflow();
   }
 
   function updateNotation() {
@@ -158,26 +200,24 @@ function mountMatrix(root) {
       ? words.exampleRows.map((name, index) => ({ name, cells: assignments[index] }))
       : [{ name: '', cells: roles.map(() => '') }];
     hasEdits = false;
+    saveDraft();
     render();
-  }
-
-  function csvField(value) {
-    const safe = /^[\s\uFEFF]*[=+\-@]/u.test(value) || /^[\t\r\n]/u.test(value) ? "'" + value : value;
-    return '"' + safe.replaceAll('"', '""') + '"';
   }
 
   byId('add-role').addEventListener('click', () => {
     roles.push('');
     rows.forEach((row) => row.cells.push(''));
     hasEdits = true;
+    saveDraft();
     render();
-    byId('grid').tHead.querySelector('th:nth-last-child(2) input').focus();
+    byId('grid').tHead.querySelector('th:nth-last-child(2) textarea').focus();
   });
   byId('add-row').addEventListener('click', () => {
     rows.push({ name: '', cells: roles.map(() => '') });
     hasEdits = true;
+    saveDraft();
     render();
-    byId('grid').tBodies[0].lastElementChild.querySelector('input').focus();
+    byId('grid').tBodies[0].lastElementChild.querySelector('textarea').focus();
   });
   byId('example').addEventListener('click', () => loadMatrix(true));
   byId('blank').addEventListener('click', () => loadMatrix(false));
@@ -187,7 +227,7 @@ function mountMatrix(root) {
       [words.row, ...roles],
       ...rows.map((row) => [row.name, ...row.cells.map((mark) => marks()[mark] || '')]),
     ];
-    const csv = lines.map((line) => line.map(csvField).join(delimiter)).join('\r\n') + '\r\n';
+    const csv = matrixCsv(lines, delimiter);
     const blob = new Blob(['\uFEFF', csv], { type: 'text/csv;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const download = document.createElement('a');
@@ -200,8 +240,19 @@ function mountMatrix(root) {
     system = button.dataset.system;
     updateNotation();
   }));
-  loadMatrix(true);
+  const draft = restoreDraft();
   byId('matrix-interactive').hidden = false;
+  if (draft) {
+    ({ roles, rows } = draft);
+    hasEdits = true;
+    render();
+  } else {
+    loadMatrix(true);
+  }
+  const observer = new ResizeObserver(updateOverflow);
+  observer.observe(byId('matrix-scroll'));
+  observer.observe(byId('grid'));
+  document.addEventListener('astro:before-swap', () => observer.disconnect(), { once: true });
 }
 
 function mountMatrices() {
