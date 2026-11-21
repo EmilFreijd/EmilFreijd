@@ -22,13 +22,6 @@ const isFallback     = entry.data.lang !== lang;
 const contentLang    = isFallback ? entry.data.lang : undefined;
 const canonicalPath  = isFallback ? `/stream/${entry.id}/` : undefined;
 
-const kindLabel: Record<string, string> = {
-  case:    t('stream.kind.case'),
-  project: t('stream.kind.project'),
-  essay:   t('stream.kind.essay'),
-  update:  t('stream.kind.update'),
-};
-
 // Procedural cover image — deterministic from slug
 function seedRand(slug: string, index: number): number {
   let h = index + 1;
@@ -43,6 +36,7 @@ const kindRgb: Record<string, string> = {
   case:    '124,106,247',
   project: '52,211,153',
   essay:   '251,146,60',
+  tool:    '124,106,247',
   update:  '148,163,184',
 };
 const rgb = kindRgb[kind] || '124,106,247';
@@ -70,7 +64,7 @@ const edges = [[0,1],[1,2],[2,3],[3,4],[0,3],[1,4],[2,5],[4,6],[5,7],[1,6]];
       <a href={getPath(lang, 'stream')} class="back-link">{t('stream.back')}</a>
       {isFallback && <p class="fallback-note">{t('stream.fallback')}</p>}
       <div class="case-meta">
-        <span class="kind-tag" data-kind={kind}>{kindLabel[kind]}</span>
+        <span class="kind-tag" data-kind={kind}>{t(`stream.kind.${kind}`)}</span>
         {sector && <span class="case-sector">{t(`stream.sector.${sector}`)}</span>}
         <time class="case-date" datetime={date.toISOString().slice(0, 10)}>{formatDate(date, lang)}</time>
       </div>
@@ -135,7 +129,7 @@ const edges = [[0,1],[1,2],[2,3],[3,4],[0,3],[1,4],[2,5],[4,6],[5,7],[1,6]];
             </div>
           </aside>
         )}
-        <article class="case-content prose" lang={contentLang}>
+        <article class:list={['case-content prose', { 'tool-prose': kind === 'tool' }]} lang={contentLang}>
           <Content />
         </article>
       </div>
@@ -177,7 +171,7 @@ const edges = [[0,1],[1,2],[2,3],[3,4],[0,3],[1,4],[2,5],[4,6],[5,7],[1,6]];
     font-size: .72rem; font-weight: 600;
     padding: .25rem .7rem; border-radius: 99px; border: 1px solid;
   }
-  .kind-tag[data-kind="case"]    { color: var(--accent-text); background: rgba(124,106,247,.08); border-color: rgba(124,106,247,.2); }
+  .kind-tag:is([data-kind="case"], [data-kind="tool"])    { color: var(--accent-text); background: rgba(124,106,247,.08); border-color: rgba(124,106,247,.2); }
   .kind-tag[data-kind="project"] { color: var(--project-text); background: rgba(52,211,153,.08); border-color: rgba(52,211,153,.2); }
   .kind-tag[data-kind="essay"]   { color: var(--essay-text); background: rgba(251,146,60,.08); border-color: rgba(251,146,60,.2); }
   .kind-tag[data-kind="update"]  { color: var(--text-muted); background: var(--surface); border-color: var(--border); }
@@ -203,8 +197,8 @@ const edges = [[0,1],[1,2],[2,3],[3,4],[0,3],[1,4],[2,5],[4,6],[5,7],[1,6]];
   .metric-label { display: block; font-size: .8rem; color: var(--text-muted); margin-top: 2px; }
 
   .prose { min-width: 0; max-width: 680px; }
-  .prose:has(> :global(raci-matrix)) { max-width: none; }
-  .prose:has(> :global(raci-matrix)) > :global(:not(raci-matrix)) { max-width: 680px; }
+  .tool-prose { max-width: none; }
+  .tool-prose > :global(:not(raci-matrix)) { max-width: 680px; margin-inline: auto; }
   .prose :global(a) { color: var(--accent-text); text-decoration: underline; text-underline-offset: .2em; }
   .prose :global(a:hover) { color: var(--text); }
   .prose :global(h2) { font-size: 1.4rem; color: var(--text); margin-top: var(--space-12); margin-bottom: var(--space-4); padding-top: var(--space-8); border-top: 1px solid var(--border); }

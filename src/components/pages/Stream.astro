@@ -12,12 +12,6 @@ const items = localizeStream(allStream, lang)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const showFilters = items.some(item => item.data.timeless) && items.some(item => !item.data.timeless);
 
-const kindLabel: Record<string, string> = {
-  case:    t('stream.kind.case'),
-  project: t('stream.kind.project'),
-  essay:   t('stream.kind.essay'),
-  update:  t('stream.kind.update'),
-};
 ---
 <BaseLayout lang={lang} title={t('meta.stream.title')} description={t('meta.stream.desc')}>
 
@@ -42,7 +36,7 @@ const kindLabel: Record<string, string> = {
           {items.map(item => (
             <li class="stream-item" data-timeless={String(item.data.timeless)}>
               <div class="item-meta">
-                <span class="kind-tag" data-kind={item.data.kind}>{kindLabel[item.data.kind]}</span>
+                <span class="kind-tag" data-kind={item.data.kind}>{t(`stream.kind.${item.data.kind}`)}</span>
                 {item.data.sector && <span class="item-sector">{t(`stream.sector.${item.data.sector}`)}</span>}
                 <time datetime={item.data.date.toISOString().slice(0, 10)}>{formatDate(item.data.date, lang)}</time>
               </div>
@@ -124,7 +118,7 @@ const kindLabel: Record<string, string> = {
     font-size: .72rem; font-weight: 600;
     padding: .2rem .65rem; border-radius: 99px; border: 1px solid;
   }
-  .kind-tag[data-kind="case"]    { color: var(--accent-text); background: rgba(124,106,247,.08); border-color: rgba(124,106,247,.2); }
+  .kind-tag:is([data-kind="case"], [data-kind="tool"])    { color: var(--accent-text); background: rgba(124,106,247,.08); border-color: rgba(124,106,247,.2); }
   .kind-tag[data-kind="project"] { color: var(--project-text); background: rgba(52,211,153,.08); border-color: rgba(52,211,153,.2); }
   .kind-tag[data-kind="essay"]   { color: var(--essay-text); background: rgba(251,146,60,.08); border-color: rgba(251,146,60,.2); }
   .kind-tag[data-kind="update"]  { color: var(--text-muted); background: var(--surface); border-color: var(--border); }
