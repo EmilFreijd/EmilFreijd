@@ -1,0 +1,88 @@
+---
+import { raciText } from '@/i18n/translations';
+import type { Lang } from '@/i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const text = raciText[lang];
+---
+<raci-matrix data-lang={lang} id="matrix">
+  <section aria-labelledby="matrix-title">
+    <h2 id="matrix-title">{text['tool-title']}</h2>
+    <p>{text['tool-intro']}</p>
+    <noscript><p>{text.fallback}</p></noscript>
+    <div id="matrix-interactive" hidden>
+      <div class="controls">
+        <div class="notation" role="group" aria-label={text.system}>
+          <button type="button" data-system="huki" aria-pressed={lang === 'sv'}>HUKI</button>
+          <button type="button" data-system="raci" aria-pressed={lang === 'en'}>RACI</button>
+        </div>
+        <button type="button" id="example">{text.example}</button>
+        <button type="button" id="blank">{text.blank}</button>
+      </div>
+      <div class="matrix-scroll" tabindex="0" role="region" aria-labelledby="matrix-title">
+        <table id="grid">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="controls">
+        <button type="button" id="add-row">{text['add-row']}</button>
+        <button type="button" id="add-role">{text['add-role']}</button>
+        <button type="button" id="export">{text.export}</button>
+      </div>
+      <p id="status" role="status"></p>
+      <p class="privacy">{text.privacy}</p>
+    </div>
+  </section>
+</raci-matrix>
+
+<script>
+  import '@/scripts/raci-matrix.js';
+</script>
+
+<style>
+  raci-matrix {
+    display: block;
+    min-width: 0;
+    margin-top: 2rem;
+    padding: clamp(.75rem, 3vw, 1.75rem);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-2);
+    scroll-margin-top: 6rem;
+  }
+  raci-matrix h2 { margin-top: 0; }
+  .controls, .notation { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; }
+  .controls { margin-block: 1rem; }
+  .notation { margin-inline-end: .3rem; }
+  .matrix-scroll { overflow: auto; padding: .25rem; }
+  raci-matrix table { width: 100%; border-collapse: collapse; text-align: start; }
+  raci-matrix :global(th), raci-matrix :global(td) {
+    min-width: 8rem;
+    padding: .5rem .35rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  raci-matrix :global(th:first-child) { min-width: 12rem; }
+  raci-matrix :global(button), raci-matrix :global(input), raci-matrix :global(select) {
+    min-height: 2.5rem;
+    padding: .25rem .5rem;
+    border: 1px solid var(--text-muted);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+  }
+  raci-matrix :global(input), raci-matrix :global(select) { width: 100%; }
+  raci-matrix :global(button) { cursor: pointer; }
+  raci-matrix button[aria-pressed="true"], #export {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+    font-weight: 700;
+  }
+  raci-matrix :global(.remove) { margin-top: .25rem; font-size: .84rem; }
+  raci-matrix :global(.row-check) { display: block; font-size: .88rem; }
+  #status { margin-bottom: .5rem; font-weight: 600; }
+  .privacy { margin-bottom: 0; color: var(--text-dim); font-size: .88rem; }
+</style>

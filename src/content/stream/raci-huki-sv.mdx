@@ -1,0 +1,50 @@
+---
+title: "Vem äger beslutet? RACI och HUKI i praktiken"
+description: "Så använder jag en ansvarsmatris när flera team delar på en leverans. Bygg och testa din egen HUKI- eller RACI-matris."
+date: 2026-11-21
+kind: essay
+lang: sv
+timeless: true
+draft: false
+tags: ["Styrning", "Leverans", "RACI"]
+---
+
+import RaciMatrix from '@/components/RaciMatrix.astro';
+
+En ansvarsmatris är ett av mina viktigaste arbetsverktyg. När flera funktioner delar på samma leverans vill jag kunna svara på två frågor. Vem får fatta beslutet? Vem gör jobbet efteråt?
+
+[Bygg din matris](#matrix)
+
+## Fyra sätt att vara delaktig
+
+HUKI står för huvudansvarig, utförare, konsulteras och informeras. På engelska blir det RACI. H motsvarar A (*Accountable*), U motsvarar R (*Responsible*), K motsvarar C (*Consulted*) och I motsvarar I (*Informed*).
+
+- **H / A.** Har mandat att fatta beslutet eller står för leveransen inom sitt mandat.
+- **U / R.** Utför arbetet. Flera roller kan bidra och huvudansvarig kan också vara utförare.
+- **K / C.** Bidrar med underlag innan något avgörs. Bestäm vilken fråga rollen ska besvara och när.
+- **I / I.** Får besked när det finns något att agera på eller känna till.
+
+## Börja där arbetet stannar
+
+Matrisen gör mest nytta vid överlämningar, fasbyten och gränser mellan team. Välj ett beslut som brukar fastna och skriv det som en rad. Gör sedan en egen rad för arbetet som följer. I en fiktiv IT-förändring kan tjänsteägaren besluta om driftsättning, driftteamet genomföra den och informationssäkerhet lämna sin bedömning innan beslutet. Om återställning kräver ett eget beslut behöver den en egen rad.
+
+1. **Välj några beslut eller leveranser.** Börja med dem som skapar väntan eller dubbelarbete. Använd roller som kolumner.
+1. **Sätt en H per rad.** Fråga den ansvariga om mandatet finns i praktiken. Lägg sedan till minst en U.
+1. **Namnge underlaget och återkopplingen.** För varje K, säg vad du behöver veta och när. För varje I, säg när och var beskedet kommer.
+1. **Prova på nästa riktiga beslut.** Om beslutet ändå fastnar, ta reda på vilka mandat, resurser eller besked som saknas. Revidera när arbetet eller ansvarsfördelningen ändras.
+
+## När vi fick ordning på IAM-releaserna
+
+I ett arbete med identitets- och åtkomsthantering (IAM) i offentlig sektor jobbade jag tillsammans med en konsultleverantör. Från början var ansvaret otydligt på båda sidor. Vi lade tid på stökiga releaseförsök som slutade med att inget gick ut.
+
+Jag använde ansvarsmatrisen som stöd för att reda ut vem som ansvarade för vad, både hos oss och hos leverantören. Arbetet gick från releaseförsök som fastnade till en ordnad leverans där båda sidor visste vilka roller och ansvar de hade. Det är då en sådan matris blir värd att underhålla. Den gemensamma bilden går att använda nästa gång något faktiskt ska ut.
+
+## Så kan matrisen gå fel
+
+En komplett tabell kan dölja att huvudansvarig saknar mandat eller att utförarna saknar kapacitet. I en reglerad process kan exempelvis riskgodkännande och beslut om driftsättning ligga hos olika funktioner. Ge de två besluten var sin rad och följ de formella krav som gäller. Håll också nere antalet konsultationer. Varje extra konsultation tar tid och varje informationsmottagare behöver veta varför beskedet spelar roll.
+
+I ett litet team med korta beslutsvägar räcker ofta en namngiven ägare och en tydlig överlämning. När friktionen uppstår mellan flera team gör matrisen det lättare att prata om var den faktiskt finns.
+
+Källor <a rel="noopener noreferrer" href="https://www.abf.se/wp-content/uploads/sites/38/2026/03/Att-styra-en-ideburen-organisation.pdf">ABF:s handbok om ideella organisationer, s. 108</a> och <a rel="noopener noreferrer" href="https://learn.nes.nhs.scot/39904/quality-improvement-zone/qi-tools/raci-matrix">NHS Education for Scotland</a>.
+
+<RaciMatrix lang="sv" />
