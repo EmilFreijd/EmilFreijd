@@ -8,9 +8,9 @@ function mountMatrix(root) {
   root.dataset.mounted = 'true';
   const byId = (id) => root.querySelector('#' + id);
   const huki = { A: 'H', R: 'U', C: 'K', I: 'I', AR: 'H/U' };
-  const raci = { A: 'A', R: 'R', C: 'C', I: 'I', AR: 'A/R' };
+  const raci = { R: 'R', A: 'A', C: 'C', I: 'I', AR: 'A/R' };
   const lang = root.dataset.lang === 'sv' ? 'sv' : 'en';
-  let system = lang === 'sv' ? 'huki' : 'raci';
+  const symbols = lang === 'sv' ? huki : raci;
   const words = raciText[lang];
   let roles = [];
   let rows = [];
@@ -41,10 +41,6 @@ function mountMatrix(root) {
     scroller.tabIndex = overflow ? 0 : -1;
     if (overflow) scroller.setAttribute('aria-describedby', 'matrix-scroll-hint');
     else scroller.removeAttribute('aria-describedby');
-  }
-
-  function marks() {
-    return system === 'huki' ? huki : raci;
   }
 
   function issuesFor(row) {
@@ -119,7 +115,7 @@ function mountMatrix(root) {
   }
 
   function render() {
-    const legend = Object.entries(marks())
+    const legend = Object.entries(symbols)
       .filter(([mark]) => mark !== 'AR')
       .map(([mark, symbol]) => {
         const item = document.createElement('li');
@@ -161,7 +157,7 @@ function mountMatrix(root) {
         const select = document.createElement('select');
         select.setAttribute('aria-describedby', 'check-' + index);
         select.add(new Option('—', ''));
-        for (const [key, symbol] of Object.entries(marks())) {
+        for (const [key, symbol] of Object.entries(symbols)) {
           const option = new Option(symbol, key);
           option.setAttribute('aria-label', symbol + ' — ' + words.labels[key]);
           select.add(option);
@@ -185,13 +181,6 @@ function mountMatrix(root) {
     updateCellLabels();
     updateStatus();
     updateOverflow();
-  }
-
-  function updateNotation() {
-    root.querySelectorAll('[data-system]').forEach((button) => {
-      button.setAttribute('aria-pressed', String(button.dataset.system === system));
-    });
-    render();
   }
 
   function loadMatrix(example) {
@@ -231,21 +220,17 @@ function mountMatrix(root) {
     const delimiter = lang === 'sv' ? ';' : ',';
     const lines = [
       [words.row, ...roles],
-      ...rows.map((row) => [row.name, ...row.cells.map((mark) => marks()[mark] || '')]),
+      ...rows.map((row) => [row.name, ...row.cells.map((mark) => symbols[mark] || '')]),
     ];
     const csv = matrixCsv(lines, delimiter);
     const blob = new Blob(['\uFEFF', csv], { type: 'text/csv;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const download = document.createElement('a');
     download.href = url;
-    download.download = system + (lang === 'sv' ? '-matris.csv' : '-matrix.csv');
+    download.download = lang === 'sv' ? 'huki-matris.csv' : 'raci-matrix.csv';
     download.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   });
-  root.querySelectorAll('[data-system]').forEach((button) => button.addEventListener('click', () => {
-    system = button.dataset.system;
-    updateNotation();
-  }));
   const draft = restoreDraft();
   byId('matrix-interactive').hidden = false;
   if (draft) {
