@@ -345,7 +345,7 @@ export type UiKey = keyof typeof ui.en;
 
 export const raciText = {
   sv: {
-    'tool-title': 'Bygg din ansvarsmatris',
+    'tool-title': 'Bygg din HUKI-matris',
     'tool-intro': 'Sätt rollerna i kolumnerna och besluten eller arbetet på raderna. Gör en liten matris som går att använda i nästa möte.',
     'example': 'Ladda fiktivt exempel',
     'blank': 'Börja tomt',
@@ -356,7 +356,7 @@ export const raciText = {
     storageUnavailable: 'Utkastet kan inte sparas i den här fliken. Ladda ned CSV innan du laddar om eller lämnar sidan.',
     scrollHint: 'Rulla i sidled för att se fler roller och kontroller.',
     fallback: 'Aktivera JavaScript för att redigera och ladda ned matrisen.',
-    system: 'Välj notation', row: 'Beslut eller arbete',
+    row: 'Beslut eller arbete',
     check: 'Kontroll', role: 'Roll', remove: 'Ta bort',
     noOwner: 'Ange en huvudansvarig.', manyOwners: 'Välj en huvudansvarig.',
     noWorker: 'Ange en utförare.', noName: 'Namnge raden.',
@@ -368,7 +368,7 @@ export const raciText = {
     exampleRows: ['Godkänn release', 'Genomför release', 'Besluta om återgång'],
   },
   en: {
-    'tool-title': 'Build your responsibility matrix',
+    'tool-title': 'Build your RACI matrix',
     'tool-intro': 'Put roles in the columns and decisions or work in the rows. Keep it small enough to use in your next meeting.',
     'example': 'Load fictional example',
     'blank': 'Start blank',
@@ -379,7 +379,7 @@ export const raciText = {
     storageUnavailable: 'This tab cannot store your draft. Download a CSV before reloading or leaving the page.',
     scrollHint: 'Scroll sideways to see more roles and checks.',
     fallback: 'Enable JavaScript to edit and download the matrix.',
-    system: 'Choose notation', row: 'Decision or work',
+    row: 'Decision or work',
     check: 'Check', role: 'Role', remove: 'Remove',
     noOwner: 'Assign one accountable role.', manyOwners: 'Choose one accountable role.',
     noWorker: 'Assign a responsible role.', noName: 'Name the row.',

@@ -15,10 +15,6 @@ const text = raciText[lang];
     <noscript><p>{text.fallback}</p></noscript>
     <div id="matrix-interactive" hidden>
       <div class="controls">
-        <div class="notation" role="group" aria-label={text.system}>
-          <button type="button" data-system="huki" aria-pressed={lang === 'sv'}>HUKI</button>
-          <button type="button" data-system="raci" aria-pressed={lang === 'en'}>RACI</button>
-        </div>
         <div class="control-group">
           <button type="button" id="example">{text.example}</button>
           <button type="button" id="blank">{text.blank}</button>
@@ -64,7 +60,7 @@ const text = raciText[lang];
   }
   raci-matrix > section { padding: 0; }
   .matrix-intro { max-width: 54ch; margin-inline: auto; text-align: center; }
-  .controls, .control-group, .notation {
+  .controls, .control-group {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -72,14 +68,6 @@ const text = raciText[lang];
     gap: var(--space-2);
   }
   .controls { margin-block: var(--space-5); column-gap: var(--space-4); }
-  .notation {
-    padding: .2rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: var(--surface-2);
-    flex-wrap: nowrap;
-    gap: .2rem;
-  }
   .matrix-scroll {
     overflow: auto;
     padding: .25rem;
@@ -148,8 +136,7 @@ const text = raciText[lang];
     background-size: .25rem .25rem;
   }
   raci-matrix :global(button) { cursor: pointer; }
-  .notation button { border-color: transparent; background-color: transparent; }
-  raci-matrix button[aria-pressed="true"], #export {
+  #export {
     border-color: var(--accent);
     background-color: var(--accent-glow);
     font-weight: 700;
