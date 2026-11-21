@@ -8,7 +8,7 @@ export async function GET(context: APIContext) {
   const items = localizeStream(all, 'sv');
   return rss({
     title: 'Emil Freijd — Flöde',
-    description: 'Case, projekt och texter från Emil Freijd.',
+    description: 'Fallstudier, projekt, texter och verktyg från Emil Freijd.',
     site: context.site!,
     items: items
       .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
