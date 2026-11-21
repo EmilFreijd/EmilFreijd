@@ -249,8 +249,16 @@ function mountMatrix(root) {
   } else {
     loadMatrix(true);
   }
+  const scroller = byId('matrix-scroll');
+  scroller.addEventListener('keydown', (event) => {
+    if (event.target !== scroller || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    const direction = { ArrowLeft: -1, ArrowRight: 1 }[event.key];
+    if (!direction || scroller.scrollWidth <= scroller.clientWidth) return;
+    event.preventDefault();
+    scroller.scrollLeft += direction * 64;
+  });
   const observer = new ResizeObserver(updateOverflow);
-  observer.observe(byId('matrix-scroll'));
+  observer.observe(scroller);
   observer.observe(byId('grid'));
   document.addEventListener('astro:before-swap', () => observer.disconnect(), { once: true });
 }
