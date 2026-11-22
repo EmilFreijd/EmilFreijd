@@ -198,7 +198,7 @@ const edges = [[0,1],[1,2],[2,3],[3,4],[0,3],[1,4],[2,5],[4,6],[5,7],[1,6]];
 
   .prose { min-width: 0; max-width: 680px; }
   .tool-prose { max-width: none; }
-  .tool-prose > :global(:not(raci-matrix)) { max-width: 680px; margin-inline: auto; }
+  .tool-prose > :global(:not(raci-matrix, [data-tool-workspace])) { max-width: 680px; margin-inline: auto; }
   .prose :global(a) { color: var(--accent-text); text-decoration: underline; text-underline-offset: .2em; }
   .prose :global(a:hover) { color: var(--text); }
   .prose :global(h2) { font-size: 1.4rem; color: var(--text); margin-top: var(--space-12); margin-bottom: var(--space-4); padding-top: var(--space-8); border-top: 1px solid var(--border); }

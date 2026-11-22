@@ -1,0 +1,240 @@
+---
+import { roadmapText } from '@/i18n/translations';
+import type { Lang } from '@/i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const text = roadmapText[lang];
+---
+<roadmap-board data-lang={lang} data-tool-workspace id="roadmap">
+  <section class="roadmap-shell" aria-labelledby="roadmap-title">
+    <div class="roadmap-heading">
+      <h2 id="roadmap-title">{text.title}</h2>
+      <div class="actions" data-editor>
+        <button type="button" data-action="blank">{text.blank}</button>
+        <button type="button" data-action="open">{text.file}</button>
+        <button type="button" data-action="save">{text.save}</button>
+        <button type="button" data-action="print">{text.print}</button>
+        <input type="file" accept=".json,application/json" data-file hidden />
+      </div>
+    </div>
+    <noscript><p>{text.noScript}</p></noscript>
+    <div data-workspace hidden>
+      <label class="plan-name" data-editor>
+        <span>{text.plan}</span>
+        <input data-title maxlength="120" />
+      </label>
+      <p class="print-title" data-print-title></p>
+      <div class="roadmap-toolbar" data-editor>
+        <div class="scale" role="group" aria-label={text.scale}>
+          <button type="button" data-view="short" aria-pressed="false">{text.short}</button>
+          <button type="button" data-view="year" aria-pressed="true">{text.year}</button>
+          <button type="button" data-view="long" aria-pressed="false">{text.long}</button>
+        </div>
+        <div class="period">
+          <button type="button" data-action="previous" aria-label={text.previous}>‹</button>
+          <input type="month" data-month aria-label={text.window} placeholder="YYYY-MM" />
+          <button type="button" data-action="next" aria-label={text.next}>›</button>
+        </div>
+        <button type="button" class="primary" data-action="add">+ {text.add}</button>
+      </div>
+      <div class="chart-scroll" tabindex="0" role="region" aria-label={text.chart}>
+        <div class="chart" data-chart></div>
+      </div>
+      <div class="roadmap-notes">
+        <div class="legend"><span aria-hidden="true">◆</span> {text.milestone}</div>
+        <button type="button" data-action="example" data-editor>{text.example}</button>
+      </div>
+      <div class="alerts" data-alerts hidden>
+        <h3>{text.status}</h3>
+        <ul data-gaps></ul>
+      </div>
+      <p class="footnote" data-privacy>{text.privacy}</p>
+      <p class="feedback" data-feedback role="status"></p>
+    </div>
+    <dialog data-dialog aria-labelledby="roadmap-editor-title">
+      <form data-form>
+        <h3 id="roadmap-editor-title">{text.edit}</h3>
+        <label>{text.activity}<input name="name" maxlength="120" required autofocus /></label>
+        <label>{text.team}<input name="team" maxlength="80" /></label>
+        <label class="check"><input type="checkbox" name="milestone" /> {text.milestone}</label>
+        <div class="dates">
+          <label>{text.from}<input type="date" name="start" required /></label>
+          <label data-end>{text.to}<input type="date" name="end" required /></label>
+        </div>
+        <fieldset data-dependencies>
+          <legend>{text.depends}</legend>
+          <div data-options></div>
+        </fieldset>
+        <p class="feedback" data-error role="alert"></p>
+        <div class="actions">
+          <button type="submit" class="primary">{text.done}</button>
+          <button type="button" data-action="cancel">{text.cancel}</button>
+          <button type="button" data-action="remove">{text.remove}</button>
+        </div>
+      </form>
+    </dialog>
+  </section>
+</roadmap-board>
+
+<script>
+  import '@/scripts/roadmap-board.js';
+</script>
+
+<style is:global>
+  roadmap-board {
+    display: block;
+    min-width: 0;
+    margin-block: var(--space-6) var(--space-16);
+    scroll-margin-top: 6rem;
+    color-scheme: light;
+    --roadmap-purple: #5946bc;
+    --roadmap-teal: #116247;
+    --roadmap-amber: #954411;
+  }
+  [data-theme="dark"] roadmap-board {
+    color-scheme: dark;
+    --roadmap-purple: #b4a7ff;
+    --roadmap-teal: #6be3b1;
+    --roadmap-amber: #ffc399;
+  }
+  roadmap-board [hidden] { display: none !important; }
+  roadmap-board .roadmap-shell {
+    padding: clamp(.875rem, 3vw, 1.75rem);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  roadmap-board .roadmap-heading, roadmap-board .roadmap-toolbar, roadmap-board .actions,
+  roadmap-board .scale, roadmap-board .period, roadmap-board .roadmap-notes {
+    display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2);
+  }
+  roadmap-board .roadmap-heading, roadmap-board .roadmap-toolbar, roadmap-board .roadmap-notes { justify-content: space-between; }
+  .prose roadmap-board #roadmap-title { margin: 0; padding: 0; border: 0; }
+  roadmap-board .plan-name { display: block; margin-block: 1.25rem 1rem; max-width: 45ch; }
+  roadmap-board .plan-name span, roadmap-board label, roadmap-board legend { color: var(--text-dim); font-size: .875rem; font-weight: 600; }
+  roadmap-board input:not([type="checkbox"]), roadmap-board button {
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--text-muted);
+    border-radius: var(--radius-sm);
+    min-height: 2.625rem;
+    font: inherit;
+    padding: .375rem .625rem;
+  }
+  roadmap-board button { font-size: .875rem; font-weight: 600; cursor: pointer; }
+  roadmap-board button:hover { border-color: var(--accent-text); }
+  roadmap-board button.primary, roadmap-board button[aria-pressed="true"] {
+    background: var(--accent-glow);
+    border-color: var(--accent-text);
+    color: var(--accent-text);
+  }
+  roadmap-board input:not([type="checkbox"]) { width: 100%; font-size: 1rem; }
+  roadmap-board .period { flex-wrap: nowrap; }
+  roadmap-board .period button { min-width: 2.625rem; font-size: 1.25rem; line-height: 1; }
+  roadmap-board .period input { width: min(12rem, 50vw); }
+  roadmap-board .scale { border: 1px solid var(--border); padding: .2rem; border-radius: var(--radius-sm); background: var(--surface-2); gap: .2rem; }
+  roadmap-board .scale button { border-color: transparent; background: transparent; }
+  roadmap-board .chart-scroll {
+    overflow-x: auto;
+    margin-top: 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+  roadmap-board .chart { min-width: 680px; --axis-label: 11rem; }
+  roadmap-board .axis-row, roadmap-board .activity-row { display: grid; grid-template-columns: var(--axis-label) minmax(0, 1fr); }
+  roadmap-board .row-label {
+    position: sticky; left: 0; z-index: 2; background: var(--surface);
+    box-shadow: 1px 0 var(--border); padding: .5rem .65rem; min-width: 0;
+    display: flex; align-items: center;
+  }
+  roadmap-board .axis-row .row-label, roadmap-board .axis { background: var(--surface-2); }
+  roadmap-board .axis-row { font-size: .78rem; color: var(--text-dim); font-weight: 700; }
+  roadmap-board .axis, roadmap-board .track { position: relative; overflow: hidden; }
+  roadmap-board .axis { height: 2.75rem; }
+  roadmap-board .tick {
+    position: absolute; top: 0; bottom: 0; inset-inline-start: var(--at);
+    border-inline-start: 1px solid var(--border); pointer-events: none;
+  }
+  roadmap-board .tick-label {
+    position: absolute; top: 0; line-height: 2.75rem; overflow: hidden; white-space: nowrap;
+    inset-inline-start: calc(var(--at) + .3rem); width: calc(var(--span) - .3rem);
+  }
+  roadmap-board .lane-title {
+    margin: 0; padding: .35rem .65rem; color: var(--text-dim);
+    background: var(--surface-2); border-block: 1px solid var(--border);
+    font-size: .75rem; font-weight: 700;
+  }
+  roadmap-board .activity-row { border-bottom: 1px solid var(--border); min-height: 2.75rem; }
+  roadmap-board .activity-row:last-child { border-bottom: 0; }
+  roadmap-board .track { min-height: 2.75rem; }
+  roadmap-board .label-button {
+    text-align: start; border: 0; min-height: 2rem; width: 100%; background: transparent;
+    padding: 0; overflow-wrap: anywhere; line-height: 1.3;
+  }
+  roadmap-board .label-button:hover { color: var(--accent-text); text-decoration: underline; }
+  roadmap-board .bar {
+    position: absolute; z-index: 1; inset-inline-start: var(--at); top: 50%; transform: translateY(-50%);
+    width: var(--span); min-width: 1.5rem; min-height: 1.5rem;
+    height: 1.6rem; padding: 0 .35rem; border: 1px solid currentColor;
+    border-radius: 5px; background: color-mix(in srgb, var(--tone) 15%, var(--surface));
+    color: var(--tone); overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+    text-align: start; font-size: .72rem;
+  }
+  roadmap-board .bar.at-risk { --tone: var(--roadmap-amber); border-style: dashed; }
+  roadmap-board .bar:focus-visible { outline-offset: -2px; }
+  roadmap-board .bar.milestone {
+    width: 1.5rem; inset-inline-start: clamp(0px, calc(var(--at) - .75rem), calc(100% - 1.5rem));
+    text-align: center; padding: 0; font-size: .85rem;
+  }
+  roadmap-board .tone-0 { --tone: var(--roadmap-purple); }
+  roadmap-board .tone-1 { --tone: var(--roadmap-teal); }
+  roadmap-board .tone-2 { --tone: var(--roadmap-amber); }
+  roadmap-board .today {
+    position: absolute; top: 0; bottom: 0; inset-inline-start: var(--at); border-inline-start: 1px dashed var(--accent-text);
+    pointer-events: none;
+  }
+  roadmap-board .roadmap-notes { margin-block: .6rem; }
+  roadmap-board .legend { color: var(--text-dim); font-size: .8rem; }
+  roadmap-board .legend span { color: var(--accent-text); }
+  roadmap-board .alerts { margin-top: 1rem; border-inline-start: 3px solid var(--roadmap-amber); padding: .65rem .75rem; background: var(--surface-2); }
+  roadmap-board .alerts h3 { font-size: .9rem; }
+  .prose roadmap-board .alerts ul { margin: .35rem 0 0; padding-inline-start: 1rem; font-size: .875rem; }
+  .prose roadmap-board .alerts li { margin: 0; }
+  .prose roadmap-board .footnote, .prose roadmap-board .feedback, .prose roadmap-board .chart-empty { font-size: .8rem; margin: .5rem 0 0; }
+  roadmap-board .feedback:not(:empty) { color: var(--roadmap-amber); }
+  .prose roadmap-board .chart-empty { padding: .75rem; }
+  roadmap-board dialog {
+    position: fixed; inset: 0 0 0 auto; margin: 0; width: min(100vw, 28rem); max-width: 100vw;
+    height: 100dvh; max-height: 100dvh; background: var(--surface); color: var(--text);
+    border: 1px solid var(--border); padding: 1.25rem; overflow-y: auto;
+  }
+  roadmap-board dialog::backdrop { background: rgb(0 0 0 / .55); }
+  roadmap-board dialog form { display: grid; gap: 1rem; }
+  roadmap-board dialog label { display: grid; gap: .25rem; min-width: 0; }
+  roadmap-board dialog label.check { display: flex; align-items: center; gap: .5rem; min-height: 1.75rem; }
+  roadmap-board dialog .dates { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
+  roadmap-board dialog fieldset { border: 1px solid var(--border); padding: .5rem; }
+  roadmap-board .print-title { display: none; }
+  @media (max-width: 600px) {
+    roadmap-board .chart { --axis-label: 8.25rem; }
+    roadmap-board .roadmap-heading { align-items: start; flex-direction: column; }
+    roadmap-board .roadmap-heading .actions {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%;
+    }
+    roadmap-board .roadmap-toolbar { justify-content: start; }
+  }
+  @media print {
+    @page { size: landscape; margin: 10mm; }
+    body:has(roadmap-board) :is(header, footer, #nav, .skip-link, .case-hero, .post-cover-wrap, .case-cta),
+    body:has(roadmap-board) .tool-prose > :not(roadmap-board),
+    roadmap-board :is([data-editor], dialog, .footnote, .feedback, .roadmap-notes) { display: none !important; }
+    body:has(roadmap-board) :is(.case-body-section, .container) { padding: 0; }
+    roadmap-board { margin: 0; color: #202030; print-color-adjust: exact; }
+    roadmap-board .roadmap-shell { border: 0; padding: 0; }
+    roadmap-board .print-title { display: block; }
+    roadmap-board .chart-scroll { overflow: visible; }
+    roadmap-board .chart { min-width: 0; --axis-label: 8rem; }
+    roadmap-board .activity-row { break-inside: avoid; }
+  }
+</style>

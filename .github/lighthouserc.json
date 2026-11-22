@@ -9,12 +9,14 @@
         "http://localhost/stream/",
         "http://localhost/stream/design-thinking-lab/",
         "http://localhost/stream/raci-huki/",
+        "http://localhost/stream/visual-roadmap/",
         "http://localhost/sv/",
         "http://localhost/sv/contact/",
         "http://localhost/sv/stream/",
         "http://localhost/sv/about/",
         "http://localhost/sv/stream/design-thinking-lab/",
-        "http://localhost/sv/stream/raci-huki/"
+        "http://localhost/sv/stream/raci-huki/",
+        "http://localhost/sv/stream/visual-roadmap/"
       ],
       "numberOfRuns": 2
     },
