@@ -444,3 +444,38 @@ export const roadmapText = {
     sampleItems: ['Map the current situation', 'Prepare the test environment', 'Prepare the pilot team', 'Start the pilot', 'Evaluate the pilot', 'Decide whether to expand', 'Roll out to more teams', 'Set up shared follow-up', 'Review the longer-term direction'],
   },
 } as const;
+
+export const ideaMatrixText = {
+  sv: {
+    title: 'Sortera workshopens idéer', idea: 'Ny idé', placeholder: 'Till exempel en gemensam veckovy',
+    add: 'Lägg till', example: 'Fyll på med exempel', zone: 'Kvadrant', move: 'Flytta idé', remove: 'Ta bort idé',
+    hint: 'Dra i handtaget eller välj en ny kvadrant på kortet.', empty: 'Inga idéer här än.',
+    original: 'Mer originell', familiar: 'Mer beprövad', difficult: 'Svårare att genomföra', feasible: 'Lättare att genomföra',
+    summary: 'Workshopens sammanfattning', copy: 'Kopiera sammanfattning', copied: 'Sammanfattningen är kopierad.',
+    manualCopy: 'Texten är markerad och kan kopieras manuellt.', noScript: 'Aktivera JavaScript för att använda matrisen.',
+    addStatus: 'Idé tillagd.', moveStatus: 'Idé flyttad.', removeStatus: 'Idé borttagen.', exampleStatus: 'Exempelidéer tillagda.',
+    privacy: 'Idéerna stannar i den här webbläsarfliken. Kopiera sammanfattningen för att spara arbetet.',
+    quadrants: {
+      how: { name: 'How', detail: 'Originell och svårare att genomföra', action: 'Parkera', sample: 'Förutse bemanningsluckor flera veckor i förväg' },
+      wow: { name: 'Wow', detail: 'Originell och lättare att genomföra', action: 'Testa', sample: 'Klickbar veckovy som synliggör bemanningsluckor' },
+      ciao: { name: 'Ciao', detail: 'Beprövad och svårare att genomföra', action: 'Släpp', sample: 'Kopiera alla gamla scheman till ett nytt system' },
+      now: { name: 'Now', detail: 'Beprövad och lättare att genomföra', action: 'Testa', sample: 'Enas om en gemensam mall för veckoplaneringen' },
+    },
+  },
+  en: {
+    title: 'Sort your workshop ideas', idea: 'New idea', placeholder: 'For example, a shared weekly view',
+    add: 'Add idea', example: 'Add example ideas', zone: 'Quadrant', move: 'Move idea', remove: 'Remove idea',
+    hint: 'Drag by the handle or choose a new quadrant on the card.', empty: 'No ideas here yet.',
+    original: 'More original', familiar: 'More familiar', difficult: 'Harder to implement', feasible: 'Easier to implement',
+    summary: 'Workshop summary', copy: 'Copy summary', copied: 'Summary copied.',
+    manualCopy: 'The summary is selected so you can copy it manually.', noScript: 'Enable JavaScript to use the matrix.',
+    addStatus: 'Idea added.', moveStatus: 'Idea moved.', removeStatus: 'Idea removed.', exampleStatus: 'Example ideas added.',
+    privacy: 'Ideas stay in this browser tab. Copy the summary to keep your work.',
+    quadrants: {
+      how: { name: 'How', detail: 'Original and harder to implement', action: 'Park', sample: 'Predict staffing gaps several weeks in advance' },
+      wow: { name: 'Wow', detail: 'Original and easier to implement', action: 'Test', sample: 'A clickable weekly view that highlights staffing gaps' },
+      ciao: { name: 'Ciao', detail: 'Familiar and harder to implement', action: 'Drop', sample: 'Copy every old schedule into a new system' },
+      now: { name: 'Now', detail: 'Familiar and easier to implement', action: 'Test', sample: 'Agree on a shared weekly planning template' },
+    },
+  },
+} as const;
