@@ -10,12 +10,10 @@ Usage:
 
 Generates:
     docs/labels.md          full legend with colors
-    docs/labels-summary.md  README snippet
-    README.md               upserts a `## Label Legend` section (idempotent)
+    docs/labels-summary.md  short legend
 """
 
 import argparse
-import re
 import sys
 from pathlib import Path
 
@@ -106,10 +104,6 @@ KRITERION_SYSTEM_LABELS = [
     {'name': 'status:done', 'color': '22863a', 'description': 'Avslutad framgångsrikt'},
 ]
 
-START_MARKER = "<!-- label-legend:start -->"
-END_MARKER = "<!-- label-legend:end -->"
-
-
 def format_color_swatch(color):
     return f'<span style="display:inline-block;width:16px;height:16px;background:#{color};border:1px solid #999;border-radius:3px;margin-right:8px;vertical-align:middle"></span>'
 
@@ -180,7 +174,7 @@ def generate_repo_legend(repo_name, domain, description):
     return "\n".join(lines)
 
 
-def generate_readme_summary(repo_name, domain):
+def generate_legend_summary(domain):
     lines = ["## Label Legend", ""]
     lines.append("| Category | Source | Labels |")
     lines.append("|----------|--------|--------|")
@@ -192,32 +186,8 @@ def generate_readme_summary(repo_name, domain):
     lines.append("| **Routing** | Kriterion | `inbox`, `refined`, `behöver-granskas`, `route:approved`, `routing-failed`, `routed`, `routed-from:kriterion`, `should-route-to:kriterion` |")
     lines.append("| **Kriterion Status** | Kriterion | `status:triage`, `status:backlog`, `status:ready`, `status:in-progress`, `status:blocked`, `status:done` |")
     lines.append("")
-    lines.append("> Full legend with colors and descriptions: [docs/labels.md](docs/labels.md)")
+    lines.append("> Full legend with colors and descriptions: [docs/labels.md](labels.md)")
     return "\n".join(lines)
-
-
-def upsert_readme_section(readme_path, section_md):
-    """Insert/replace the label legend section in README, idempotently."""
-    wrapped = f"{START_MARKER}\n{section_md.strip()}\n{END_MARKER}"
-    if not readme_path.exists():
-        readme_path.parent.mkdir(parents=True, exist_ok=True)
-        readme_path.write_text("# Repo\n\n", encoding='utf-8')
-    content = readme_path.read_text(encoding='utf-8')
-
-    if START_MARKER in content and END_MARKER in content:
-        new = re.sub(
-            re.escape(START_MARKER) + r".*?" + re.escape(END_MARKER),
-            wrapped,
-            content,
-            flags=re.DOTALL,
-        )
-    else:
-        match = re.search(r"(?ms)^## Label Legend\b.*?(?=^## |\Z)", content)
-        if match:
-            new = content[:match.start()] + wrapped + "\n\n" + content[match.end():]
-        else:
-            new = content.rstrip() + "\n\n" + wrapped + "\n"
-    readme_path.write_text(new, encoding='utf-8')
 
 
 def main():
@@ -241,13 +211,10 @@ def main():
     legend_path.write_text(legend_md, encoding='utf-8')
     print(f"Generated {legend_path}")
 
-    summary_md = generate_readme_summary(args.repo, domain)
+    summary_md = generate_legend_summary(domain)
     summary_path = docs_dir / "labels-summary.md"
-    summary_path.write_text(summary_md.replace('](docs/labels.md)', '](labels.md)'), encoding='utf-8')
+    summary_path.write_text(summary_md, encoding='utf-8')
     print(f"Generated {summary_path}")
-
-    upsert_readme_section(repo_root / "README.md", summary_md)
-    print("Updated README.md")
 
     return 0
 
