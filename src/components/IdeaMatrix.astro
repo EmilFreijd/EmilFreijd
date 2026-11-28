@@ -1,0 +1,127 @@
+---
+import { ideaMatrixText } from '@/i18n/translations';
+import type { Lang } from '@/i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const text = ideaMatrixText[lang];
+const quadrants = Object.entries(text.quadrants);
+---
+<idea-matrix data-lang={lang} data-tool-workspace id="idea-matrix">
+  <section class="matrix-shell" aria-labelledby="idea-matrix-title">
+    <h2 id="idea-matrix-title">{text.title}</h2>
+    <noscript><p>{text.noScript}</p></noscript>
+    <div data-workspace hidden>
+      <form class="add-idea">
+        <label>
+          {text.idea}
+          <input name="idea" required maxlength="180" placeholder={text.placeholder} />
+        </label>
+        <label>
+          {text.zone}
+          <select name="zone">
+            {quadrants.map(([key, zone]) => <option value={key} selected={key === 'now'}>{zone.name}</option>)}
+          </select>
+        </label>
+        <button class="primary" type="submit">{text.add}</button>
+      </form>
+      <div class="matrix-tools">
+        <p>{text.hint}</p>
+        <button type="button" data-example>{text.example}</button>
+      </div>
+      <div class="matrix-grid">
+        <div class="axis top" aria-hidden="true">{text.original} ↑</div>
+        <div class="axis bottom" aria-hidden="true">{text.familiar} ↓</div>
+        <div class="axis left" aria-hidden="true">← {text.difficult}</div>
+        <div class="axis right" aria-hidden="true">{text.feasible} →</div>
+        {quadrants.map(([key, zone]) => (
+          <section class="quadrant" data-zone={key} aria-labelledby={`zone-${key}`}>
+            <header>
+              <h3 id={`zone-${key}`}>{zone.name}</h3>
+              <span>{zone.action}</span>
+            </header>
+            <p>{zone.detail}</p>
+            <ul data-ideas></ul>
+            <p class="empty">{text.empty}</p>
+          </section>
+        ))}
+      </div>
+      <div class="workshop-summary">
+        <label for="idea-summary">{text.summary}</label>
+        <textarea id="idea-summary" rows="5" readonly></textarea>
+        <button type="button" data-copy disabled>{text.copy}</button>
+        <span role="status" data-feedback></span>
+      </div>
+      <p class="privacy">{text.privacy}</p>
+    </div>
+  </section>
+  <template>
+    <li class="idea-card">
+      <div class="card-title"><span class="drag-handle" data-drag aria-hidden="true">⠿</span><span data-title></span></div>
+      <div class="card-actions">
+        <select data-move aria-label={text.move}>
+          {quadrants.map(([key, zone]) => <option value={key}>{zone.name}</option>)}
+        </select>
+        <button type="button" data-remove aria-label={text.remove}>×</button>
+      </div>
+    </li>
+  </template>
+</idea-matrix>
+
+<script>
+  import '@/scripts/idea-matrix.js';
+</script>
+
+<style>
+  idea-matrix { display: block; }
+  .matrix-shell { padding: clamp(.8rem, 3vw, 1.75rem); border: 1px solid var(--border); border-radius: 1rem; background: var(--surface); }
+  .matrix-shell h2 { margin: 0 0 1rem; font-size: clamp(1.2rem, 4vw, 1.6rem); }
+  .add-idea, .matrix-tools, .card-actions, .workshop-summary { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+  .add-idea { align-items: end; }
+  .add-idea label { display: grid; gap: .2rem; font-weight: 600; }
+  .add-idea label:first-child { flex: 1 1 15rem; }
+  input, select, button, textarea { font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--text-muted); border-radius: .4rem; min-width: 0; }
+  input, textarea, button, select { padding: .4rem .6rem; }
+  select, button, input { min-height: 2.75rem; }
+  button { cursor: pointer; }
+  button:disabled { opacity: .6; cursor: default; }
+  .primary { background: var(--accent-glow); color: var(--accent-text); font-weight: 700; }
+  .matrix-tools { justify-content: space-between; margin: .75rem 0; }
+  .matrix-tools p, .quadrant p, .privacy, .axis { color: var(--text-dim); font-size: .85rem; margin: 0; }
+  .matrix-grid {
+    display: grid;
+    grid-template-areas: 'top top' 'how wow' 'ciao now' 'bottom bottom' 'left right';
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto minmax(10rem, auto) minmax(10rem, auto) auto auto;
+    gap: .45rem;
+  }
+  .axis { text-align: center; line-height: 1.3; }
+  .top { grid-area: top; }
+  .bottom { grid-area: bottom; }
+  .left { grid-area: left; }
+  .right { grid-area: right; }
+  [data-zone='how'] { grid-area: how; --zone-color: #bf8638; }
+  [data-zone='wow'] { grid-area: wow; --zone-color: #27916e; }
+  [data-zone='ciao'] { grid-area: ciao; --zone-color: #798295; }
+  [data-zone='now'] { grid-area: now; --zone-color: #7565e4; }
+  .quadrant { margin: 0; padding: clamp(.45rem, 2vw, .95rem); border: 1px solid var(--border); border-top: .2rem solid var(--zone-color); border-radius: .55rem; background: color-mix(in srgb, var(--zone-color) 8%, var(--surface)); }
+  .quadrant[data-over] { outline: 2px solid var(--accent-text); outline-offset: -3px; }
+  .quadrant header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .1rem .5rem; }
+  .quadrant h3 { margin: 0; font-size: 1.12rem; }
+  .quadrant header span { color: var(--text-dim); font-weight: 600; font-size: .82rem; }
+  .quadrant p { line-height: 1.35; hyphens: auto; overflow-wrap: anywhere; }
+  .quadrant ul { display: grid; gap: .45rem; list-style: none; padding: 0; margin: .5rem 0 0; }
+  .quadrant ul:not(:empty) + .empty { display: none; }
+  .idea-card { background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: .4rem; padding: .35rem; margin: 0; }
+  .card-title { display: flex; align-items: start; gap: .35rem; font-size: .91rem; line-height: 1.35; hyphens: auto; overflow-wrap: anywhere; }
+  .drag-handle { cursor: grab; touch-action: none; user-select: none; color: var(--text-dim); display: inline-grid; place-items: center; flex: 0 0 1.5rem; min-height: 1.5rem; }
+  .drag-handle:active { cursor: grabbing; }
+  .card-actions { margin-top: .35rem; gap: .25rem; }
+  .card-actions select, .card-actions button { padding-inline: .3rem; font-size: .82rem; }
+  .card-actions button { min-width: 2rem; }
+  .workshop-summary { margin-top: 1rem; }
+  .workshop-summary label { width: 100%; font-weight: 600; }
+  .workshop-summary textarea { width: 100%; resize: vertical; }
+  .workshop-summary [role='status'] { color: var(--text-dim); font-size: .85rem; }
+  .privacy { margin-top: .65rem; }
+</style>
